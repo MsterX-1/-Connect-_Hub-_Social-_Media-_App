@@ -18,6 +18,9 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.status = status;
     }
+    public User() {
+
+    }
 
     public String getUserId() {
         return userId;
@@ -65,5 +68,17 @@ public class User {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", status=" + status +
+                '}';
     }
 }

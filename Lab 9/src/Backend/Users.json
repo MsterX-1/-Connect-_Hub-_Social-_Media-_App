@@ -1,0 +1,82 @@
+[
+  {
+    "userId": 1001,
+    "email": "john.doe@example.com",
+    "password": "securePassword1",
+    "username": "JohnDoe",
+    "dateOfBirth": "1990-01-15",
+    "status": true
+  },
+  {
+    "userId": 1002,
+    "email": "alice.smith@example.com",
+    "password": "securePassword2",
+    "username": "AliceSmith",
+    "dateOfBirth": "1992-03-22",
+    "status": false
+  },
+  {
+    "userId": 1003,
+    "email": "bob.johnson@example.com",
+    "password": "securePassword3",
+    "username": "BobJohnson",
+    "dateOfBirth": "1988-07-18",
+    "status": true
+  },
+  {
+    "userId": 1004,
+    "email": "emma.jones@example.com",
+    "password": "securePassword4",
+    "username": "EmmaJones",
+    "dateOfBirth": "1995-11-05",
+    "status": true
+  },
+  {
+    "userId": 1005,
+    "email": "charles.wright@example.com",
+    "password": "securePassword5",
+    "username": "CharlesWright",
+    "dateOfBirth": "1985-12-10",
+    "status": false
+  },
+  {
+    "userId": 1006,
+    "email": "sophia.brown@example.com",
+    "password": "securePassword6",
+    "username": "SophiaBrown",
+    "dateOfBirth": "1997-06-03",
+    "status": true
+  },
+  {
+    "userId": 1007,
+    "email": "liam.miller@example.com",
+    "password": "securePassword7",
+    "username": "LiamMiller",
+    "dateOfBirth": "2000-02-14",
+    "status": true
+  },
+  {
+    "userId": 1008,
+    "email": "olivia.davis@example.com",
+    "password": "securePassword8",
+    "username": "OliviaDavis",
+    "dateOfBirth": "1993-09-23",
+    "status": false
+  },
+  {
+    "userId": 1009,
+    "email": "william.moore@example.com",
+    "password": "securePassword9",
+    "username": "WilliamMoore",
+    "dateOfBirth": "1989-04-11",
+    "status": true
+  },
+  {
+    "userId": 1010,
+    "email": "ava.jackson@example.com",
+    "password": "securePassword10",
+    "username": "AvaJackson",
+    "dateOfBirth": "1998-08-08",
+    "status": false
+  }
+]
