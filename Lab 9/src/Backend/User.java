@@ -9,14 +9,26 @@ public class User {
     private String username;
     private LocalDate dateOfBirth;
     private boolean status;
+    private String bio;
+    private String profilePhotoPath;
+    private String coverPicturePath;
 
-    public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status) {
+
+    public User(){
+
+    }
+
+    public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status,String bio,String profilePhotoPath,String coverPhotoPath,String profilePicturePath) {
         this.userId = userId;
         this.email = email;
         this.password = password;
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.status = status;
+        this.bio = bio;
+        this.profilePhotoPath = profilePhotoPath;
+        this.coverPicturePath = coverPhotoPath;
+
     }
 
     public String getUserId() {
@@ -27,11 +39,38 @@ public class User {
         this.userId = userId;
     }
 
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getProfilePhotoPath() {
+        return profilePhotoPath;
+    }
+
+    public void setProfilePhotoPath(String profilePhotoPath) {
+        this.profilePhotoPath = profilePhotoPath;
+    }
+
+    public String getCoverPhotoPath() {
+        return coverPicturePath;
+    }
+
+    public void setCoverPhotoPath(String coverPhotoPath) {
+        this.coverPicturePath = coverPhotoPath;
+    }
+
     public String getEmail() {
+
         return email;
     }
 
     public void setEmail(String email) {
+
         this.email = email;
     }
 
