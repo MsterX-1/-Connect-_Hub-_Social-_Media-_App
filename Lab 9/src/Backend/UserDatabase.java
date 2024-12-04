@@ -3,15 +3,11 @@ package Backend;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-
-
 
 public class UserDatabase {
     private ArrayList<User> users = new ArrayList<User>();
@@ -52,38 +48,32 @@ public class UserDatabase {
             this.users = new ArrayList<>();
         }
     }
+
     public boolean userExsitance(User inputUser){
-        for(int i =0 ; i <users.size();i++)
-        {
-            if(inputUser.getUserId() == users.get(i).getUserId() && inputUser.getUsername() == users.get(i).getUsername() && inputUser.getEmail() ==  users.get(i).getEmail() )
-            return true ;
+        for(int i =0 ; i <users.size();i++) {
+            if(inputUser.getUsername().equals(users.get(i).getUsername())  || inputUser.getEmail().equals(users.get(i).getEmail()))
+                 return true;
         }
-return false;
-
+            return false;
     }
-    public String hashPasswords(String password) throws NoSuchAlgorithmException {
 
+    public String hashPasswords(String password) throws NoSuchAlgorithmException {
         MessageDigest encrypt = MessageDigest.getInstance("SHA-256");
         byte[] hashedPasswordInBytes = encrypt.digest(password.getBytes());
         String hashedPasswordInHex = "";
         for (int i =0 ; i< hashedPasswordInBytes.length ; i++) {
             String hex = Integer.toHexString(0xff & hashedPasswordInBytes[i]); // Unsigned treatment
-
             hashedPasswordInHex=hashedPasswordInHex+hex;
-
         }
-
-
-
-
         return hashedPasswordInHex;
     }
-    public boolean userLogin(String userinputName , String userInputPassword) throws NoSuchAlgorithmException {
+
+    public boolean userLogin(String userInputName , String userInputPassword) throws NoSuchAlgorithmException {
         for(int i =0 ; i <this.users.size() ; i++)
         {
             try {
 
-                if(userinputName.equals(users.get(i).getUsername()) && hashPasswords(userInputPassword).equals(users.get(i).getPassword()) ) {
+                if(userInputName.equals(users.get(i).getUsername()) && hashPasswords(userInputPassword).equals(users.get(i).getPassword()) ) {
                    users.get(i).setStatus(true);
                     return true;
 
@@ -94,86 +84,34 @@ return false;
 
         }
         return false;
-
-
-
-
-
-
-
     }
-    public boolean adduser(User inputUser) throws NoSuchAlgorithmException {
+
+    public boolean addUser(User inputUser) throws NoSuchAlgorithmException {
         if(userExsitance(inputUser))
            return false;
         else {
             inputUser.setPassword(hashPasswords(inputUser.getPassword()));
-            this.users.add(inputUser);
-return true;
-
+            users.add(inputUser);
+            return true;
         }
     }
-//    public User getUserByNameAndPass(String userName , String userPass) {
-//        for (int i = 0; i < this.users.size(); i++) {
-//            try {
-//
-//                if (userName.equals(users.get(i).getUsername()) && hashPasswords(userPass).equals(hashPasswords(users.get(i).getPassword())))
-//                    return users.get(i);
-//            } catch (NoSuchAlgorithmException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//
-//        }
-//        return null;
-//    }
-    public void deleteuser(User inputUser){
-        if(userExsitance(inputUser)) {
-            this.users.remove(this.users.indexOf(inputUser));
 
-
-        }
-
-        else
-            System.out.println("user doesnt exsit");
-
-    }
-    public  void saveToFile()
-    {
+    public  void saveToFile() {
         ObjectMapper objectMapper = new ObjectMapper();
-
-
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         try {
             User[] usersArray = new  User[users.size()];
- for(int i =0 ;i <users.size() ; i++)
- {
-
-     usersArray[i] =  users.get(i);
-
-
-
- }
-            objectMapper.writeValue(new File("src/Backend/Users.json"), usersArray);
-
-
-
-
-
+                 for(int i =0 ;i <users.size() ; i++) {
+                        usersArray[i] =  users.get(i);
+                 }
+        objectMapper.writeValue(new File("src/Backend/Users.json"), usersArray);
 
         } catch (IOException e) {
             System.err.println("Error while writing in JSON file: ");
 
         }
-
-
-
-
-
-
     }
-
-
     public ArrayList<User> getUsers() {
         return users;
     }

@@ -31,9 +31,8 @@ public class signup extends JFrame {
     private UserDatabase userDatabase;
 private MainWindow mainWindow;
     public signup (MainWindow mainWindow, UserDatabase userDatabase){
-        signup signup1 = this;
-this.mainWindow = mainWindow;
-this.userDatabase=userDatabase;
+        this.mainWindow = mainWindow;
+        this.userDatabase=userDatabase;
         UtilDateModel model = new UtilDateModel();
         model.setValue(Calendar.getInstance().getTime());
         Properties properties = new Properties();
@@ -43,6 +42,7 @@ this.userDatabase=userDatabase;
         JDatePanelImpl datePanel = new JDatePanelImpl(model, properties);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
         datelib.add(datePicker);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setContentPane(signupwindow);
         signupwindow.revalidate();
@@ -61,42 +61,39 @@ this.userDatabase=userDatabase;
                 String newUserEmail = textField2.getText();
                 String newUserPassword = new String(passwordField1.getPassword()).trim();
                 java.util.Date selectedDate = (java.util.Date) datePicker.getModel().getValue();
-                if (selectedDate != null &&  newUserName!= null && newUserEmail!= null && newUserPassword!= null) {
 if(newUserName.isEmpty() || newUserEmail.isEmpty() || newUserPassword.isEmpty()) {
-    JOptionPane.showMessageDialog(signup1, "all fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(signupwindow, "all fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
 }else{
                     LocalDate localDate = selectedDate.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
 if(ChronoUnit.YEARS.between(localDate , LocalDate.now()) <15 )
-    JOptionPane.showMessageDialog(signup1, "the date is invalid for the a user", "Error", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(signupwindow, "the date is invalid for the a user", "Error", JOptionPane.ERROR_MESSAGE);
 else if(!isValidEmail(newUserEmail)){
 
-    JOptionPane.showMessageDialog(signup1, "invalid email pattern", "Error", JOptionPane.ERROR_MESSAGE);
-
-
+    JOptionPane.showMessageDialog(signupwindow, "invalid email pattern", "Error", JOptionPane.ERROR_MESSAGE);
 
 }
 else{
-String newUserId = ""+(userDatabase.getUsers().size()+1);
+    String newUserId = ""+(userDatabase.getUsers().size()+1);
     User newUser = new User(newUserId,newUserEmail,newUserPassword,newUserName,localDate,false);
     try {
-        userDatabase.adduser(newUser);
+        if (userDatabase.addUser(newUser)) {
+            JOptionPane.showMessageDialog(signupwindow, "New User Created successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            userDatabase.saveToFile();
+            setVisible(false);
+            mainWindow.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(signupwindow, "User already exists", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     } catch (NoSuchAlgorithmException ex) {
-        throw new RuntimeException(ex);
+        JOptionPane.showMessageDialog(signupwindow, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    userDatabase.saveToFile();
-    setVisible(false);
-    mainWindow.setVisible(true);
-
-
 
 }
-}
-
-                }
-
+    }
 
             }
         });
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,6 +102,7 @@ String newUserId = ""+(userDatabase.getUsers().size()+1);
             }
         });
     }
+
     public  boolean isValidEmail(String email) {
         // Updated Regular expression for a valid email format
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";

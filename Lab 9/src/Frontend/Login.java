@@ -14,16 +14,14 @@ public class Login extends JFrame {
     private UserDatabase userDatabase;
     public Login(MainWindow mainWindow, UserDatabase userDatabase){
         this.mainWindow = mainWindow;
-this.userDatabase=userDatabase;
+        this.userDatabase=userDatabase;
 
         setVisible(true);
         setContentPane(login);
         setSize(new Dimension(800, 600));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setTitle("login");
-
-        Login login1 =this;
-
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -33,24 +31,22 @@ this.userDatabase=userDatabase;
                 if(userName!= null && userPassword!=null)
                 {
                     if(userName.isEmpty() || userPassword.isEmpty())
-                        JOptionPane.showMessageDialog(login1, "ALL fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(login, "ALL fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
                     else {
                         try {
                             if(userDatabase.userLogin(userName , userPassword)) {
-                                System.out.println("login suc");
+                                JOptionPane.showMessageDialog(login, "Login Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
                                 userDatabase.saveToFile();
 
                             }
                             else
-                                JOptionPane.showMessageDialog(login1, "the username or password is invalid", "Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(login, "the username or password is invalid", "Error", JOptionPane.ERROR_MESSAGE);
 
                         } catch (NoSuchAlgorithmException ex) {
                             throw new RuntimeException(ex);
                         }
 
-
                     }
-
 
                 }
             }

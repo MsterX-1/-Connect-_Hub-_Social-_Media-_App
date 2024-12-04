@@ -11,45 +11,38 @@ public class MainWindow extends JFrame {
     private JButton Signup;
     private JButton loginButton;
     private JPanel main;
-    private UserDatabase userDatabase ;
+    private UserDatabase userDatabase;
 
-
-    public MainWindow(UserDatabase userDatabase ) {
+    public MainWindow(UserDatabase userDatabase) {
         this.userDatabase = userDatabase;
         userDatabase.loadFromFile();
-
-            setVisible(true);
-            setContentPane(main);
-            setSize(new Dimension(800, 600));
-            setLocationRelativeTo(null);
-            setTitle("Main");
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            MainWindow mainWindow =this;
+        setVisible(true);
+        setContentPane(main);
+        setSize(new Dimension(800, 600));
+        setLocationRelativeTo(null);
+        setTitle("Main");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        MainWindow mainWindow = this;
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Login(mainWindow , userDatabase);
+                new Login(mainWindow, userDatabase);
                 setVisible(false);
-
-
-
-
-
             }
         });
+
         Signup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new signup(mainWindow , userDatabase);
+                new signup(mainWindow, userDatabase);
                 setVisible(false);
-
             }
         });
     }
 
     public static void main(String[] args) {
-        UserDatabase userDatabase1 = new UserDatabase();
-        new MainWindow(userDatabase1);
+        UserDatabase userDatabase = new UserDatabase();
+        new MainWindow(userDatabase);
     }
 }
