@@ -1,0 +1,9 @@
+{
+  "contentId" : "Post1",
+  "authorId" : "user1",
+  "content" : {
+    "text" : "amr",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 4 ]
+}
