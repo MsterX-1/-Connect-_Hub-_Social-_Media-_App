@@ -9,6 +9,14 @@ public class User {
     private String username;
     private LocalDate dateOfBirth;
     private boolean status;
+    private String bio;
+    private String profilePhotoPath;
+    private String coverPicturePath;
+
+
+    public User(){
+
+    }
 
     public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status) {
         this.userId = userId;
@@ -17,6 +25,10 @@ public class User {
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.status = status;
+        this.bio = "Hey There !";
+        this.profilePhotoPath = "C:\\Users\\Legion\\OneDrive\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
+        this.coverPicturePath = "C:\\Users\\Legion\\OneDrive\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
+
     }
     public User() {
 
@@ -30,11 +42,38 @@ public class User {
         this.userId = userId;
     }
 
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getProfilePhotoPath() {
+        return profilePhotoPath;
+    }
+
+    public void setProfilePhotoPath(String profilePhotoPath) {
+        this.profilePhotoPath = profilePhotoPath;
+    }
+
+    public String getCoverPhotoPath() {
+        return coverPicturePath;
+    }
+
+    public void setCoverPhotoPath(String coverPhotoPath) {
+        this.coverPicturePath = coverPhotoPath;
+    }
+
     public String getEmail() {
+
         return email;
     }
 
     public void setEmail(String email) {
+
         this.email = email;
     }
 
@@ -64,7 +103,7 @@ public class User {
 
     public boolean isStatus() {
         return status;
-    }
+   }
 
     public void setStatus(boolean status) {
         this.status = status;
@@ -75,10 +114,13 @@ public class User {
         return "User{" +
                 "userId='" + userId + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + Password + '\'' +
+                ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", status=" + status +
+                ", bio='" + bio + '\'' +
+                ", profilePhotoPath='" + profilePhotoPath + '\'' +
+                ", coverPicturePath='" + coverPicturePath + '\'' +
                 '}';
     }
 }

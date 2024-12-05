@@ -29,7 +29,7 @@ public class signup extends JFrame {
     private JButton backButton;
     private JPasswordField passwordField1;
     private UserDatabase userDatabase;
-private MainWindow mainWindow;
+    private MainWindow mainWindow;
     public signup (MainWindow mainWindow, UserDatabase userDatabase){
         this.mainWindow = mainWindow;
         this.userDatabase=userDatabase;
@@ -61,35 +61,36 @@ private MainWindow mainWindow;
                 String newUserEmail = textField2.getText();
                 String newUserPassword = new String(passwordField1.getPassword()).trim();
                 java.util.Date selectedDate = (java.util.Date) datePicker.getModel().getValue();
-if(newUserName.isEmpty() || newUserEmail.isEmpty() || newUserPassword.isEmpty()) {
-    JOptionPane.showMessageDialog(signupwindow, "all fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
-}else{
+                if(newUserName.isEmpty() || newUserEmail.isEmpty() || newUserPassword.isEmpty()) {
+                    JOptionPane.showMessageDialog(signupwindow, "all fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
                     LocalDate localDate = selectedDate.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-if(ChronoUnit.YEARS.between(localDate , LocalDate.now()) <15 )
-    JOptionPane.showMessageDialog(signupwindow, "the date is invalid for the a user", "Error", JOptionPane.ERROR_MESSAGE);
-else if(!isValidEmail(newUserEmail)){
+                    if(ChronoUnit.YEARS.between(localDate , LocalDate.now()) <15 )
+                        JOptionPane.showMessageDialog(signupwindow, "the date is invalid for the a user", "Error", JOptionPane.ERROR_MESSAGE);
+                    else if(!isValidEmail(newUserEmail)){
 
-    JOptionPane.showMessageDialog(signupwindow, "invalid email pattern", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(signupwindow, "invalid email pattern", "Error", JOptionPane.ERROR_MESSAGE);
 
-}
-else{
-    String newUserId = ""+(userDatabase.getUsers().size()+1);
-    User newUser = new User(newUserId,newUserEmail,newUserPassword,newUserName,localDate,false);
-    try {
-        if (userDatabase.addUser(newUser)) {
-            JOptionPane.showMessageDialog(signupwindow, "New User Created successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            userDatabase.saveToFile();
-            setVisible(false);
-            mainWindow.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(signupwindow, "User already exists", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    } catch (NoSuchAlgorithmException ex) {
-        JOptionPane.showMessageDialog(signupwindow, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+                    }
+                    else{
+                        String newUserId = ""+(userDatabase.getUsers().size()+1); //initialize user id maybe will change the format latter
+                        User newUser = new User(newUserId,newUserEmail,newUserPassword,newUserName,localDate,false);
+                        try {
+                            if (userDatabase.addUser(newUser)) {
+                                JOptionPane.showMessageDialog(signupwindow, "New User Created successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                userDatabase.saveToFile();
+                                setVisible(false);
+                                mainWindow.setVisible(true);
+                            } else {
+                                JOptionPane.showMessageDialog(signupwindow, "User already exists", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } catch (NoSuchAlgorithmException ex) {
+                            JOptionPane.showMessageDialog(signupwindow, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
 
-}
-    }
+                    }
+                }
+
 
             }
         });

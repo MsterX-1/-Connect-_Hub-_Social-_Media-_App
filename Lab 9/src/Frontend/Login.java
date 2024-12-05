@@ -1,6 +1,5 @@
 package Frontend;
 
-import Backend.User;
 import Backend.UserDatabase;
 
 import javax.swing.*;
@@ -37,6 +36,11 @@ public class Login extends JFrame {
                             if(userDatabase.userLogin(userName , userPassword)) {
                                 JOptionPane.showMessageDialog(login, "Login Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
                                 userDatabase.saveToFile();
+                                // next page
+                                String userId = userDatabase.getUsers().get(userDatabase.getUserIndexByNameAndPass(userName,userPassword)).getUserId();
+                                new PRofileManagementPage(userId,userDatabase);
+                                setVisible(false);
+
 
                             }
                             else
@@ -67,3 +71,4 @@ public class Login extends JFrame {
     private JButton backButton;
     private JPasswordField passwordField1;
 }
+

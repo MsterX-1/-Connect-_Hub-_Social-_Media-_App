@@ -52,9 +52,9 @@ public class UserDatabase {
     public boolean userExsitance(User inputUser){
         for(int i =0 ; i <users.size();i++) {
             if(inputUser.getUsername().equals(users.get(i).getUsername())  || inputUser.getEmail().equals(users.get(i).getEmail()))
-                 return true;
+                return true;
         }
-            return false;
+        return false;
     }
 
     public String hashPasswords(String password) throws NoSuchAlgorithmException {
@@ -74,7 +74,7 @@ public class UserDatabase {
             try {
 
                 if(userInputName.equals(users.get(i).getUsername()) && hashPasswords(userInputPassword).equals(users.get(i).getPassword()) ) {
-                   users.get(i).setStatus(true);
+                    users.get(i).setStatus(true);
                     return true;
 
                 }
@@ -85,10 +85,35 @@ public class UserDatabase {
         }
         return false;
     }
+    public int getUserIndexByNameAndPass(String userInputName , String userInputPassword) throws NoSuchAlgorithmException {
+        for(int i =0 ; i <this.users.size() ; i++)
+        {
+            try {
+
+                if(userInputName.equals(users.get(i).getUsername()) && hashPasswords(userInputPassword).equals(users.get(i).getPassword()) ) {
+                    return i;
+
+                }
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        return 0;
+    }
+    public int getUserIndexById(String userId)  {
+        for(int i =0 ; i <this.users.size() ; i++)
+        {
+            if(userId.equals(users.get(i).getUserId()) ) {
+                return i;
+            }
+        }
+        return 0;
+    }
 
     public boolean addUser(User inputUser) throws NoSuchAlgorithmException {
         if(userExsitance(inputUser))
-           return false;
+            return false;
         else {
             inputUser.setPassword(hashPasswords(inputUser.getPassword()));
             users.add(inputUser);
@@ -102,10 +127,10 @@ public class UserDatabase {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         try {
             User[] usersArray = new  User[users.size()];
-                 for(int i =0 ;i <users.size() ; i++) {
-                        usersArray[i] =  users.get(i);
-                 }
-        objectMapper.writeValue(new File("src/Backend/Users.json"), usersArray);
+            for(int i =0 ;i <users.size() ; i++) {
+                usersArray[i] =  users.get(i);
+            }
+            objectMapper.writeValue(new File("src/Backend/Users.json"), usersArray);
 
         } catch (IOException e) {
             System.err.println("Error while writing in JSON file: ");
