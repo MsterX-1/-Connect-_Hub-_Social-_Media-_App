@@ -1,7 +1,5 @@
 package Backend.ContentCreation;
 
-import Backend.User;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,13 +7,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
-public class CreatePostWindow extends JFrame {
+public class publishContentWindow extends JFrame {
     private JPanel main;
     private JButton publishButton;
-    private JButton storyButton;
     private JTextArea description;
-    private JButton story;
-    private JButton image;
+    private JButton addImageButton;
     private JLabel textAreaLabel;
     private JPanel buttonPanel;
     private JPanel textPanel;
@@ -23,28 +19,47 @@ public class CreatePostWindow extends JFrame {
     private JLabel imageLabel;
     private String imagePath;
     private Post post;
-    public CreatePostWindow(User user) {
-        ContentDatabase contentDatabase = new ContentDatabase();
-        Post.setPostCounter(contentDatabase.loadContentFromDatabase());
+    private Story story;
+    public publishContentWindow(String userId, String contentType) {
         post = new Post();
+        story = new Story();
         setContentPane(main);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
         setTitle("Share your thoughts");
         setVisible(true);
+
         publishButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                post.addText(description.getText());
-                contentDatabase.addContentToDatabase(post);
-                post.publishContent();
-                contentDatabase.writeContentToDatabase();
-                setVisible(false);
-                dispose();
+                if(contentType.equals("post")) {
+                    ContentDatabase contentDatabase = new ContentDatabase();
+                    Post.setPostCounter(contentDatabase.loadContentFromDatabase("post"));
+                    post.addText(description.getText());
+                    contentDatabase.addContentToDatabase(post);
+                    post.publishContent();
+                    post.setAuthorId(userId);
+                    contentDatabase.writeContentToDatabase("post");
+                    setVisible(false);
+                    dispose();
+                }
+                if(contentType.equals("story")) {
+                    ContentDatabase contentDatabase = new ContentDatabase();
+                    contentDatabase.loadContentFromDatabase("story");
+                    Story.setStoryCounter(contentDatabase.getLastStoryId());
+                    story.addText(description.getText());
+                    contentDatabase.addContentToDatabase(story);
+                    story.publishContent();
+                    story.setAuthorId(userId);
+                    contentDatabase.writeContentToDatabase("story");
+                    setVisible(false);
+                    dispose();
+                }
+
             }
         });
-        image.addActionListener(new ActionListener() {
+        addImageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser chooser = new JFileChooser();
@@ -53,23 +68,30 @@ public class CreatePostWindow extends JFrame {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File image = chooser.getSelectedFile();
                     imagePath = image.getAbsolutePath();
-                    post.addImage(imagePath);
-                    displayImages(post.getContent().getImagePaths());
+                    if(contentType.equals("post")) {
+                        post.addImage(imagePath);
+                        displayImages(post.getContent().getImagePaths());
+                    }
+                    if(contentType.equals("story")) {
+                        story.addImage(imagePath);
+                        displayImages(story.getContent().getImagePaths());
+                    }
                 }
             }
         });
+
     }
 
     private void displayImages(ArrayList<String> imagePaths) {
         // Clear the panel (optional, if you want to refresh the panel each time)
         imagePanel.removeAll();
 
-        // Loop through each image path and add a JLabel with the image
+        // Loop through each addImageButton path and add a JLabel with the addImageButton
         for (String imagePath : imagePaths) {
-            // Load and resize the image
+            // Load and resize the addImageButton
             ImageIcon imageIcon = resizeImage(new ImageIcon(imagePath), 120, 120);
 
-            // Create a JLabel to display the image
+            // Create a JLabel to display the addImageButton
             JLabel imageLabel = new JLabel(imageIcon);
 
             // Set the preferred size for the JLabel
@@ -84,7 +106,7 @@ public class CreatePostWindow extends JFrame {
         imagePanel.repaint();
     }
 
-    // Resize image helper function
+    // Resize addImageButton helper function
     private ImageIcon resizeImage(ImageIcon originalImageIcon, int width, int height) {
         Image image = originalImageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(image);
@@ -92,6 +114,6 @@ public class CreatePostWindow extends JFrame {
 
     public static void main(String[] args) {
 
-        new CreatePostWindow(new User());
+        new publishContentWindow("user1","story");
     }
 }

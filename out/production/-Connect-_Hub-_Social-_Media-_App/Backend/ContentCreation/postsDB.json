@@ -2,24 +2,32 @@
   "contentId" : "Post1",
   "authorId" : "user1",
   "content" : {
-    "text" : "nljdas\ndasxc",
-    "imagePaths" : [ ]
+    "text" : "first post",
+    "imagePaths" : [ "C:\\Users\\amrra\\Pictures\\Screenshot 2023-12-20 040412.png" ]
   },
   "timeStamp" : [ 2024, 12, 5 ]
 }, {
-  "contentId" : "Post2",
+  "contentId" : "Post1",
   "authorId" : "user1",
   "content" : {
-    "text" : "nkbjdascxz",
+    "text" : "second post ",
+    "imagePaths" : [ "C:\\Users\\amrra\\Documents\\ToramOnline\\Screenshots\\ToramOnlineScreenshot2023_11_23_00_53_25.png" ]
+  },
+  "timeStamp" : [ 2024, 12, 5 ]
+}, {
+  "contentId" : "Post1",
+  "authorId" : "user1",
+  "content" : {
+    "text" : "third post",
     "imagePaths" : [ ]
   },
   "timeStamp" : [ 2024, 12, 5 ]
 }, {
-  "contentId" : "Post3",
-  "authorId" : "user.getUserId()",
+  "contentId" : "Post4",
+  "authorId" : "user1",
   "content" : {
-    "text" : "kbhdsa",
-    "imagePaths" : [ ]
+    "text" : "fourth post",
+    "imagePaths" : [ "C:\\Users\\amrra\\Documents\\Lab 8 UML.png", "C:\\Users\\amrra\\Pictures\\Screenshot 2023-12-20 040412.png" ]
   },
   "timeStamp" : [ 2024, 12, 5 ]
 } ]

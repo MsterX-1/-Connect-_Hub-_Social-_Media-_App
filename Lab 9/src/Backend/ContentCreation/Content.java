@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public abstract class Content {
     @JsonProperty
@@ -15,7 +16,7 @@ public abstract class Content {
     @JsonProperty
     private ContentProperties content;
     @JsonProperty
-    private LocalDate timeStamp;
+    private LocalDateTime timeStamp;
 
 
     public Content() {
@@ -35,7 +36,7 @@ public abstract class Content {
         this.content = content;
     }
 
-    public void setTimeStamp(LocalDate timeStamp) {
+    public void setTimeStamp(LocalDateTime timeStamp) {
         this.timeStamp = timeStamp;
     }
 
@@ -51,7 +52,7 @@ public abstract class Content {
         return contentId;
     }
 
-    public LocalDate getTimeStamp() {
+    public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
 
@@ -68,25 +69,18 @@ public abstract class Content {
         content.getImagePaths().add(imagePath);
     }
 
-    //remove image
-    protected void removeImage(String imagePath) {
-        content.getImagePaths().remove(imagePath);
-    }
+//    //remove image
+//    protected void removeImage(String imagePath) {
+//        content.getImagePaths().remove(imagePath);
+//    }
+//
+//    //edit image
+//    protected void editImage(String oldImagePath, String newImagePath) {
+//        removeImage(oldImagePath);
+//        addImage(newImagePath);
+//    }
 
-    //edit image
-    protected void editImage(String oldImagePath, String newImagePath) {
-        removeImage(oldImagePath);
-        addImage(newImagePath);
-    }
-
-    protected void publishContent() {
-        timeStamp = LocalDate.now();
-    }
-
-    protected String displayContent() {
-        return contentId + authorId + content + timeStamp;
-
-    }
+    protected abstract void publishContent();
 
 
 }
