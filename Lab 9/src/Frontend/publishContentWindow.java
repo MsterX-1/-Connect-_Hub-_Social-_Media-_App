@@ -1,4 +1,8 @@
-package Backend.ContentCreation;
+package Frontend;
+
+import Backend.ContentCreation.ContentDatabase;
+import Backend.ContentCreation.Post;
+import Backend.ContentCreation.Story;
 
 import javax.swing.*;
 import java.awt.*;
