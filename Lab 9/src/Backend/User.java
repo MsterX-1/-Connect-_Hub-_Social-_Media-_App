@@ -18,16 +18,16 @@ public class User {
 
     }
 
-    public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status,String bio,String profilePhotoPath,String coverPhotoPath,String profilePicturePath) {
+    public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status) {
         this.userId = userId;
         this.email = email;
         this.password = password;
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.status = status;
-        this.bio = bio;
-        this.profilePhotoPath = profilePhotoPath;
-        this.coverPicturePath = coverPhotoPath;
+        this.bio = "Hey There !";
+        this.profilePhotoPath = "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
+        this.coverPicturePath = "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
 
     }
 
@@ -100,9 +100,24 @@ public class User {
 
     public boolean isStatus() {
         return status;
-    }
+   }
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", status=" + status +
+                ", bio='" + bio + '\'' +
+                ", profilePhotoPath='" + profilePhotoPath + '\'' +
+                ", coverPicturePath='" + coverPicturePath + '\'' +
+                '}';
     }
 }

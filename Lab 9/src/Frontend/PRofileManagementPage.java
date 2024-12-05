@@ -1,5 +1,4 @@
 package Frontend;
-import Backend.User;
 import Backend.UserDatabase;
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class PRofileManagementPage extends JFrame {
 
@@ -18,20 +16,21 @@ public class PRofileManagementPage extends JFrame {
     private JPanel coverpanel;
     private JPanel picturepanel;
     private JScrollPane ScrollPnael;
+    private JTextField BioField;
     private JPanel postsPanel;     // Panel to hold individual posts
     private ArrayList<String> postsList;
-    private Map<Integer, Map<String, String>> usersData;
     private UserDatabase userDatabase;
+    private String userId;
 
 
-    public PRofileManagementPage(String userID) {
-
-
-
+    public PRofileManagementPage(String userID,UserDatabase userDatabase) {
+        this.userDatabase = userDatabase;
+        this.userId = userID;
         setTitle("Profile Management");
-        setSize(500, 400);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        PRofileManagementPage pRofileManagementPage = this;
 
         coverpanel.setLayout(new FlowLayout());
         picturepanel.setLayout(new FlowLayout());
@@ -39,6 +38,12 @@ public class PRofileManagementPage extends JFrame {
         postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
 
         ScrollPnael.setViewportView(postsPanel);
+        int index = userDatabase.getUserIndexById(userId);
+        String bio= userDatabase.getUsers().get(index).getBio();
+        BioField.setText(bio);
+        BioField.setEditable(false);   // Lock the text field to make it read-only
+
+
       //  UserDatabase userdb = new UserDatabase();
 //userdb.loadFromFile();
       //  System.out.println(userdb.getUsers().size());
@@ -57,8 +62,10 @@ public class PRofileManagementPage extends JFrame {
        //       JOptionPane.showMessageDialog(this, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
        //    }
 
-        loadCircularImageToPanel(picturepanel, "C:\\Users\\Legion\\OneDrive\\Pictures\\wallpapersden.com_77136-1336x768.jpg", 150); // Default profile picture
-        loadCircularImageToPanel(coverpanel, "C:\\Users\\Legion\\OneDrive\\Pictures\\wallpapersden.com_77136-1336x768.jpg", 400);
+      String pathPhotoProfile=  userDatabase.getUsers().get(index).getProfilePhotoPath();
+        String pathCoverProfile=  userDatabase.getUsers().get(index).getCoverPhotoPath();
+        loadCircularImageToPanel(picturepanel,pathPhotoProfile , 150); // Default profile picture
+        loadCircularImageToPanel(coverpanel, pathCoverProfile, 400);
 
 
         postsList = new ArrayList<>();
@@ -71,8 +78,8 @@ public class PRofileManagementPage extends JFrame {
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new ProfileManagement().setVisible(true);dispose();
-               dispose();
+               new EditProfile(pRofileManagementPage,userID,userDatabase,BioField);
+               //setVisible(false);
             }
         });
 
@@ -164,5 +171,4 @@ public class PRofileManagementPage extends JFrame {
         postsPanel.revalidate();
         postsPanel.repaint();
     }
-
 }

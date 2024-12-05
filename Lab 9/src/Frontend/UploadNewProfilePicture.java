@@ -1,5 +1,7 @@
 package Frontend;
 
+import Backend.UserDatabase;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -16,14 +18,19 @@ public class UploadNewProfilePicture extends JFrame {
     private JPanel panel;
     private JLabel imageLabel;
     private PRofileManagementPage profileManagementPage;
+    private EditProfile editProfile;
+    private String userId;
+    private UserDatabase userDatabase;
 
 
-
-    public UploadNewProfilePicture(PRofileManagementPage profileManagementPage) {
+    public UploadNewProfilePicture(PRofileManagementPage profileManagementPage, EditProfile editProfile, String userId, UserDatabase userDatabase) {
         this.profileManagementPage = profileManagementPage;
+        this.editProfile = editProfile;
+        this.userId = userId;
+        this.userDatabase = userDatabase;
         setTitle("Upload Profile Picture");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setContentPane(panel);
 
@@ -42,9 +49,19 @@ public class UploadNewProfilePicture extends JFrame {
 
         uploadButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-        selectImage(); // دا زرار الupload
-                dispose();
+            public void actionPerformed(ActionEvent e) { // دا زرار الupload
+                String path = selectImage();
+        if(path != null) {
+            //save
+            int index = userDatabase.getUserIndexById(userId);
+            userDatabase.getUsers().get(index).setProfilePhotoPath(path);
+            userDatabase.saveToFile();
+            profileManagementPage.setVisible(true);
+            setVisible(false);
+        }else {
+
+        }
+
             }
         });
 
@@ -53,10 +70,8 @@ public class UploadNewProfilePicture extends JFrame {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                ProfileManagement profileManagement = new ProfileManagement();
-                profileManagement.setVisible(true);
-                dispose();
+                editProfile.setVisible(true);
+                setVisible(false);
 
             }
         });
@@ -66,7 +81,7 @@ public class UploadNewProfilePicture extends JFrame {
 
     }
 
-    private void selectImage() {
+    private String selectImage() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY); // Allow only files
         fileChooser.setDialogTitle("Choose Profile Picture");
@@ -78,19 +93,21 @@ public class UploadNewProfilePicture extends JFrame {
         if (returnValue == JFileChooser.APPROVE_OPTION) { // If the user selects a file
             File selectedFile = fileChooser.getSelectedFile();
             System.out.println("Selected a new Profile Picture: " + selectedFile.getAbsolutePath());
-
+            String newProfilePicPath = selectedFile.getAbsolutePath();
             if (!imageFilter.accept(selectedFile)) {
                 JOptionPane.showMessageDialog(this, "Please select a valid image file.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                return null;
             }
-
             displayImage(selectedFile.getAbsolutePath()); // Show image preview
             uploadImage(selectedFile); // Update the image in PRofileManagementPage
+            return newProfilePicPath;
         } else if (returnValue == JFileChooser.CANCEL_OPTION) {
             System.out.println("File selection has been cancelled");
         } else {
             System.out.println("An error occurred during file selection");
+            return null;
         }
+        return null;
     }
 
     private void uploadImage(File file) {
@@ -98,6 +115,8 @@ public class UploadNewProfilePicture extends JFrame {
 
         // Assuming `profileManagementPage` is an instance of PRofileManagementPage
         profileManagementPage.updateProfilePicture(file.getAbsolutePath());
+
+
     }
 
     private void displayImage(String path) {

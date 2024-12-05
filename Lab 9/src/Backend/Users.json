@@ -1,112 +1,71 @@
-[
-  {
-    "userId": 1001,
-    "email": "john.doe@example.com",
-    "password": "securePassword1",
-    "username": "JohnDoe",
-    "dateOfBirth": "1990-01-15",
-    "status": true,
-    "profilePhotoPath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "coverPicturePath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "bio": "Graphic designer with a passion for art and travel."
-  },
-  {
-    "userId": 1002,
-    "email": "alice.smith@example.com",
-    "password": "securePassword2",
-    "username": "AliceSmith",
-    "dateOfBirth": "1992-03-22",
-    "status": false,
-    "profilePhotoPath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "coverPicturePath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "bio": "Graphic designer with a passion for art and travel."
-  },
-  {
-    "userId": 1003,
-    "email": "bob.johnson@example.com",
-    "password": "securePassword3",
-    "username": "BobJohnson",
-    "dateOfBirth": "1988-07-18",
-    "status": true,
-    "profilePhotoPath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "coverPicturePath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "bio": "Graphic designer with a passion for art and travel."
-  },
-  {
-    "userId": 1004,
-    "email": "emma.jones@example.com",
-    "password": "securePassword4",
-    "username": "EmmaJones",
-    "dateOfBirth": "1995-11-05",
-    "status": true,
-    "profilePhotoPath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "coverPicturePath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "bio": "Graphic designer with a passion for art and travel."
-  },
-  {
-    "userId": 1005,
-    "email": "charles.wright@example.com",
-    "password": "securePassword5",
-    "username": "CharlesWright",
-    "dateOfBirth": "1985-12-10",
-    "status": false,
-    "profilePhotoPath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "coverPicturePath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "bio": "Graphic designer with a passion for art and travel."
-  },
-  {
-    "userId": 1006,
-    "email": "sophia.brown@example.com",
-    "password": "securePassword6",
-    "username": "SophiaBrown",
-    "dateOfBirth": "1997-06-03",
-    "status": true,
-    "profilePhotoPath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "coverPicturePath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "bio": "Graphic designer with a passion for art and travel."
-  },
-  {
-    "userId": 1007,
-    "email": "liam.miller@example.com",
-    "password": "securePassword7",
-    "username": "LiamMiller",
-    "dateOfBirth": "2000-02-14",
-    "status": true,
-    "profilePhotoPath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "coverPicturePath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "bio": "Graphic designer with a passion for art and travel."
-  },
-  {
-    "userId": 1008,
-    "email": "olivia.davis@example.com",
-    "password": "securePassword8",
-    "username": "OliviaDavis",
-    "dateOfBirth": "1993-09-23",
-    "status": false,
-    "profilePhotoPath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "coverPicturePath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "bio": "Graphic designer with a passion for art and travel."
-  },
-  {
-    "userId": 1009,
-    "email": "william.moore@example.com",
-    "password": "securePassword9",
-    "username": "WilliamMoore",
-    "dateOfBirth": "1989-04-11",
-    "status": true,
-    "profilePhotoPath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "coverPicturePath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "bio": "Graphic designer with a passion for art and travel."
-  },
-  {
-    "userId": 1010,
-    "email": "ava.jackson@example.com",
-    "password": "securePassword10",
-    "username": "AvaJackson",
-    "dateOfBirth": "1998-08-08",
-    "status": false,
-    "profilePhotoPath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "coverPicturePath":  "C:\\Users\\Legion\\OneDrive\\Pictures\\image.jpg",
-    "bio": "Graphic designer with a passion for art and travel."
-  }
-]
+[ {
+  "userId" : "1",
+  "email" : "y@gmail.com",
+  "password" : "91a73fd86ab2c05c13b4dc1913a884e909dea3f72d46e30266fe1a1f588d8",
+  "username" : "y",
+  "dateOfBirth" : [ 2003, 12, 13 ],
+  "status" : true,
+  "bio" : "Heloo my nigga",
+  "profilePhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
+  "coverPhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+}, {
+  "userId" : "2",
+  "email" : "hamo@gmail.com",
+  "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+  "username" : "hamo",
+  "dateOfBirth" : [ 1999, 12, 17 ],
+  "status" : false,
+  "bio" : "Hey There !",
+  "profilePhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
+  "coverPhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+}, {
+  "userId" : "3",
+  "email" : "s@gmail.com",
+  "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+  "username" : "saiid",
+  "dateOfBirth" : [ 1998, 12, 10 ],
+  "status" : true,
+  "bio" : "Hey There !",
+  "profilePhotoPath" : "C:\\Users\\MsterX\\Downloads\\logo 1.png",
+  "coverPhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+}, {
+  "userId" : "4",
+  "email" : "k@gmail.com",
+  "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+  "username" : "khalifa",
+  "dateOfBirth" : [ 2003, 12, 18 ],
+  "status" : true,
+  "bio" : "Hey There !",
+  "profilePhotoPath" : "C:\\Users\\MsterX\\Downloads\\DefultPic.jpg",
+  "coverPhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+}, {
+  "userId" : "5",
+  "email" : "h@gmail.com",
+  "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+  "username" : "h",
+  "dateOfBirth" : [ 2000, 12, 5 ],
+  "status" : true,
+  "bio" : "Hey There !",
+  "profilePhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
+  "coverPhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+}, {
+  "userId" : "6",
+  "email" : "z@gmail.com",
+  "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+  "username" : "zoz",
+  "dateOfBirth" : [ 2001, 12, 13 ],
+  "status" : true,
+  "bio" : "Hey There !",
+  "profilePhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
+  "coverPhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+}, {
+  "userId" : "7",
+  "email" : "b@gmail.com",
+  "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+  "username" : "bebo",
+  "dateOfBirth" : [ 2000, 12, 20 ],
+  "status" : true,
+  "bio" : "beboooo el gamed",
+  "profilePhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
+  "coverPhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+} ]
