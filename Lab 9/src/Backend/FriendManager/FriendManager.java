@@ -35,7 +35,7 @@ public class FriendManager {
 //        }
 //    }
 
-    public void acceptFriendRequest(String senderId , String receiverId) {
+    public void acceptFriendRequest(String senderId, String receiverId) {
         Friend friend = new Friend(receiverId);
         friend.addFriendsIds(senderId);
         FriendRequest friendRequest = new FriendRequest(receiverId);
@@ -43,11 +43,13 @@ public class FriendManager {
         friends.add(friend);
     }
 
-    public void declineFriendRequest(String senderId , String receiverId) {
-        FriendRequest friendRequest = new FriendRequest(receiverId);
-        friendRequest.addFriendRequestsIds(senderId);
-        friendRequests.remove(friendRequest);
-//        suggestedUsers.add(user);
+    public void declineFriendRequest(String senderId, String receiverId) {
+//        FriendRequest friendRequest = new FriendRequest(receiverId);
+//        friendRequest.addFriendRequestsIds(senderId);
+//        friendRequests.remove(friendRequest);
+        Suggested suggested = new Suggested(receiverId);
+        if (!suggested.getsuggestedIds().contains(senderId))
+            suggested.addSuggestedIds(senderId);
     }
 //
 //    public void removeFriend(User user) {
@@ -95,7 +97,7 @@ public class FriendManager {
             if (databaseType.equals("friend")) {
                 if (!friendsFile.exists() || friendsFile.length() == 0) {
                 }
-                Friend[] friendsArray = objectMapper.readValue(friendsFile,Friend[].class);
+                Friend[] friendsArray = objectMapper.readValue(friendsFile, Friend[].class);
                 friends.addAll(Arrays.asList(friendsArray));
             }
             if (databaseType.equals("friendRequest")) {

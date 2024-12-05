@@ -23,7 +23,7 @@ public class Suggested {
         this.ownerId = ownerId;
     }
 
-    public ArrayList<String> getsuggestedIds() {
+    public ArrayList<String> getSuggestedIds() {
         return suggestedIds;
     }
 
