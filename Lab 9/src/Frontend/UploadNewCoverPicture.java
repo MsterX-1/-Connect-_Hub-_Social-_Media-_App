@@ -46,7 +46,7 @@ public class UploadNewCoverPicture extends JFrame {
                 if(path != null) {
                     //save
                     int index = userDatabase.getUserIndexById(userId);
-                    userDatabase.getUsers().get(index).setProfilePhotoPath(path);
+                    userDatabase.getUsers().get(index).setCoverPhotoPath(path);
                     userDatabase.saveToFile();
                     profileManagementPage.setVisible(true);
                     setVisible(false);

@@ -36,7 +36,7 @@ public class ContentDatabase {
             if (type.equals("story"))
                 objectMapper.writeValue(storiesFile, contents);
         } catch (IOException e) {
-            System.out.println("Error while writing to json postsFile");
+            System.out.println("Error while writing to json");
         }
 
     }

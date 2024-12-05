@@ -16,7 +16,7 @@ public class UserDatabase {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
 
-        File file = new File("src/Backend/Users.json");
+        File file = new File("Lab 9/src/Backend/Users.json");
 
         // Check if the file exists and is not empty
         if (file.exists() && file.length() > 0) {
@@ -49,7 +49,7 @@ public class UserDatabase {
         }
     }
 
-    public boolean userExsitance(User inputUser){
+    public boolean userExistence(User inputUser){
         for(int i =0 ; i <users.size();i++) {
             if(inputUser.getUsername().equals(users.get(i).getUsername())  || inputUser.getEmail().equals(users.get(i).getEmail()))
                 return true;
@@ -112,7 +112,7 @@ public class UserDatabase {
     }
 
     public boolean addUser(User inputUser) throws NoSuchAlgorithmException {
-        if(userExsitance(inputUser))
+        if(userExistence(inputUser))
             return false;
         else {
             inputUser.setPassword(hashPasswords(inputUser.getPassword()));
@@ -130,7 +130,7 @@ public class UserDatabase {
             for(int i =0 ;i <users.size() ; i++) {
                 usersArray[i] =  users.get(i);
             }
-            objectMapper.writeValue(new File("src/Backend/Users.json"), usersArray);
+            objectMapper.writeValue(new File("Lab 9/src/Backend/Users.json"), usersArray);
 
         } catch (IOException e) {
             System.err.println("Error while writing in JSON file: ");

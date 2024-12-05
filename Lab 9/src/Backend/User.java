@@ -14,10 +14,6 @@ public class User {
     private String coverPicturePath;
 
 
-    public User(){
-
-    }
-
     public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status) {
         this.userId = userId;
         this.email = email;
@@ -26,8 +22,8 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.status = status;
         this.bio = "Hey There !";
-        this.profilePhotoPath = "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
-        this.coverPicturePath = "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
+        this.profilePhotoPath = "Lab 9/src/Frontend/DefultPic.jpg";
+        this.coverPicturePath = "Lab 9/src/Frontend/DefultPic.jpg";
 
     }
     public User() {}
