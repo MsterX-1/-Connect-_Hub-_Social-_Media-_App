@@ -74,8 +74,8 @@
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
   "username" : "koko",
   "dateOfBirth" : [ 2002, 12, 12 ],
-  "status" : false,
+  "status" : true,
   "bio" : "Hey There !",
-  "profilePhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
-  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+  "profilePhotoPath" : "C:\\Users\\Legion\\OneDrive\\Documents\\Uml before refractoring.png",
+  "coverPhotoPath" : "C:\\Users\\Legion\\OneDrive\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\PROFILEPICTURE.jpg"
 } ]

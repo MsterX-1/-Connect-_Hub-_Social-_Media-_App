@@ -24,6 +24,10 @@ public class ContentDatabase {
         contents.add(content);
     }
 
+    public ArrayList<Content> getContents() {
+        return contents;
+    }
+
     public void writeContentToDatabase(String type) {
 
         ObjectMapper objectMapper = new ObjectMapper();
