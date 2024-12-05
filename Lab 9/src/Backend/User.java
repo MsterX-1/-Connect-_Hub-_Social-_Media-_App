@@ -18,7 +18,7 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.status = status;
     }
-
+    public User() {}
     public String getUserId() {
         return userId;
     }

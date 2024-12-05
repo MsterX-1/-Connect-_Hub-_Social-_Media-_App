@@ -1,14 +1,20 @@
 package Backend.ContentCreation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import Backend.User;
 
 public class Post extends Content {
+    @JsonIgnore
     private static int postCounter;
+
+    public static void setPostCounter(int postCounter) {
+        Post.postCounter = postCounter;
+    }
 
     public Post() {
         postCounter++;
-        setContentId("Post1");
-        setAuthorId("user1");
+        setContentId("Post" + postCounter);
+        setAuthorId("user.getUserId()");
 
     }
 

@@ -31,13 +31,32 @@ public abstract class Content {
         this.authorId = authorId;
     }
 
+    public void setContent(ContentProperties content) {
+        this.content = content;
+    }
+
     public void setTimeStamp(LocalDate timeStamp) {
         this.timeStamp = timeStamp;
     }
 
-    public void setContent(ContentProperties content) {
-        this.content = content;
+    public String getAuthorId() {
+        return authorId;
     }
+
+    public ContentProperties getContent() {
+        return content;
+    }
+
+    public String getContentId() {
+        return contentId;
+    }
+
+    public LocalDate getTimeStamp() {
+        return timeStamp;
+    }
+
+
+    //content methods
 
     //adds text
     protected void addText(String text) {
@@ -64,6 +83,10 @@ public abstract class Content {
         timeStamp = LocalDate.now();
     }
 
+    protected String displayContent() {
+        return contentId + authorId + content + timeStamp;
+
+    }
 
 
 }
