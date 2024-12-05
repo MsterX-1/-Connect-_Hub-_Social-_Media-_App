@@ -68,4 +68,14 @@
   "bio" : "beboooo el gamed",
   "profilePhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
   "coverPhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+}, {
+  "userId" : "8",
+  "email" : "a@gmail.com",
+  "password" : "2689367b205c16ce32ed420942b8b8b1e262dfc70d9bc9fbc77c49699a4f1df",
+  "username" : "a",
+  "dateOfBirth" : [ 1998, 12, 5 ],
+  "status" : true,
+  "bio" : "ahmedjckjec",
+  "profilePhotoPath" : "C:\\Users\\Legion\\OneDrive\\Documents\\Uml before refractoring.png",
+  "coverPhotoPath" : "C:\\Users\\Legion\\OneDrive\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
 } ]
