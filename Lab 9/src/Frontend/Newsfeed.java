@@ -21,78 +21,62 @@ public class Newsfeed extends JFrame {
     private UserDatabase userDatabase;
     private String userId;
 
-    public Newsfeed(UserDatabase userDatabase, String userId) {
+    public Newsfeed(UserDatabase userDatabase, String userId,MainWindow mainWindow) {
         this.userDatabase = userDatabase;
         this.userId = userId;
-
-        // Load the user database
-        userDatabase.loadFromFile();
-
+        Newsfeed newsfeed = this;
         // Frame properties
         setVisible(true);
         setTitle("NewsFeed");
         setSize(1000, 800);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setContentPane(panel1);
 
+        
+        imagelabel.setIcon(new ImageIcon(updateNewsFeedPhoto()));
 
-        int index = userDatabase.getUserIndexById(userId);
-        String pathPhotoProfile = userDatabase.getUsers().get(index).getProfilePhotoPath();
-
-
-        ImageIcon imageIcon = new ImageIcon(pathPhotoProfile); // Load image
-        Image image = imageIcon.getImage();
-
-        int scaledWidth = imagelabel.getWidth();
-        int scaledHeight = imagelabel.getHeight();
-        Image scaledImage = image.getScaledInstance(150, 100, Image.SCALE_SMOOTH);
-
-        imagelabel.setIcon(new ImageIcon(scaledImage));
 
         imagelabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-
-                new PRofileManagementPage(userId, userDatabase).setVisible(true);
+                new PRofileManagementPage(userId, userDatabase,newsfeed,mainWindow).setVisible(true);
                 setVisible(false);
-
-
-
-
             }
         });
+
         createStoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new publishContentWindow(userId,"story");
             }
         });
         createPostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new publishContentWindow(userId,"post");
             }
         });
         refreshButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                // Update the newsfeed photo
+                Image updatedImage = updateNewsFeedPhoto();
+                imagelabel.setIcon(new ImageIcon(updatedImage));
             }
         });
-        profileManagmentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
+
     }
-
-    public static void main(String[] args) {
-        UserDatabase userdatabase = new UserDatabase();
-        new Newsfeed(userdatabase, "7");
+    public Image updateNewsFeedPhoto(){
+        int index = userDatabase.getUserIndexById(userId);
+        String pathPhotoProfile = userDatabase.getUsers().get(index).getProfilePhotoPath();
+        ImageIcon imageIcon = new ImageIcon(pathPhotoProfile); // Load image
+        Image image = imageIcon.getImage();
+        int scaledWidth = imagelabel.getWidth();
+        int scaledHeight = imagelabel.getHeight();
+        Image scaledImage = image.getScaledInstance(150, 100, Image.SCALE_SMOOTH);
+        return scaledImage;
     }
-
-
 }

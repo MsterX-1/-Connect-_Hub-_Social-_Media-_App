@@ -33,6 +33,7 @@ public class signup extends JFrame {
     public signup (MainWindow mainWindow, UserDatabase userDatabase){
         this.mainWindow = mainWindow;
         this.userDatabase=userDatabase;
+        setResizable(false);
         UtilDateModel model = new UtilDateModel();
         model.setValue(Calendar.getInstance().getTime());
         Properties properties = new Properties();

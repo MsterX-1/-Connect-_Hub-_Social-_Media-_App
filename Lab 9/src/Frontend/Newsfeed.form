@@ -42,14 +42,6 @@
         <border type="none" title="pos"/>
         <children/>
       </scrollpane>
-      <component id="1b876" class="javax.swing.JButton" binding="profileManagmentButton" default-binding="true">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Profile Managment"/>
-        </properties>
-      </component>
       <component id="84b0" class="javax.swing.JButton" binding="createPostButton" default-binding="true">
         <constraints>
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>

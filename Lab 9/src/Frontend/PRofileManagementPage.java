@@ -17,19 +17,22 @@ public class PRofileManagementPage extends JFrame {
     private JPanel picturepanel;
     private JScrollPane ScrollPnael;
     private JTextField BioField;
+    private JButton logoutButton;
+    private JButton returnButton;
     private JPanel postsPanel;     // Panel to hold individual posts
     private ArrayList<String> postsList;
     private UserDatabase userDatabase;
     private String userId;
 
 
-    public PRofileManagementPage(String userID,UserDatabase userDatabase) {
+    public PRofileManagementPage(String userID,UserDatabase userDatabase,Newsfeed newsfeed,MainWindow mainWindow) {
         this.userDatabase = userDatabase;
         this.userId = userID;
         setTitle("Profile Management");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(false);
         PRofileManagementPage pRofileManagementPage = this;
 
         coverpanel.setLayout(new FlowLayout());
@@ -42,25 +45,6 @@ public class PRofileManagementPage extends JFrame {
         String bio= userDatabase.getUsers().get(index).getBio();
         BioField.setText(bio);
         BioField.setEditable(false);   // Lock the text field to make it read-only
-
-
-      //  UserDatabase userdb = new UserDatabase();
-//userdb.loadFromFile();
-      //  System.out.println(userdb.getUsers().size());
-     //   if (userdb.getUsers().isEmpty()) {
-     //       System.out.println("Users list is empty. Check your JSON file or loadFromFile method.");
-
-    //    }
-
-
-       // User User1 = userdb.getuserbyId(userID);
-       // if (User1 != null) {
-       //     System.out.println("User found: " + User1);
-       //      loadCircularImageToPanel(picturepanel, User1.getProfilePhotoPath(), 150);
-       //       loadCircularImageToPanel(coverpanel, User1.getCoverPhotoPath(), 400);
-       //   } else {
-       //       JOptionPane.showMessageDialog(this, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
-       //    }
 
       String pathPhotoProfile=  userDatabase.getUsers().get(index).getProfilePhotoPath();
         String pathCoverProfile=  userDatabase.getUsers().get(index).getCoverPhotoPath();
@@ -86,6 +70,24 @@ public class PRofileManagementPage extends JFrame {
 
         setContentPane(panel);
         setVisible(true);
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = userDatabase.getUserIndexById(userId);
+                userDatabase.getUsers().get(index).setStatus(false);
+                userDatabase.saveToFile();
+                JOptionPane.showMessageDialog(null, "Logout Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                mainWindow.setVisible(true);
+                setVisible(false);
+            }
+        });
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newsfeed.setVisible(true);
+                setVisible(false);
+            }
+        });
     }
 
     public void updateProfilePicture(String imagePath) {

@@ -3,7 +3,6 @@ package Frontend;
 import Backend.ContentCreation.ContentDatabase;
 import Backend.ContentCreation.Post;
 import Backend.ContentCreation.Story;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,10 +27,10 @@ public class publishContentWindow extends JFrame {
         post = new Post();
         story = new Story();
         setContentPane(main);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
         setTitle("Share your thoughts");
+        setResizable(false);
         setVisible(true);
 
         publishButton.addActionListener(new ActionListener() {
@@ -116,8 +115,4 @@ public class publishContentWindow extends JFrame {
         return new ImageIcon(image);
     }
 
-    public static void main(String[] args) {
-
-        new publishContentWindow("user1","story");
-    }
 }
