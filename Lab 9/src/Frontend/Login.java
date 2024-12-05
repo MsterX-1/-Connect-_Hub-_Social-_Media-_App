@@ -41,6 +41,7 @@ public class Login extends JFrame {
                                 new PRofileManagementPage(userId,userDatabase);
                                 setVisible(false);
 
+
                             }
                             else
                                 JOptionPane.showMessageDialog(login, "the username or password is invalid", "Error", JOptionPane.ERROR_MESSAGE);
@@ -70,3 +71,4 @@ public class Login extends JFrame {
     private JButton backButton;
     private JPasswordField passwordField1;
 }
+
