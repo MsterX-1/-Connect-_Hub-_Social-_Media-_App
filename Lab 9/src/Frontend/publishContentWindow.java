@@ -116,8 +116,8 @@ public class publishContentWindow extends JFrame {
         return new ImageIcon(image);
     }
 
-    public static void main(String[] args) {
-
-        new publishContentWindow("user1","story");
-    }
+//    public static void main(String[] args) {
+//
+//        new publishContentWindow("user1","story");
+//    }
 }

@@ -6,8 +6,8 @@
   "dateOfBirth" : [ 2003, 12, 13 ],
   "status" : true,
   "bio" : "Heloo my nigga",
-  "profilePhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
-  "coverPhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9\\src\\Frontend\\DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9\\src\\Frontend\\DefultPic.jpg"
 }, {
   "userId" : "2",
   "email" : "hamo@gmail.com",
@@ -16,8 +16,8 @@
   "dateOfBirth" : [ 1999, 12, 17 ],
   "status" : false,
   "bio" : "Hey There !",
-  "profilePhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
-  "coverPhotoPath" : "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9\\src\\Frontend\\DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9\\src\\Frontend\\DefultPic.jpg"
 }, {
   "userId" : "3",
   "email" : "s@gmail.com",

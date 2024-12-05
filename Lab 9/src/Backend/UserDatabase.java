@@ -140,4 +140,12 @@ public class UserDatabase {
     public ArrayList<User> getUsers() {
         return users;
     }
+
+    public User getUserById(String id) {
+        for (User user : users) {
+            if (id.equals(user.getUserId()))
+                return user;
+        }
+        return null;
+    }
 }
