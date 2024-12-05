@@ -24,11 +24,11 @@ public abstract class Content {
     }
 
     //setter for json
-    protected void setContentId(String contentId) {
+    public void setContentId(String contentId) {
         this.contentId = contentId;
     }
 
-    protected void setAuthorId(String authorId) {
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 
@@ -60,27 +60,27 @@ public abstract class Content {
     //content methods
 
     //adds text
-    protected void addText(String text) {
+    public void addText(String text) {
         content.setText(text);
     }
 
     //adds image
-    protected void addImage(String imagePath) {
+    public void addImage(String imagePath) {
         content.getImagePaths().add(imagePath);
     }
 
 //    //remove image
-//    protected void removeImage(String imagePath) {
+//    public void removeImage(String imagePath) {
 //        content.getImagePaths().remove(imagePath);
 //    }
 //
 //    //edit image
-//    protected void editImage(String oldImagePath, String newImagePath) {
+//    public void editImage(String oldImagePath, String newImagePath) {
 //        removeImage(oldImagePath);
 //        addImage(newImagePath);
 //    }
 
-    protected abstract void publishContent();
+    public abstract void publishContent();
 
 
 }
