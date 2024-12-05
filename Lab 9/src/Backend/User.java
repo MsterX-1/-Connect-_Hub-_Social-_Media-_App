@@ -30,7 +30,7 @@ public class User {
         this.coverPicturePath = "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
 
     }
-
+    public User() {}
     public String getUserId() {
         return userId;
     }

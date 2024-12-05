@@ -1,0 +1,49 @@
+[ {
+  "contentId" : "Story 1",
+  "authorId" : "user1",
+  "content" : {
+    "text" : "story one\n",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 5, 18, 27, 45, 470882500 ]
+}, {
+  "contentId" : "Story 2",
+  "authorId" : "user1",
+  "content" : {
+    "text" : "new story",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 5, 18, 34, 43, 832147400 ]
+}, {
+  "contentId" : "Story 3",
+  "authorId" : "user1",
+  "content" : {
+    "text" : "new story",
+    "imagePaths" : [ "C:\\Users\\amrra\\Documents\\Lab 8 UML.png" ]
+  },
+  "timeStamp" : [ 2024, 12, 5, 18, 40, 42, 789893700 ]
+}, {
+  "contentId" : "Story 5",
+  "authorId" : "user1",
+  "content" : {
+    "text" : "kbdasdas",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 5, 18, 42, 31, 96295800 ]
+}, {
+  "contentId" : "Story 6",
+  "authorId" : "user1",
+  "content" : {
+    "text" : "unladslukasds",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 5, 18, 50, 57, 649878900 ]
+}, {
+  "contentId" : "Story 7",
+  "authorId" : "user1",
+  "content" : {
+    "text" : ",'pdanludas",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 5, 18, 52, 7, 596173100 ]
+} ]
