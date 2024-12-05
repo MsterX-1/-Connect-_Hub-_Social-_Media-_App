@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class User {
     private String userId;
     private String email;
-    private String Password;
+    private String password;
     private String username;
     private LocalDate dateOfBirth;
     private boolean status;
@@ -21,16 +21,13 @@ public class User {
     public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status) {
         this.userId = userId;
         this.email = email;
-        this.Password = password;
+        this.password = password;
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.status = status;
         this.bio = "Hey There !";
-        this.profilePhotoPath = "C:\\Users\\Legion\\OneDrive\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
-        this.coverPicturePath = "C:\\Users\\Legion\\OneDrive\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
-
-    }
-    public User() {
+        this.profilePhotoPath = "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
+        this.coverPicturePath = "C:\\Users\\MsterX\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg";
 
     }
 
@@ -78,11 +75,11 @@ public class User {
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        this.Password = password;
+        this.password = password;
     }
 
     public String getUsername() {
