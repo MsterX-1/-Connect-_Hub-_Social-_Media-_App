@@ -13,18 +13,18 @@ import java.util.Arrays;
 
 public class FriendManager {
     private ArrayList<Friend> friends;
-//    private ArrayList<User> friendRequests;
+    private ArrayList<FriendRequest> friendRequests;
 //    private ArrayList<User> blockedUsers;
 //    private ArrayList<User> suggestedUsers;
 
-    private File friendsFile = new File("Lab 9/src/Backend/ContentCreation/friendsDB.json");
-//    private File friendRequestsFile = new File("Lab 9/src/Backend/ContentCreation/friendRequestsDB.json");
+    private File friendsFile = new File("Lab 9/src/Backend/FriendManager/friendsDB.json");
+    private File friendRequestsFile = new File("Lab 9/src/Backend/FriendManager/friendRequestsDB.json");
 //    private File blockedUsersFile = new File("Lab 9/src/Backend/ContentCreation/blockedUsersDB.json");
 //    private File suggestedFile = new File("Lab 9/src/Backend/ContentCreation/suggestedDB.json");
 
     public FriendManager() {
         friends = new ArrayList<>();
-//        friendRequests = new ArrayList<>();
+        friendRequests = new ArrayList<>();
 //        blockedUsers = new ArrayList<>();
 //        suggestedUsers = new ArrayList<>();
     }
@@ -36,18 +36,19 @@ public class FriendManager {
 //    }
 
     public void acceptFriendRequest(String senderId , String receiverId) {
-        //friendRequests.remove(newFriend);
-
         Friend friend = new Friend(receiverId);
         friend.addFriendsIds(senderId);
-        if (!friends.contains(friend) )
-            friends.add(friend);
+        FriendRequest friendRequest = new FriendRequest(receiverId);
+        friendRequest.removeFriendRequestsIds(senderId);
+        friends.add(friend);
     }
 
-//    public void declineFriendRequest(User user) {
-//        friendRequests.remove(user);
+    public void declineFriendRequest(String senderId , String receiverId) {
+        FriendRequest friendRequest = new FriendRequest(receiverId);
+        friendRequest.addFriendRequestsIds(senderId);
+        friendRequests.remove(friendRequest);
 //        suggestedUsers.add(user);
-//    }
+    }
 //
 //    public void removeFriend(User user) {
 //        if (friends.contains(user))
@@ -69,13 +70,13 @@ public class FriendManager {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.registerModule(new JavaTimeModule());
         try {
             if (databaseType.equals("friend")) {
                 objectMapper.writeValue(friendsFile, friends);
+                System.out.println(friends.size());
             }
-//            if (databaseType.equals("friendRequest"))
-//                objectMapper.writeValue(friendRequestsFile, friendRequests);
+            if (databaseType.equals("friendRequest"))
+                objectMapper.writeValue(friendRequestsFile, friendRequests);
 //            if (databaseType.equals("blocked"))
 //                objectMapper.writeValue(blockedUsersFile, blockedUsers);
 //            if (databaseType.equals("suggestion"))
@@ -97,12 +98,12 @@ public class FriendManager {
                 Friend[] friendsArray = objectMapper.readValue(friendsFile,Friend[].class);
                 friends.addAll(Arrays.asList(friendsArray));
             }
-//            if (databaseType.equals("friendRequest")) {
-//                if (!friendRequestsFile.exists() || friendRequestsFile.length() == 0) {
-//                }
-//                User[] requestsArray = objectMapper.readValue(friendRequestsFile,User[].class);
-//                friendRequests.addAll(Arrays.asList(requestsArray));
-//            }
+            if (databaseType.equals("friendRequest")) {
+                if (!friendRequestsFile.exists() || friendRequestsFile.length() == 0) {
+                }
+                FriendRequest[] friendRequestsArray = objectMapper.readValue(friendsFile, FriendRequest[].class);
+                friendRequests.addAll(Arrays.asList(friendRequestsArray));
+            }
 //            if (databaseType.equals("blocked")) {
 //                if (!blockedUsersFile.exists() || blockedUsersFile.length() == 0) {
 //                }

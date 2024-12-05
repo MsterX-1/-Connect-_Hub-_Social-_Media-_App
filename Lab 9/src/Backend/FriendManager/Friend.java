@@ -29,4 +29,7 @@ public class Friend{
     public void addFriendsIds(String friendId) {
        friendsIds.add(friendId);
     }
+    public void removeFriendsIds(String friendId) {
+        friendsIds.remove(friendId);
+    }
 }
