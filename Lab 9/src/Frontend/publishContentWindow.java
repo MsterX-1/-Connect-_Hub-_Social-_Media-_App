@@ -23,8 +23,7 @@ public class publishContentWindow extends JFrame {
     private String imagePath;
     private Post post;
     private Story story;
-
-    public publishContentWindow(String userId, String contentType,JScrollPane PostandStory) {
+    public publishContentWindow(String userId, String contentType) {
         post = new Post();
         story = new Story();
         setContentPane(main);
