@@ -2,16 +2,24 @@
   "contentId" : "Post1",
   "authorId" : "1",
   "content" : {
-    "text" : "kbhjadsdsa",
+    "text" : "first\n",
     "imagePaths" : [ ]
   },
-  "timeStamp" : [ 2024, 12, 6, 18, 34, 23, 22564600 ]
+  "timeStamp" : [ 2024, 12, 6, 20, 44, 51, 753731400 ]
 }, {
-  "contentId" : "Post1",
+  "contentId" : "Post2",
   "authorId" : "1",
   "content" : {
-    "text" : "kbhjdasdas",
-    "imagePaths" : [ "C:\\Users\\amrra\\Documents\\Lab 8 UML.png" ]
+    "text" : "second",
+    "imagePaths" : [ ]
   },
-  "timeStamp" : [ 2024, 12, 6, 18, 55, 54, 375318700 ]
+  "timeStamp" : [ 2024, 12, 6, 20, 44, 55, 998452500 ]
+}, {
+  "contentId" : "Post3",
+  "authorId" : "1",
+  "content" : {
+    "text" : "third",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 6, 20, 45, 9, 384030200 ]
 } ]
