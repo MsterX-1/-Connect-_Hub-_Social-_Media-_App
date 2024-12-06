@@ -23,7 +23,7 @@ public class publishContentWindow extends JFrame {
     private String imagePath;
     private Post post;
     private Story story;
-    public publishContentWindow(String userId, String contentType) {
+    public publishContentWindow(String userId, String contentType,ContentDatabase contentDatabase) {
         post = new Post();
         story = new Story();
         setContentPane(main);
@@ -37,10 +37,11 @@ public class publishContentWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(contentType.equals("post")) {
-                    ContentDatabase contentDatabase = new ContentDatabase();
-                    Post.setPostCounter(contentDatabase.loadContentFromDatabase("post"));
+//                    Post.setPostCounter(contentDatabase.loadContentFromDatabase("post"));
                     post.addText(description.getText());
                     contentDatabase.addContentToDatabase(post);
+                    System.out.println(contentDatabase.getContents().size());
+                    //Post.setPostCounter(contentDatabase.getContents().size());
                     post.publishContent();
                     post.setAuthorId(userId);
                     contentDatabase.writeContentToDatabase("post");
@@ -48,9 +49,8 @@ public class publishContentWindow extends JFrame {
                     dispose();
                 }
                 if(contentType.equals("story")) {
-                    ContentDatabase contentDatabase = new ContentDatabase();
                     contentDatabase.loadContentFromDatabase("story");
-                    Story.setStoryCounter(contentDatabase.getLastStoryId());
+//                    Story.setStoryCounter(contentDatabase.getLastStoryId());
                     story.addText(description.getText());
                     contentDatabase.addContentToDatabase(story);
                     story.publishContent();
@@ -114,5 +114,6 @@ public class publishContentWindow extends JFrame {
         Image image = originalImageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(image);
     }
+
 
 }

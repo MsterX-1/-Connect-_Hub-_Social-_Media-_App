@@ -6,13 +6,13 @@
   "dateOfBirth" : [ 2001, 12, 6 ],
   "status" : true,
   "bio" : "Hey There !",
-  "friendsIds" : [ "user1", "user2" ],
+  "friendsIds" : [ "2", "3" , "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3"],
   "friendsRequestsIds" : [ ],
   "blockedIds" : [ "2" ],
   "suggestedIds" : [ "3", "4" ],
   "blockedByIds" : [ ],
-  "profilePhotoPath" : "C:\\Users\\Y9fre\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
-  "coverPhotoPath" : "C:\\Users\\Y9fre\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+  "profilePhotoPath" : "C:\\Users\\amrra\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
+  "coverPhotoPath" : "C:\\Users\\amrra\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
 }, {
   "userId" : "2",
   "email" : "b@gmail.com",

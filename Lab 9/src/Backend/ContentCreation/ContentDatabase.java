@@ -27,7 +27,13 @@ public class ContentDatabase {
     public ArrayList<Content> getContents() {
         return contents;
     }
-
+    public Content getContentById(String contentId){
+        for (Content content : contents) {
+            if(contentId.equals(content.getContentId()))
+                return content;
+        }
+        return null;
+    }
     public void writeContentToDatabase(String type) {
 
         ObjectMapper objectMapper = new ObjectMapper();

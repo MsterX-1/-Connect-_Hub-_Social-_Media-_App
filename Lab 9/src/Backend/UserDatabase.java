@@ -16,7 +16,7 @@ public class UserDatabase {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
 
-        File file = new File("C:\\Users\\Y9fre\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Backend\\Users.json");
+        File file = new File("C:\\Users\\amrra\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Backend\\Users.json");
 
         // Check if the file exists and is not empty
         if (file.exists() && file.length() > 0) {
@@ -130,7 +130,7 @@ public class UserDatabase {
             for(int i =0 ;i <users.size() ; i++) {
                 usersArray[i] =  users.get(i);
             }
-            objectMapper.writeValue(new File("C:\\Users\\Y9fre\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Backend\\Users.json"), usersArray);
+            objectMapper.writeValue(new File("C:\\Users\\amrra\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Backend\\Users.json"), usersArray);
 
         } catch (IOException e) {
             System.err.println("Error while writing in JSON file: ");

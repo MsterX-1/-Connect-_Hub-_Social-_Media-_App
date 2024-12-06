@@ -152,7 +152,11 @@ public class User {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
+    public String getStatus(){
+        if(isStatus())
+            return "online";
+        return "offline";
+    }
     @Override
     public String toString() {
         return "User{" +
