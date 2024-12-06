@@ -31,6 +31,7 @@ public class Newsfeed extends JFrame {
     private JButton friendManagerButton;
     private JPanel currentUserPanel;
     private JPanel lowerButtons;
+    private JLabel usernameLabel;
     private JPanel imagePlace;
     private UserDatabase userDatabase;
     private String userId;
@@ -75,13 +76,13 @@ public class Newsfeed extends JFrame {
 
 
         imagelabel.setIcon(new ImageIcon(updateNewsFeedPhoto()));
-
+        usernameLabel.setText(userDatabase.getUserById(userId).getUsername());
 
         imagelabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                new PRofileManagementPage(userId, userDatabase, newsfeed, mainWindow).setVisible(true);
+                new PRofileManagementPage(userId, userDatabase, newsfeed, mainWindow,contentDatabase).setVisible(true);
                 setVisible(false);
             }
         });
@@ -186,11 +187,11 @@ public class Newsfeed extends JFrame {
     private void populatePosts(ContentDatabase contentDatabase) {
         postContainer.removeAll();
         // Simulate data for demonstration
-        if(contentDatabase.getContents() == null)
+        if(contentDatabase.getPosts() == null)
             return;
-        for (int i = 0; i < contentDatabase.getContents().size(); i++) {
-            String text = contentDatabase.getContents().get(i).getContent().getText();
-            ArrayList<String> imagePaths = contentDatabase.getContents().get(i).getContent().getImagePaths();
+        for (int i = 0; i < contentDatabase.getPosts().size(); i++) {
+            String text = contentDatabase.getPosts().get(i).getContent().getText();
+            ArrayList<String> imagePaths = contentDatabase.getPosts().get(i).getContent().getImagePaths();
 
             // Create a PostPanel for each post
             PostPanel postPanel = new PostPanel(text, imagePaths);
@@ -234,9 +235,4 @@ public class Newsfeed extends JFrame {
         suggestionsContainer.repaint();
     }
 
-    public static void main(String[] args) {
-        UserDatabase userDatabase = new UserDatabase();
-        userDatabase.loadFromFile();
-        new Newsfeed(userDatabase, "1", null);
-    }
 }

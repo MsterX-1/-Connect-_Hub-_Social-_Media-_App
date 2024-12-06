@@ -16,24 +16,23 @@ import java.util.Arrays;
 
 public class ContentDatabase {
     private int expiredStoriesCounter;
-    private ArrayList<Content> contents = new ArrayList<>();
+    private ArrayList<Content> posts = new ArrayList<>();
+    private ArrayList<Content> stories = new ArrayList<>();
+
     private File postsFile = new File("Lab 9/src/Backend/ContentCreation/postsDB.json");
     private File storiesFile = new File("Lab 9/src/Backend/ContentCreation/storiesDB.json");
 
-    public void addContentToDatabase(Content content) {
-        contents.add(content);
+    public void addContentToDatabase(Content content, String contentType) {
+        if(contentType.equals("post"))
+            posts.add(content);
+        else if(contentType.equals("story"))
+            stories.add(content);
     }
 
-    public ArrayList<Content> getContents() {
-        return contents;
+    public ArrayList<Content> getPosts() {
+        return posts;
     }
-    public Content getContentById(String contentId){
-        for (Content content : contents) {
-            if(contentId.equals(content.getContentId()))
-                return content;
-        }
-        return null;
-    }
+
     public void writeContentToDatabase(String type) {
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -42,30 +41,30 @@ public class ContentDatabase {
         objectMapper.registerModule(new JavaTimeModule());
         try {
             if (type.equals("post"))
-                objectMapper.writeValue(postsFile, contents);
+                objectMapper.writeValue(postsFile, posts);
             if (type.equals("story"))
-                objectMapper.writeValue(storiesFile, contents);
+                objectMapper.writeValue(storiesFile, stories);
         } catch (IOException e) {
             System.out.println("Error while writing to json");
         }
 
     }
 
-    public int loadContentFromDatabase(String type) {
+    public void loadContentFromDatabase(String type) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         try {
             if (type.equals("post")) {
                 if (!postsFile.exists() || postsFile.length() == 0) {
-                    return 0;
+                    return;
                 }
                 Content[] content = objectMapper.readValue(postsFile, Post[].class);
-                contents.addAll(Arrays.asList(content));
+                posts.addAll(Arrays.asList(content));
             }
             if (type.equals("story")) {
                 if (!storiesFile.exists() || storiesFile.length() == 0) {
-                    return 0;
+                    return;
                 }
                 Content[] content = objectMapper.readValue(storiesFile, Story[].class);
                 for (Content c : content) {
@@ -73,7 +72,7 @@ public class ContentDatabase {
                     if (storyHasExpired(LocalDateTime.now(), c.getTimeStamp()))
                         expiredStoriesCounter++;
                     else
-                        contents.add(c);
+                        stories.add(c);
                 }
 
             }
@@ -81,13 +80,18 @@ public class ContentDatabase {
             System.out.println("Error in loading posts from json postsFile");
         }
 
-        //to count posts
-        return contents.size() + expiredStoriesCounter;
     }
     public int getLastStoryId(){
-        if(contents.isEmpty())
+        if(stories.isEmpty())
             return 0;
-        String id = contents.getLast().getContentId();
+        String id = stories.getLast().getContentId();
+        String[] split = id.split(" ");
+        return Integer.parseInt(split[1]);
+    }
+    public int getLastPostId(){
+        if(posts.isEmpty())
+            return 0;
+        String id = posts.getLast().getContentId();
         String[] split = id.split(" ");
         return Integer.parseInt(split[1]);
     }

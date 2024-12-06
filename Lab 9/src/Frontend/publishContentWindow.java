@@ -38,9 +38,9 @@ public class publishContentWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(contentType.equals("post")) {
 //                    Post.setPostCounter(contentDatabase.loadContentFromDatabase("post"));
+                    Post.setPostCounter(contentDatabase.getLastPostId());
                     post.addText(description.getText());
-                    contentDatabase.addContentToDatabase(post);
-                    //Post.setPostCounter(contentDatabase.getContents().size());
+                    contentDatabase.addContentToDatabase(post,"post");
                     post.publishContent();
                     post.setAuthorId(userId);
                     contentDatabase.writeContentToDatabase("post");
@@ -49,9 +49,9 @@ public class publishContentWindow extends JFrame {
                 }
                 if(contentType.equals("story")) {
 //                    contentDatabase.loadContentFromDatabase("story");
-//                    Story.setStoryCounter(contentDatabase.getLastStoryId());
+                    Story.setStoryCounter(contentDatabase.getLastStoryId());
                     story.addText(description.getText());
-                    contentDatabase.addContentToDatabase(story);
+                    contentDatabase.addContentToDatabase(story,"story");
                     story.publishContent();
                     story.setAuthorId(userId);
                     contentDatabase.writeContentToDatabase("story");

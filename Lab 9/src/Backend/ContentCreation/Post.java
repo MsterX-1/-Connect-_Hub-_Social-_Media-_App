@@ -22,7 +22,7 @@ public class Post extends Content {
     @Override
     public void publishContent() {
         postCounter++;
-        setContentId("Post" + postCounter);
+        setContentId("Post " + postCounter);
         setTimeStamp(LocalDateTime.now());
     }
 

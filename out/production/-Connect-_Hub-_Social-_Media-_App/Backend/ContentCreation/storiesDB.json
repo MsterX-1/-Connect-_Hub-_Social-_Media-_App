@@ -1,0 +1,9 @@
+[ {
+  "contentId" : "Story 1",
+  "authorId" : "2",
+  "content" : {
+    "text" : "new story",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 6, 23, 28, 8, 71550100 ]
+} ]

@@ -75,7 +75,11 @@ public class signup extends JFrame {
                     }
                     else{
                         String newUserId = ""+(userDatabase.getUsers().size()+1); //initialize user id maybe will change the format latter
-                        User newUser = new User(newUserId,newUserEmail,newUserPassword,newUserName,localDate,false,new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>());
+                        ArrayList<String> userSuggestions = new ArrayList<>();
+                        for(int i=0 ; i < userDatabase.getUsers().size() ;i++){
+                            userSuggestions.add(userDatabase.getUsers().get(i).getUserId());
+                        }
+                        User newUser = new User(newUserId,newUserEmail,newUserPassword,newUserName,localDate,false,new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(),userSuggestions,new ArrayList<String>());
                         try {
                             if (userDatabase.addUser(newUser)) {
                                 JOptionPane.showMessageDialog(signupwindow, "New User Created successfully", "Success", JOptionPane.INFORMATION_MESSAGE);

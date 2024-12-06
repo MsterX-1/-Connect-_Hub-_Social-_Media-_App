@@ -1,74 +1,63 @@
 package Backend.FriendManager;
 
 import Backend.UserDatabase;
+import Frontend.CustomPanels.ProfilePanel;
+import Frontend.CustomPanels.RequestsPanel;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class FriendRequestsWindow extends JFrame {
     private JPanel mainPanel;
-    private JPanel friendRequestPanel;
-    private JLabel imageLabel1;
-    private JButton declineButton1;
-    private JButton acceptButton1;
-    private JLabel usernameLabel;
-    private JPanel friend1;
-    private JPanel friend2;
-    private JPanel friend3;
-    private JLabel imageLabel2;
-    private JButton declineButton2;
-    private JLabel usernameLabel2;
-    private JButton acceptButton2;
-    private JLabel imageLabel3;
-    private JButton declineButton3;
-    private JLabel usernameLabel3;
-    private JButton acceptButton3;
-
-    public FriendRequestsWindow(String userId , UserDatabase userDatabase) {
+    private JScrollPane requestsScrollPane;
+    private JPanel requestsContainer;
+    private String userId;
+    private UserDatabase userDatabase;
+    private FriendMangerWindow1 friendMangerWindow1;
+    private FriendRequestsWindow friendRequestsWindow;
+    public FriendRequestsWindow(String userId , UserDatabase userDatabase , FriendMangerWindow1 friendMangerWindow1) {
+        this.userDatabase = userDatabase;
+        this.userId = userId;
+        this.friendMangerWindow1 = friendMangerWindow1;
+        friendRequestsWindow = this;
         setContentPane(mainPanel);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 400);
         setLocationRelativeTo(null);
         setTitle("Friend requests");
-        usernameLabel.setText(userDatabase.getUserById("2").getUsername());
+
+        requestsContainer.setLayout(new BoxLayout(requestsContainer, BoxLayout.Y_AXIS));
+        populateRequestsList(userDatabase);
+        requestsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        requestsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         setVisible(true);
 
+    }
+    public void populateRequestsList(UserDatabase userDatabase) {
+        // Simulate data for demonstration
+        if(userDatabase.getUserById(userId).getFriendsRequestsIds() == null)
+            return;
+        requestsContainer.removeAll();
+        for (int i = 0; i < userDatabase.getUserById(userId).getFriendsRequestsIds().size(); i++) {
+            String senderId = userDatabase.getUserById(userId).getFriendsRequestsIds().get(i);
+            String senderName = userDatabase.getUserById(senderId).getUsername();
+            String imagePaths = userDatabase.getUserById(senderId).getProfilePhotoPath();
 
-        // Load the image from file
-        ImageIcon imageIcon = new ImageIcon(userDatabase.getUserById("2").getProfilePhotoPath()); // Replace with your image path
+            // Create a PostPanel for each post
+            RequestsPanel requestsPanel = new RequestsPanel(senderName,imagePaths,friendMangerWindow1 , userId , senderId , friendRequestsWindow , userDatabase);
 
-        // Resize the image to fit the label's size
-        Image image = imageIcon.getImage();
-        image = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+            // Add padding and border to each PostPanel
+            requestsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Set the resized image to the label
-        imageLabel1.setIcon(new ImageIcon(image));
+            // Add the PostPanel to the container
+            requestsContainer.add(requestsPanel);
 
-        acceptButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            FriendManager friendManager = new FriendManager();
-            friendManager.acceptFriendRequest("2",userId);
-            friendManager.writeToDatabase("friend");
-            friendManager.writeToDatabase("friendRequest");
-            }
-        });
-        declineButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        }
 
-            }
-        });
-
+        // Revalidate and repaint the container to apply updates
+        requestsContainer.revalidate();
+        requestsContainer.repaint();
     }
 
-    public static void main(String[] args) {
-        UserDatabase userDatabase = new UserDatabase();
-        userDatabase.loadFromFile();
-        new FriendRequestsWindow("1" , userDatabase);
-    }
+
 
 
 }

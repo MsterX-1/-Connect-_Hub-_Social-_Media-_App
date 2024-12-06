@@ -10,11 +10,12 @@ import java.util.ArrayList;
 
 public class FriendMangerWindow1 extends JFrame{
     private JPanel panel1;
-    private JButton friendsRequestsButton;
+    private JButton sendRequestButton;
     private JButton friendsButton;
     private JButton blocksButton;
     private JButton suggestionsButton;
     private JPanel FriendsMangerW;
+    private JButton checkRequestsButton;
 
     private UserDatabase userDatabase;
     private String currentUserId ;
@@ -51,7 +52,7 @@ FriendMangerWindow1 friendMangerWindow1 = this;
            }
        });
 
-       friendsRequestsButton.addActionListener(new ActionListener() {
+       sendRequestButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
                String RequestedFriendId;
@@ -68,6 +69,12 @@ FriendMangerWindow1 friendMangerWindow1 = this;
 
                }
               
+           }
+       });
+       checkRequestsButton.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               new FriendRequestsWindow(currentUserId,userDatabase,friendMangerWindow1);
            }
        });
    }
@@ -94,18 +101,18 @@ FriendMangerWindow1 friendMangerWindow1 = this;
         userDatabase.saveToFile();
 
     }
-        public void acceptFriendRequest(String currentUserId  , String sender) {
+        public void acceptFriendRequest(String currentUserId  , String senderId) {
             ArrayList<String> currentUserFriendRequests = userDatabase.getUserById(currentUserId).getFriendsRequestsIds();
-            ArrayList<String> senderFriends = userDatabase.getUserById(sender).getFriendsRequestsIds();
-            ArrayList<String> currentUserFriends = userDatabase.getUserById(currentUserId).getFriendsRequestsIds();
-            currentUserFriendRequests.remove(currentUserFriendRequests.indexOf(sender));
-            senderFriends.add(currentUserId);
-            currentUserFriends.add(sender);
+            ArrayList<String> senderIdFriends = userDatabase.getUserById(senderId).getFriendsIds();
+            ArrayList<String> currentUserFriends = userDatabase.getUserById(currentUserId).getFriendsIds();
+            currentUserFriendRequests.remove(senderId);
+            senderIdFriends.add(currentUserId);
+            currentUserFriends.add(senderId);
             userDatabase.getUserById(currentUserId).setFriendsIds(currentUserFriends);
             userDatabase.getUserById(currentUserId).setFriendsRequestsIds(currentUserFriendRequests);
-            userDatabase.getUserById(sender).setFriendsIds(senderFriends);
+            userDatabase.getUserById(senderId).setFriendsIds(senderIdFriends);
             updateSuggestions(currentUserId);
-            updateSuggestions(sender);
+            updateSuggestions(senderId);
             userDatabase.saveToFile();
 
 
