@@ -54,4 +54,18 @@
   "blockedByIds" : [ ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+}, {
+  "userId" : "5",
+  "email" : "team@email.com",
+  "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+  "username" : "team",
+  "dateOfBirth" : [ 1991, 12, 18 ],
+  "bio" : "Hey There !",
+  "friendsIds" : [ ],
+  "friendsRequestsIds" : [ ],
+  "blockedIds" : [ ],
+  "suggestedIds" : [ "1", "2", "3", "4" ],
+  "blockedByIds" : [ ],
+  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
 } ]

@@ -1,9 +1,9 @@
 [ {
   "contentId" : "Story 1",
-  "authorId" : "2",
+  "authorId" : "5",
   "content" : {
-    "text" : "new story",
+    "text" : "team story",
     "imagePaths" : [ ]
   },
-  "timeStamp" : [ 2024, 12, 6, 23, 28, 8, 71550100 ]
+  "timeStamp" : [ 2024, 12, 6, 23, 41, 15, 548377000 ]
 } ]
