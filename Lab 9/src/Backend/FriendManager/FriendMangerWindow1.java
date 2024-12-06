@@ -1,7 +1,6 @@
 package Backend.FriendManager;
 
 import Backend.UserDatabase;
-import Frontend.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,13 +31,7 @@ FriendMangerWindow1 friendMangerWindow1 = this;
         setTitle("FriendsManger");
 
 
-        friendsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new friendsWindow(userDatabase , currentUserId , friendMangerWindow1);
-                setVisible(false);
-            }
-        });
+
        blocksButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
@@ -57,41 +50,35 @@ FriendMangerWindow1 friendMangerWindow1 = this;
                }
            }
        });
-       suggestionsButton.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-               for(int i =0 ; i<userDatabase.getUsers().size() ; i++)
-                   updateSuggestions(userDatabase.getUsers().get(i).getUserId());
-               new Suggestions(userDatabase , currentUserId , friendMangerWindow1);
-               setVisible(false);
 
-           }
-       });
        friendsRequestsButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               new FriendRequesrs1(userDatabase , currentUserId , friendMangerWindow1);
-               setVisible(false);
+//               new FriendRequesrs1(userDatabase , currentUserId , friendMangerWindow1);
+              
            }
        });
    }
-    public void sendFriendRequest(String currentUserId  , String reciver) {
-        ArrayList<String> reciverFriendRequests = userDatabase.getUserById(reciver).getFriendsRequestsIds();
-        if (reciverFriendRequests.contains(currentUserId)) {
-            JOptionPane.showMessageDialog(null, "You are already sent friend request with this user.");
+    public void sendFriendRequest(String currentUserId  , String receiver) {
+        ArrayList<String> receiverFriendRequests = userDatabase.getUserById(receiver).getFriendsRequestsIds();
+        if (receiverFriendRequests.contains(currentUserId)) {
+            JOptionPane.showMessageDialog(null, "You have already sent friend request to this user.");
 
 
-        } else if (userDatabase.getUserById(reciver).getFriendsIds().contains(currentUserId)) {
-            JOptionPane.showMessageDialog(null, "You are already friend with this user.");
+        } else if (userDatabase.getUserById(receiver).getFriendsIds().contains(currentUserId)) {
+            JOptionPane.showMessageDialog(null, "You are already friends with this user.");
 
-        } else {
-            reciverFriendRequests.add(currentUserId);
-            userDatabase.getUserById(reciver).setFriendsRequestsIds(reciverFriendRequests);
-            JOptionPane.showMessageDialog(null, "Friend request sent succesfully.");
+        } else if(userDatabase.getUserById(receiver).getBlockedIds().contains(currentUserId)) {
+            JOptionPane.showMessageDialog(null, "You are blocked by this user.");
+        }
+        else{
+            receiverFriendRequests.add(currentUserId);
+            userDatabase.getUserById(receiver).setFriendsRequestsIds(receiverFriendRequests);
+            JOptionPane.showMessageDialog(null, "Friend request sent successfully.");
 
         }
         updateSuggestions(currentUserId);
-        updateSuggestions(reciver);
+        updateSuggestions(receiver);
         userDatabase.saveToFile();
 
     }

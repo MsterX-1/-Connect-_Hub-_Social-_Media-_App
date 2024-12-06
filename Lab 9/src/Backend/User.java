@@ -1,5 +1,7 @@
 package Backend;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -152,6 +154,7 @@ public class User {
     public void setStatus(boolean status) {
         this.status = status;
     }
+    @JsonIgnore
     public String getStatus(){
         if(isStatus())
             return "online";

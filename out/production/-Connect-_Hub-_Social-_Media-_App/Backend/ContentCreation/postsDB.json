@@ -1,0 +1,17 @@
+[ {
+  "contentId" : "Post1",
+  "authorId" : "1",
+  "content" : {
+    "text" : "kbhjadsdsa",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 6, 18, 34, 23, 22564600 ]
+}, {
+  "contentId" : "Post1",
+  "authorId" : "1",
+  "content" : {
+    "text" : "kbhjdasdas",
+    "imagePaths" : [ "C:\\Users\\amrra\\Documents\\Lab 8 UML.png" ]
+  },
+  "timeStamp" : [ 2024, 12, 6, 18, 55, 54, 375318700 ]
+} ]
