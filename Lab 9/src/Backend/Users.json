@@ -34,9 +34,9 @@
   "dateOfBirth" : [ 2003, 12, 6 ],
   "bio" : "Hey There !",
   "friendsIds" : [ ],
-  "friendsRequestsIds" : [ ],
+  "friendsRequestsIds" : [ "1" ],
   "blockedIds" : [ ],
-  "suggestedIds" : [ "1", "2", "4" ],
+  "suggestedIds" : [ "2", "4" ],
   "blockedByIds" : [ ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"

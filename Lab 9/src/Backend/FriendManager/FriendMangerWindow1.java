@@ -54,7 +54,19 @@ FriendMangerWindow1 friendMangerWindow1 = this;
        friendsRequestsButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-//               new FriendRequesrs1(userDatabase , currentUserId , friendMangerWindow1);
+               String RequestedFriendId;
+               RequestedFriendId=JOptionPane.showInputDialog(null,"Enter id you want to send a friend request to: ", "Info", JOptionPane.INFORMATION_MESSAGE);
+               if (RequestedFriendId == null) {
+                   // User clicked "Cancel"
+                   JOptionPane.showMessageDialog(null, "friend request is canceled.", "Canceled", JOptionPane.WARNING_MESSAGE);
+               } else if (RequestedFriendId.trim().isEmpty()) {
+                   // User entered an empty string
+                   JOptionPane.showMessageDialog(null, "id can't be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+               } else {
+                   // User entered valid input
+                   sendFriendRequest(currentUserId , RequestedFriendId);
+
+               }
               
            }
        });
