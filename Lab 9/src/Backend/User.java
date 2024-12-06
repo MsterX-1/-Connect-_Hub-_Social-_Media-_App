@@ -1,6 +1,7 @@
 package Backend;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class User {
     private String userId;
@@ -10,11 +11,23 @@ public class User {
     private LocalDate dateOfBirth;
     private boolean status;
     private String bio;
+    private ArrayList<String> friendsIds;
+    private ArrayList<String> friendsRequestsIds;
+    private ArrayList<String> blockedIds;
+    private ArrayList<String> suggestedIds;
+    private ArrayList<String> blockedByIds;
     private String profilePhotoPath;
     private String coverPicturePath;
 
+    public ArrayList<String> getBlockedByIds() {
+        return blockedByIds;
+    }
 
-    public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status) {
+    public void setBlockedByIds(ArrayList<String> blockedByIds) {
+        this.blockedByIds = blockedByIds;
+    }
+
+    public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status , ArrayList<String> friendsIds , ArrayList<String> friendsRequestsIds , ArrayList<String> blockedIds , ArrayList<String> suggestedIds ,ArrayList<String> blockedByIds) {
         this.userId = userId;
         this.email = email;
         this.password = password;
@@ -24,11 +37,55 @@ public class User {
         this.bio = "Hey There !";
         this.profilePhotoPath = "Lab 9/src/Frontend/DefultPic.jpg";
         this.coverPicturePath = "Lab 9/src/Frontend/DefultPic.jpg";
-
+        this.friendsIds = friendsIds;
+        this.friendsRequestsIds = friendsRequestsIds;
+        this.blockedIds = blockedIds;
+        this.suggestedIds = suggestedIds;
+        this.blockedByIds = blockedByIds;
     }
     public User() {}
     public String getUserId() {
         return userId;
+    }
+
+    public ArrayList<String> getFriendsIds() {
+        return friendsIds;
+    }
+
+    public void setFriendsIds(ArrayList<String> friendsIds) {
+        this.friendsIds = friendsIds;
+    }
+
+    public ArrayList<String> getFriendsRequestsIds() {
+        return friendsRequestsIds;
+    }
+
+    public void setFriendsRequestsIds(ArrayList<String> friendsRequestsIds) {
+        this.friendsRequestsIds = friendsRequestsIds;
+    }
+
+    public ArrayList<String> getBlockedIds() {
+        return blockedIds;
+    }
+
+    public void setBlockedIds(ArrayList<String> blockedIds) {
+        this.blockedIds = blockedIds;
+    }
+
+    public ArrayList<String> getSuggestedIds() {
+        return suggestedIds;
+    }
+
+    public void setSuggestedIds(ArrayList<String> suggestedIds) {
+        this.suggestedIds = suggestedIds;
+    }
+
+    public String getCoverPicturePath() {
+        return coverPicturePath;
+    }
+
+    public void setCoverPicturePath(String coverPicturePath) {
+        this.coverPicturePath = coverPicturePath;
     }
 
     public void setUserId(String userId) {

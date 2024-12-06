@@ -47,9 +47,9 @@ public class FriendManager {
 //        FriendRequest friendRequest = new FriendRequest(receiverId);
 //        friendRequest.addFriendRequestsIds(senderId);
 //        friendRequests.remove(friendRequest);
-        Suggested suggested = new Suggested(receiverId);
-        if (!suggested.getsuggestedIds().contains(senderId))
-            suggested.addSuggestedIds(senderId);
+  //      Suggested suggested = new Suggested(receiverId);
+  //      if (!suggested.getsuggestedIds().contains(senderId))
+  //          suggested.addSuggestedIds(senderId);
     }
 //
 //    public void removeFriend(User user) {

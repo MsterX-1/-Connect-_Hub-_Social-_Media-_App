@@ -74,7 +74,7 @@ public class signup extends JFrame {
                     }
                     else{
                         String newUserId = ""+(userDatabase.getUsers().size()+1); //initialize user id maybe will change the format latter
-                        User newUser = new User(newUserId,newUserEmail,newUserPassword,newUserName,localDate,false);
+                        User newUser = new User(newUserId,newUserEmail,newUserPassword,newUserName,localDate,false,new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>());   // want to add all fr ids in the suggestions
                         try {
                             if (userDatabase.addUser(newUser)) {
                                 JOptionPane.showMessageDialog(signupwindow, "New User Created successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
