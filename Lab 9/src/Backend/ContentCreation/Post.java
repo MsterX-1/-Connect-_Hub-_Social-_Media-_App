@@ -10,6 +10,10 @@ public class Post extends Content {
     @JsonIgnore
     private static int postCounter;
 
+    public static int getPostCounter() {
+        return postCounter;
+    }
+
     public static void setPostCounter(int postCounter) {
         Post.postCounter = postCounter;
     }
@@ -18,7 +22,7 @@ public class Post extends Content {
     @Override
     public void publishContent() {
         postCounter++;
-        setContentId("Post" + postCounter++);
+        setContentId("Post " + postCounter);
         setTimeStamp(LocalDateTime.now());
     }
 

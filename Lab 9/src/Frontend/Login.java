@@ -19,6 +19,7 @@ public class Login extends JFrame {
         setContentPane(login);
         setSize(new Dimension(800, 600));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setLocationRelativeTo(null);
         setTitle("login");
 
@@ -38,7 +39,8 @@ public class Login extends JFrame {
                                 userDatabase.saveToFile();
                                 // next page
                                 String userId = userDatabase.getUsers().get(userDatabase.getUserIndexByNameAndPass(userName,userPassword)).getUserId();
-                                new PRofileManagementPage(userId,userDatabase);
+                                new Newsfeed(userDatabase, userId,mainWindow);
+
                                 setVisible(false);
 
                             }

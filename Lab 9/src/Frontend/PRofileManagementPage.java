@@ -1,5 +1,8 @@
 package Frontend;
+import Backend.ContentCreation.ContentDatabase;
 import Backend.UserDatabase;
+import Frontend.CustomPanels.PostPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,52 +18,39 @@ public class PRofileManagementPage extends JFrame {
     private JPanel panel;          // Main Panel
     private JPanel coverpanel;
     private JPanel picturepanel;
-    private JScrollPane ScrollPnael;
+    private JScrollPane postScrollPane;
     private JTextField BioField;
-    private JPanel postsPanel;     // Panel to hold individual posts
-    private ArrayList<String> postsList;
+    private JButton logoutButton;
+    private JButton returnButton;
+    private JPanel postContainer;
     private UserDatabase userDatabase;
     private String userId;
 
 
-    public PRofileManagementPage(String userID,UserDatabase userDatabase) {
+    public PRofileManagementPage(String userID,UserDatabase userDatabase,Newsfeed newsfeed,MainWindow mainWindow, ContentDatabase contentDatabase) {
         this.userDatabase = userDatabase;
         this.userId = userID;
         setTitle("Profile Management");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setResizable(false);
         PRofileManagementPage pRofileManagementPage = this;
-
+        //managing posts
+        postContainer.setLayout(new BoxLayout(postContainer, BoxLayout.Y_AXIS));
+        populatePosts(contentDatabase);
+        postScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        postScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        //
         coverpanel.setLayout(new FlowLayout());
         picturepanel.setLayout(new FlowLayout());
-        postsPanel = new JPanel();
-        postsPanel.setLayout(new BoxLayout(postsPanel, BoxLayout.Y_AXIS));
+       ;
 
-        ScrollPnael.setViewportView(postsPanel);
+
         int index = userDatabase.getUserIndexById(userId);
         String bio= userDatabase.getUsers().get(index).getBio();
         BioField.setText(bio);
         BioField.setEditable(false);   // Lock the text field to make it read-only
-
-
-      //  UserDatabase userdb = new UserDatabase();
-//userdb.loadFromFile();
-      //  System.out.println(userdb.getUsers().size());
-     //   if (userdb.getUsers().isEmpty()) {
-     //       System.out.println("Users list is empty. Check your JSON file or loadFromFile method.");
-
-    //    }
-
-
-       // User User1 = userdb.getuserbyId(userID);
-       // if (User1 != null) {
-       //     System.out.println("User found: " + User1);
-       //      loadCircularImageToPanel(picturepanel, User1.getProfilePhotoPath(), 150);
-       //       loadCircularImageToPanel(coverpanel, User1.getCoverPhotoPath(), 400);
-       //   } else {
-       //       JOptionPane.showMessageDialog(this, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
-       //    }
 
       String pathPhotoProfile=  userDatabase.getUsers().get(index).getProfilePhotoPath();
         String pathCoverProfile=  userDatabase.getUsers().get(index).getCoverPhotoPath();
@@ -68,9 +58,6 @@ public class PRofileManagementPage extends JFrame {
         loadCircularImageToPanel(coverpanel, pathCoverProfile, 400);
 
 
-        postsList = new ArrayList<>();
-        loadPosts();
-        displayPosts();
 
         editButton.addActionListener(e -> {
             System.out.println("Edit button clicked!");
@@ -86,6 +73,52 @@ public class PRofileManagementPage extends JFrame {
 
         setContentPane(panel);
         setVisible(true);
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = userDatabase.getUserIndexById(userId);
+                userDatabase.getUsers().get(index).setStatus(false);
+                userDatabase.saveToFile();
+                JOptionPane.showMessageDialog(null, "Logout Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                mainWindow.setVisible(true);
+                setVisible(false);
+            }
+        });
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newsfeed.setVisible(true);
+                setVisible(false);
+            }
+        });
+    }
+    private void populatePosts(ContentDatabase contentDatabase) {
+        postContainer.removeAll();
+        // Simulate data for demonstration
+        if(contentDatabase.getPosts() == null)
+            return;
+        for (int i = 0; i < contentDatabase.getPosts().size(); i++) {
+            String postAuthor = contentDatabase.getPosts().get(i).getAuthorId();
+            if(!postAuthor.equals(userId)){
+                continue;
+            }
+            String text = contentDatabase.getPosts().get(i).getContent().getText();
+            ArrayList<String> imagePaths = contentDatabase.getPosts().get(i).getContent().getImagePaths();
+
+            // Create a PostPanel for each post
+            PostPanel postPanel = new PostPanel(text, imagePaths);
+
+            // Add padding and border to each PostPanel
+            postPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+            // Add the PostPanel to the container
+            postContainer.add(postPanel);
+
+        }
+
+        // Revalidate and repaint the container to apply updates
+        postContainer.revalidate();
+        postContainer.repaint();
     }
 
     public void updateProfilePicture(String imagePath) {
@@ -147,28 +180,5 @@ public class PRofileManagementPage extends JFrame {
         }
     }
 
-    private void loadPosts() {
-        postsList.add("Post 1: This is the first post.");
-        postsList.add("Post 2: Another post added here.");
-        postsList.add("Post 3: Welcome to the profile management page!");
-        postsList.add("Post 4: Feel free to scroll down.");
-    }
 
-    private void displayPosts() {
-        postsPanel.removeAll();
-
-        for (String post : postsList) {
-            // Create a label or custom component for each post
-            JLabel postLabel = new JLabel(post);
-            postLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
-            postLabel.setOpaque(true);
-            postLabel.setBackground(Color.LIGHT_GRAY);
-            postLabel.setAlignmentX(Component.LEFT_ALIGNMENT); // Align to the left
-            postsPanel.add(postLabel);
-            postsPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add spacing between posts
-        }
-
-        postsPanel.revalidate();
-        postsPanel.repaint();
-    }
 }

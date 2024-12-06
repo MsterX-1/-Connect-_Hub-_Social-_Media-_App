@@ -3,7 +3,6 @@ package Frontend;
 import Backend.ContentCreation.ContentDatabase;
 import Backend.ContentCreation.Post;
 import Backend.ContentCreation.Story;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,24 +23,24 @@ public class publishContentWindow extends JFrame {
     private String imagePath;
     private Post post;
     private Story story;
-    public publishContentWindow(String userId, String contentType) {
+    public publishContentWindow(String userId, String contentType,ContentDatabase contentDatabase) {
         post = new Post();
         story = new Story();
         setContentPane(main);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
         setTitle("Share your thoughts");
+        setResizable(false);
         setVisible(true);
 
         publishButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(contentType.equals("post")) {
-                    ContentDatabase contentDatabase = new ContentDatabase();
-                    Post.setPostCounter(contentDatabase.loadContentFromDatabase("post"));
+//                    Post.setPostCounter(contentDatabase.loadContentFromDatabase("post"));
+                    Post.setPostCounter(contentDatabase.getLastPostId());
                     post.addText(description.getText());
-                    contentDatabase.addContentToDatabase(post);
+                    contentDatabase.addContentToDatabase(post,"post");
                     post.publishContent();
                     post.setAuthorId(userId);
                     contentDatabase.writeContentToDatabase("post");
@@ -49,11 +48,10 @@ public class publishContentWindow extends JFrame {
                     dispose();
                 }
                 if(contentType.equals("story")) {
-                    ContentDatabase contentDatabase = new ContentDatabase();
-                    contentDatabase.loadContentFromDatabase("story");
+//                    contentDatabase.loadContentFromDatabase("story");
                     Story.setStoryCounter(contentDatabase.getLastStoryId());
                     story.addText(description.getText());
-                    contentDatabase.addContentToDatabase(story);
+                    contentDatabase.addContentToDatabase(story,"story");
                     story.publishContent();
                     story.setAuthorId(userId);
                     contentDatabase.writeContentToDatabase("story");
@@ -116,8 +114,5 @@ public class publishContentWindow extends JFrame {
         return new ImageIcon(image);
     }
 
-    public static void main(String[] args) {
 
-        new publishContentWindow("user1","story");
-    }
 }
