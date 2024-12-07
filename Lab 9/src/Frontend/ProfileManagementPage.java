@@ -22,10 +22,11 @@ public class ProfileManagementPage extends JFrame {
     private JPanel coverpanel;
     private JPanel picturepanel;
     private JScrollPane postScrollPane;
-    private JTextField BioField;
+
     private JButton logoutButton;
     private JButton returnButton;
     private JPanel postContainer;
+    private JLabel bioLabel;
     private UserDatabase userDatabase;
     private String userId;
 
@@ -52,8 +53,7 @@ public class ProfileManagementPage extends JFrame {
 
         int index = userDatabase.getUserIndexById(userId);
         String bio= userDatabase.getUsers().get(index).getBio();
-        BioField.setText(bio);
-        BioField.setEditable(false);   // Lock the text field to make it read-only
+        bioLabel.setText(bio);
 
       String pathPhotoProfile=  userDatabase.getUsers().get(index).getProfilePhotoPath();
         String pathCoverProfile=  userDatabase.getUsers().get(index).getCoverPhotoPath();
@@ -68,7 +68,7 @@ public class ProfileManagementPage extends JFrame {
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new EditProfile(pRofileManagementPage,userID,userDatabase,BioField);
+               new EditProfile(pRofileManagementPage,userID,userDatabase , bioLabel);
                //setVisible(false);
             }
         });

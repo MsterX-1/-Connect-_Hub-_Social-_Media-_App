@@ -35,7 +35,7 @@
   "authorId" : "2",
   "content" : {
     "text" : "ndjlakskdajbdas",
-    "imagePaths" : [ ]
+    "imagePaths" : [ "C:\\Users\\amrra\\Documents\\Lab 8 UML.png" ]
   },
   "timeStamp" : [ 2024, 12, 8, 0, 31, 37, 344818600 ]
 }, {
@@ -43,7 +43,7 @@
   "authorId" : "2",
   "content" : {
     "text" : "ljabdsihkasd",
-    "imagePaths" : [ "C:\\Users\\amrra\\Documents\\Lab 8 UML.png" ]
+    "imagePaths" : [  ]
   },
   "timeStamp" : [ 2024, 12, 8, 0, 34, 15, 249618400 ]
 } ]

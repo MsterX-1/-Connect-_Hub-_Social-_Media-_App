@@ -154,8 +154,7 @@ public class User {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    @JsonIgnore
-    public String getStatus(){
+    public String checkStatus(){
         if(isStatus())
             return "online";
         return "offline";

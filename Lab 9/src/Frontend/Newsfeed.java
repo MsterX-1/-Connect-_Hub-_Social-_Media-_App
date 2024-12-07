@@ -136,6 +136,7 @@ public class Newsfeed extends JFrame {
     }
 
     public Image updateNewsFeedPhoto() {
+
         int index = userDatabase.getUserIndexById(userId);
         String pathPhotoProfile = userDatabase.getUserById(userId).getProfilePhotoPath();
         ImageIcon imageIcon = new ImageIcon(pathPhotoProfile); // Load image
@@ -176,7 +177,8 @@ public class Newsfeed extends JFrame {
 
             String friendId = userDatabase.getUserById(userId).getFriendsIds().get(i);
             String friendName = userDatabase.getUserById(friendId).getUsername();
-            String friendStatus = userDatabase.getUserById(friendId).getStatus();
+            String friendStatus = userDatabase.getUserById(friendId).checkStatus();
+            System.out.println(friendStatus);
             String imagePaths = userDatabase.getUserById(friendId).getProfilePhotoPath();
 
             // Create a PostPanel for each post

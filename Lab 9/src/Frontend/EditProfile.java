@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EditProfile extends JFrame {
-    private JTextField bioField;
+
     private JLabel profilePhotoLabel;
     private JLabel coverPhotoLabel;
     private JButton ChangeProfilePicButton;
@@ -18,13 +18,12 @@ public class EditProfile extends JFrame {
     private ProfileManagementPage pRofileManagementPage;
     private String userId;
     private UserDatabase userDatabase;
-    private JTextField BioField;
 
-    public EditProfile(ProfileManagementPage pRofileManagementPage, String userId, UserDatabase userDatabase, JTextField BioField) {
+
+    public EditProfile(ProfileManagementPage pRofileManagementPage, String userId, UserDatabase userDatabase, JLabel bioLabel) {
         this.pRofileManagementPage = pRofileManagementPage;
         this.userId = userId;
         this.userDatabase = userDatabase;
-        this.BioField = BioField;
         EditProfile editProfile = this;
         setTitle("Edit Profile");
         setSize(400, 300);
@@ -82,8 +81,7 @@ public class EditProfile extends JFrame {
                     JOptionPane.showMessageDialog(null, "Bio cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     // User entered valid input
-                    BioField.setText(bio);
-                    BioField.setEditable(false);
+                    bioLabel.setText(bio);
                     int index = userDatabase.getUserIndexById(userId);
                     userDatabase.getUsers().get(index).setBio(bio);
                     userDatabase.saveToFile();
