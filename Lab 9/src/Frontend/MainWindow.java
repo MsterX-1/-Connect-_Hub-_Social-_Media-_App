@@ -1,5 +1,10 @@
 package Frontend;
 
+import Backend.ContentCreation.Post;
+import Backend.Databases.DataManager;
+import Backend.Databases.DatabaseFactory;
+import Backend.Interfaces.Database;
+import Backend.User;
 import Backend.UserDatabase;
 
 import javax.swing.*;
@@ -44,6 +49,9 @@ public class MainWindow extends JFrame {
 
     public static void main(String[] args) {
         UserDatabase userDatabase = new UserDatabase();
+//        Database<User> userDatabase = DatabaseFactory.createDatabase("user");
+//        DataManager<User> userDataManager = new DataManager<>(userDatabase);
+//        userDataManager.loadData();
         new MainWindow(userDatabase);
     }
 }

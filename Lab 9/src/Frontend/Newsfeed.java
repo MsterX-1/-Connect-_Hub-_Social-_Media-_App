@@ -198,11 +198,11 @@ public class Newsfeed extends JFrame {
     private void populatePosts(DataManager<Post> postManager) {
         postContainer.removeAll();
         // Simulate data for demonstration
-        if(postManager.getData() == null)
+        if(postManager.getAllData() == null)
             return;
-        for (int i = 0; i < postManager.getData().size(); i++) {
-            String text = postManager.getData().get(i).getContent().getText();
-            ArrayList<String> imagePaths = postManager.getData().get(i).getContent().getImagePaths();
+        for (int i = 0; i < postManager.getAllData().size(); i++) {
+            String text = postManager.getAllData().get(i).getContent().getText();
+            ArrayList<String> imagePaths = postManager.getAllData().get(i).getContent().getImagePaths();
 
             // Create a PostPanel for each post
             PostPanel postPanel = new PostPanel(text, imagePaths);

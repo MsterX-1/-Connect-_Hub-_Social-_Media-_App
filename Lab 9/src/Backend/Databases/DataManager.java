@@ -18,6 +18,7 @@ public class DataManager<T> {
     public void saveData() {
         database.saveToJson();
     }
+
     public void insertData(T data) {
         database.insertData(data);
     }
@@ -26,7 +27,17 @@ public class DataManager<T> {
         database.deleteData(data);
     }
 
-    public ArrayList<T> getData() {
+    public ArrayList<T> getAllData() {
         return database.getData();
+    }
+
+    public T getDataById(String id) {
+        T data = null;
+        for (int i = 0; i < database.getData().size(); i++) {
+            if (id.equals(database.getData().get(i))) {
+                data = database.getData().get(i);
+            }
+        }
+        return data;
     }
 }
