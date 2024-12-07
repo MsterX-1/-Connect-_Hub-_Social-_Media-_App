@@ -13,11 +13,11 @@ public class ChangePassWindow extends JFrame {
     private JButton returnButton;
     private JButton changePasswordButton;
     private JPanel ChangePassWindowContainer;
-    private PRofileManagementPage profileManagementPage;
+    private ProfileManagementPage profileManagementPage;
     private EditProfile editProfile;
     private String userId;
     private UserDatabase userDatabase;
- public ChangePassWindow(PRofileManagementPage profileManagementPage, EditProfile editProfile, String userId, UserDatabase userDatabase) {
+ public ChangePassWindow(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, UserDatabase userDatabase) {
      this.profileManagementPage = profileManagementPage;
      this.editProfile = editProfile;
      this.userId = userId;

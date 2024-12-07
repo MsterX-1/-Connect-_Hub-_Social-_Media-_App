@@ -1,8 +1,11 @@
 package Frontend;
 
-import Backend.ContentCreation.ContentDatabase;
 import Backend.ContentCreation.Post;
 import Backend.ContentCreation.Story;
+import Backend.Databases.DataManager;
+import Backend.Databases.DatabaseFactory;
+import Backend.Interfaces.Database;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,11 +24,11 @@ public class publishContentWindow extends JFrame {
     private JPanel imagePanel;
     private JLabel imageLabel;
     private String imagePath;
-    private Post post;
-    private Story story;
-    public publishContentWindow(String userId, String contentType,ContentDatabase contentDatabase) {
-        post = new Post();
-        story = new Story();
+    private Post newPost;
+    private Story newStory;
+    public publishContentWindow(String userId, String windowMode, DataManager<Post> postDatabaseDataManager , DataManager<Story> storyDatabaseDataManager) {
+        newPost = new Post();
+        newStory = new Story();
         setContentPane(main);
         setSize(600, 400);
         setLocationRelativeTo(null);
@@ -36,25 +39,28 @@ public class publishContentWindow extends JFrame {
         publishButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(contentType.equals("post")) {
-//                    Post.setPostCounter(contentDatabase.loadContentFromDatabase("post"));
-                    Post.setPostCounter(contentDatabase.getLastPostId());
-                    post.addText(description.getText());
-                    contentDatabase.addContentToDatabase(post,"post");
-                    post.publishContent();
-                    post.setAuthorId(userId);
-                    contentDatabase.writeContentToDatabase("post");
+                if(windowMode.equalsIgnoreCase("post")) {
+                    Post.setPostCounter(postDatabaseDataManager.getData().size());
+                    //add text to newPost and publish it
+                    newPost.addText(description.getText());
+                    newPost.publishContent(userId);
+                    //add a new post to database
+                    postDatabaseDataManager.insertData(newPost);
                     setVisible(false);
                     dispose();
                 }
-                if(contentType.equals("story")) {
-//                    contentDatabase.loadContentFromDatabase("story");
-                    Story.setStoryCounter(contentDatabase.getLastStoryId());
-                    story.addText(description.getText());
-                    contentDatabase.addContentToDatabase(story,"story");
-                    story.publishContent();
-                    story.setAuthorId(userId);
-                    contentDatabase.writeContentToDatabase("story");
+                if(windowMode.equalsIgnoreCase("story")) {
+                    //set story counter
+                    if(!storyDatabaseDataManager.getData().isEmpty()) {     //check for empty story database
+                        String id = storyDatabaseDataManager.getData().getLast().getContentId();    //get last id of story
+                        String[] split = id.split(" ");
+                        Story.setStoryCounter(Integer.parseInt(split[1]));  //sets counter as last storyId count
+                    }
+                    //add text to newStory and publish it
+                    newStory.addText(description.getText());
+                    newStory.publishContent(userId);
+                    //add a new story to database
+                    storyDatabaseDataManager.insertData(newStory);
                     setVisible(false);
                     dispose();
                 }
@@ -70,13 +76,13 @@ public class publishContentWindow extends JFrame {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File image = chooser.getSelectedFile();
                     imagePath = image.getAbsolutePath();
-                    if(contentType.equals("post")) {
-                        post.addImage(imagePath);
-                        displayImages(post.getContent().getImagePaths());
+                    if(windowMode.equals("newPost")) {
+                        newPost.addImage(imagePath);
+                        displayImages(newPost.getContent().getImagePaths());
                     }
-                    if(contentType.equals("story")) {
-                        story.addImage(imagePath);
-                        displayImages(story.getContent().getImagePaths());
+                    if(windowMode.equals("newStory")) {
+                        newStory.addImage(imagePath);
+                        displayImages(newStory.getContent().getImagePaths());
                     }
                 }
             }
@@ -113,6 +119,5 @@ public class publishContentWindow extends JFrame {
         Image image = originalImageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(image);
     }
-
 
 }

@@ -1,7 +1,11 @@
 package Frontend;
 
-import Backend.ContentCreation.ContentDatabase;
+import Backend.ContentCreation.Post;
+import Backend.ContentCreation.Story;
+import Backend.Databases.DataManager;
+import Backend.Databases.DatabaseFactory;
 import Backend.FriendManager.FriendMangerWindow1;
+import Backend.Interfaces.Database;
 import Backend.UserDatabase;
 import Frontend.CustomPanels.PostPanel;
 import Frontend.CustomPanels.ProfilePanel;
@@ -39,11 +43,18 @@ public class Newsfeed extends JFrame {
     public Newsfeed(UserDatabase userDatabase, String userId, MainWindow mainWindow) {
         this.userDatabase = userDatabase;
         this.userId = userId;
-        ContentDatabase contentDatabase = new ContentDatabase();
-        contentDatabase.loadContentFromDatabase("post");
+        //create post database and create a data manager
+        Database<Post> postDatabase = DatabaseFactory.createDatabase("post");
+        DataManager<Post> postManager = new DataManager<>(postDatabase);
+        postManager.loadData();
+        //create story database and create a data manager
+        Database<Story> storyDatabase = DatabaseFactory.createDatabase("story");
+        DataManager<Story> storyManager = new DataManager<>(storyDatabase);
+        storyManager.loadData();
+
         //managing posts
         postContainer.setLayout(new BoxLayout(postContainer, BoxLayout.Y_AXIS));
-        populatePosts(contentDatabase);
+        populatePosts(postManager);
         postScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         postScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //managing friendsList
@@ -81,8 +92,8 @@ public class Newsfeed extends JFrame {
         imagelabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
-                new PRofileManagementPage(userId, userDatabase, newsfeed, mainWindow,contentDatabase).setVisible(true);
+                //SOLID profile management should take both posts and stories
+                new ProfileManagementPage(userId, userDatabase, newsfeed, mainWindow,postManager , storyManager).setVisible(true);
                 setVisible(false);
             }
         });
@@ -90,14 +101,14 @@ public class Newsfeed extends JFrame {
         createStoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new publishContentWindow(userId, "story", contentDatabase);
+                new publishContentWindow(userId, "story", postManager , storyManager);
                 //contentDatabase.loadContentFromDatabase("story");
             }
         });
         createPostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new publishContentWindow(userId, "post", contentDatabase);
+                new publishContentWindow(userId, "post", postManager , storyManager);
                 // contentDatabase.loadContentFromDatabase("post");
             }
         });
@@ -105,7 +116,7 @@ public class Newsfeed extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //update posts window
-                refreshPosts(contentDatabase);
+                refreshPosts(postManager);
                 refreshFriendsList(userDatabase);
                 refreshSuggestionsList(userDatabase);
 
@@ -135,9 +146,9 @@ public class Newsfeed extends JFrame {
         return scaledImage;
     }
 
-    public void refreshPosts(ContentDatabase contentDatabase) {
+    public void refreshPosts(DataManager<Post> postManager) {
         postContainer.setLayout(new BoxLayout(postContainer, BoxLayout.Y_AXIS));
-        populatePosts(contentDatabase);
+        populatePosts(postManager);
         postScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         postScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
@@ -184,14 +195,14 @@ public class Newsfeed extends JFrame {
         freindsContainer.repaint();
     }
 
-    private void populatePosts(ContentDatabase contentDatabase) {
+    private void populatePosts(DataManager<Post> postManager) {
         postContainer.removeAll();
         // Simulate data for demonstration
-        if(contentDatabase.getPosts() == null)
+        if(postManager.getData() == null)
             return;
-        for (int i = 0; i < contentDatabase.getPosts().size(); i++) {
-            String text = contentDatabase.getPosts().get(i).getContent().getText();
-            ArrayList<String> imagePaths = contentDatabase.getPosts().get(i).getContent().getImagePaths();
+        for (int i = 0; i < postManager.getData().size(); i++) {
+            String text = postManager.getData().get(i).getContent().getText();
+            ArrayList<String> imagePaths = postManager.getData().get(i).getContent().getImagePaths();
 
             // Create a PostPanel for each post
             PostPanel postPanel = new PostPanel(text, imagePaths);

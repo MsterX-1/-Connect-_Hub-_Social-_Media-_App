@@ -14,11 +14,11 @@ public class UploadNewCoverPicture extends JFrame {
     private JButton returnButton;
     private JPanel panel;
     private JLabel imageLabel;
-    private PRofileManagementPage profileManagementPage;
+    private ProfileManagementPage profileManagementPage;
     private EditProfile editProfile;
     private String userId;
     private UserDatabase userDatabase;
-    public UploadNewCoverPicture(PRofileManagementPage profileManagementPage, EditProfile editProfile, String userId, UserDatabase userDatabase) {
+    public UploadNewCoverPicture(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, UserDatabase userDatabase) {
         this.profileManagementPage = profileManagementPage;
         this.editProfile = editProfile;
         this.userId = userId;
@@ -84,7 +84,7 @@ public class UploadNewCoverPicture extends JFrame {
 
             // save here
             displayImage(selectedFile.getAbsolutePath()); // Show image preview
-            UploadImage(selectedFile); // Update the image in PRofileManagementPage
+            UploadImage(selectedFile); // Update the image in ProfileManagementPage
             return newProfilePicPath;
         } else if (returnValue == JFileChooser.CANCEL_OPTION) {
             System.out.println("File selection has been cancelled");

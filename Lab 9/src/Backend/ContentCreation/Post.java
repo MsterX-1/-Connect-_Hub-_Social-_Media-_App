@@ -1,9 +1,7 @@
 package Backend.ContentCreation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import Backend.User;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Post extends Content {
@@ -18,11 +16,11 @@ public class Post extends Content {
         Post.postCounter = postCounter;
     }
 
-
     @Override
-    public void publishContent() {
+    public void publishContent(String authorId) {
         postCounter++;
         setContentId("Post " + postCounter);
+        setAuthorId(authorId);
         setTimeStamp(LocalDateTime.now());
     }
 

@@ -2,10 +2,6 @@ package Backend.ContentCreation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public abstract class Content {
@@ -28,7 +24,7 @@ public abstract class Content {
         this.contentId = contentId;
     }
 
-    public void setAuthorId(String authorId) {
+    protected void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 
@@ -80,7 +76,7 @@ public abstract class Content {
 //        addImage(newImagePath);
 //    }
 
-    public abstract void publishContent();
+    public abstract void publishContent(String authorId);
 
 
 }

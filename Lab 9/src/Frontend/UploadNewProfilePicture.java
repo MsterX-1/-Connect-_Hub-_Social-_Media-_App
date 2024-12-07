@@ -17,13 +17,13 @@ public class UploadNewProfilePicture extends JFrame {
     private JButton returnButton;
     private JPanel panel;
     private JLabel imageLabel;
-    private PRofileManagementPage profileManagementPage;
+    private ProfileManagementPage profileManagementPage;
     private EditProfile editProfile;
     private String userId;
     private UserDatabase userDatabase;
 
 
-    public UploadNewProfilePicture(PRofileManagementPage profileManagementPage, EditProfile editProfile, String userId, UserDatabase userDatabase) {
+    public UploadNewProfilePicture(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, UserDatabase userDatabase) {
         this.profileManagementPage = profileManagementPage;
         this.editProfile = editProfile;
         this.userId = userId;
@@ -99,7 +99,7 @@ public class UploadNewProfilePicture extends JFrame {
                 return null;
             }
             displayImage(selectedFile.getAbsolutePath()); // Show image preview
-            uploadImage(selectedFile); // Update the image in PRofileManagementPage
+            uploadImage(selectedFile); // Update the image in ProfileManagementPage
             return newProfilePicPath;
         } else if (returnValue == JFileChooser.CANCEL_OPTION) {
             System.out.println("File selection has been cancelled");
@@ -113,7 +113,7 @@ public class UploadNewProfilePicture extends JFrame {
     private void uploadImage(File file) {
         System.out.println("Uploading Profile Picture: " + file.getName());
 
-        // Assuming `profileManagementPage` is an instance of PRofileManagementPage
+        // Assuming `profileManagementPage` is an instance of ProfileManagementPage
         profileManagementPage.updateProfilePicture(file.getAbsolutePath());
 
 

@@ -1,5 +1,8 @@
 package Frontend;
-import Backend.ContentCreation.ContentDatabase;
+
+import Backend.ContentCreation.Post;
+import Backend.ContentCreation.Story;
+import Backend.Databases.DataManager;
 import Backend.UserDatabase;
 import Frontend.CustomPanels.PostPanel;
 
@@ -11,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PRofileManagementPage extends JFrame {
+public class ProfileManagementPage extends JFrame {
 
 
     private JButton editButton;    // Edit Button
@@ -27,7 +30,7 @@ public class PRofileManagementPage extends JFrame {
     private String userId;
 
 
-    public PRofileManagementPage(String userID,UserDatabase userDatabase,Newsfeed newsfeed,MainWindow mainWindow, ContentDatabase contentDatabase) {
+    public ProfileManagementPage(String userID, UserDatabase userDatabase, Newsfeed newsfeed, MainWindow mainWindow, DataManager<Post> postDataManager , DataManager<Story> storyDataManager) {
         this.userDatabase = userDatabase;
         this.userId = userID;
         setTitle("Profile Management");
@@ -35,10 +38,10 @@ public class PRofileManagementPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        PRofileManagementPage pRofileManagementPage = this;
+        ProfileManagementPage pRofileManagementPage = this;
         //managing posts
         postContainer.setLayout(new BoxLayout(postContainer, BoxLayout.Y_AXIS));
-        populatePosts(contentDatabase);
+        populatePosts(postDataManager);
         postScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         postScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //
@@ -92,18 +95,14 @@ public class PRofileManagementPage extends JFrame {
             }
         });
     }
-    private void populatePosts(ContentDatabase contentDatabase) {
+    private void populatePosts(DataManager<Post> postManager) {
         postContainer.removeAll();
         // Simulate data for demonstration
-        if(contentDatabase.getPosts() == null)
+        if(postManager.getData() == null)
             return;
-        for (int i = 0; i < contentDatabase.getPosts().size(); i++) {
-            String postAuthor = contentDatabase.getPosts().get(i).getAuthorId();
-            if(!postAuthor.equals(userId)){
-                continue;
-            }
-            String text = contentDatabase.getPosts().get(i).getContent().getText();
-            ArrayList<String> imagePaths = contentDatabase.getPosts().get(i).getContent().getImagePaths();
+        for (int i = 0; i < postManager.getData().size(); i++) {
+            String text = postManager.getData().get(i).getContent().getText();
+            ArrayList<String> imagePaths = postManager.getData().get(i).getContent().getImagePaths();
 
             // Create a PostPanel for each post
             PostPanel postPanel = new PostPanel(text, imagePaths);

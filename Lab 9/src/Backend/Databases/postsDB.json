@@ -1,0 +1,17 @@
+[ {
+  "contentId" : "Post 1",
+  "authorId" : "1",
+  "content" : {
+    "text" : "first post",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 7, 23, 1, 42, 777221300 ]
+}, {
+  "contentId" : "Post 2",
+  "authorId" : "1",
+  "content" : {
+    "text" : "amr post",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 7, 23, 31, 40, 925260600 ]
+} ]

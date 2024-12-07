@@ -15,12 +15,12 @@ public class EditProfile extends JFrame {
     private JButton ChangeCoverPicButton;
     private JPanel panel;
     private JButton returnButton;
-    private PRofileManagementPage pRofileManagementPage;
+    private ProfileManagementPage pRofileManagementPage;
     private String userId;
     private UserDatabase userDatabase;
     private JTextField BioField;
 
-    public EditProfile(PRofileManagementPage pRofileManagementPage, String userId, UserDatabase userDatabase,JTextField BioField) {
+    public EditProfile(ProfileManagementPage pRofileManagementPage, String userId, UserDatabase userDatabase, JTextField BioField) {
         this.pRofileManagementPage = pRofileManagementPage;
         this.userId = userId;
         this.userDatabase = userDatabase;
