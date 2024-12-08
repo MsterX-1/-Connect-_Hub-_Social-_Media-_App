@@ -4,13 +4,8 @@
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
   "username" : "amr",
   "dateOfBirth" : [ 2001, 12, 6 ],
-  "status" : false,
+  "status" : true,
   "bio" : "my new bio",
-  "friendsIds" : [ "2" ],
-  "friendsRequestsIds" : [ ],
-  "blockedIds" : [ "3", "4" ],
-  "suggestedIds" : [ "5", "6", "7", "8" ],
-  "blockedByIds" : [ ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
 }, {
@@ -21,11 +16,6 @@
   "dateOfBirth" : [ 2003, 12, 6 ],
   "status" : true,
   "bio" : "Hey There !",
-  "friendsIds" : [ "3", "1" ],
-  "friendsRequestsIds" : [ ],
-  "blockedIds" : [ "4" ],
-  "suggestedIds" : [ "5", "6", "7", "8" ],
-  "blockedByIds" : [ ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
 }, {
@@ -36,11 +26,6 @@
   "dateOfBirth" : [ 2003, 12, 6 ],
   "status" : false,
   "bio" : "Hey There !",
-  "friendsIds" : [ "4", "2" ],
-  "friendsRequestsIds" : [ ],
-  "blockedIds" : [ ],
-  "suggestedIds" : [ "5", "6", "7", "8" ],
-  "blockedByIds" : [ "1" ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
 }, {
@@ -51,11 +36,6 @@
   "dateOfBirth" : [ 2003, 12, 6 ],
   "status" : false,
   "bio" : "Hey There !",
-  "friendsIds" : [ "3" ],
-  "friendsRequestsIds" : [ "1" ],
-  "blockedIds" : [ "2" ],
-  "suggestedIds" : [ "5", "6", "7", "8" ],
-  "blockedByIds" : [ "1" ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
 }, {
@@ -66,11 +46,6 @@
   "dateOfBirth" : [ 1991, 12, 18 ],
   "status" : false,
   "bio" : "Hey There !",
-  "friendsIds" : [ ],
-  "friendsRequestsIds" : [ ],
-  "blockedIds" : [ ],
-  "suggestedIds" : [ "1", "2", "3", "4" ],
-  "blockedByIds" : [ ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
 }, {
@@ -81,11 +56,6 @@
   "dateOfBirth" : [ 1999, 12, 8 ],
   "status" : false,
   "bio" : "Hey There !",
-  "friendsIds" : [ ],
-  "friendsRequestsIds" : [ ],
-  "blockedIds" : [ ],
-  "suggestedIds" : [ "1", "2", "3", "4", "5" ],
-  "blockedByIds" : [ ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
 }, {
@@ -96,11 +66,6 @@
   "dateOfBirth" : [ 2001, 12, 13 ],
   "status" : false,
   "bio" : "Hey There !",
-  "friendsIds" : [ ],
-  "friendsRequestsIds" : [ ],
-  "blockedIds" : [ ],
-  "suggestedIds" : [ "1", "2", "3", "4", "5", "6" ],
-  "blockedByIds" : [ ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
 }, {
@@ -111,11 +76,6 @@
   "dateOfBirth" : [ 1998, 12, 3 ],
   "status" : true,
   "bio" : "Hey There !",
-  "friendsIds" : [ ],
-  "friendsRequestsIds" : [ ],
-  "blockedIds" : [ ],
-  "suggestedIds" : [ "1", "2", "3", "4", "5", "6", "7" ],
-  "blockedByIds" : [ ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
 } ]

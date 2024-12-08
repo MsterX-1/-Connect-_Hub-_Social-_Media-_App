@@ -1,7 +1,7 @@
 package CustomJPanels;
 
 import Databases.DataManager;
-import PhaseOne.FriendManagement.Frontend.FriendMangerWindow1;
+import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.FriendManagement.Frontend.FriendRequestsWindow;
 import PhaseOne.UserAccountManagement.Backend.User;
 
@@ -13,12 +13,13 @@ import java.awt.event.ActionListener;
 
 public class RequestsPanel extends JPanel {
 
-    public RequestsPanel(String senderName, String imagePath, FriendMangerWindow1 friendMangerWindow1 , String currentUserId , String senderId , FriendRequestsWindow window , DataManager<User>userDataManager) {
+    public RequestsPanel( DataManager<UserRelations> userRelationsDataManager , String currentUserId , String senderId , FriendRequestsWindow window , DataManager<User>userDataManager) {
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
 
         setPreferredSize(new Dimension(600, 70)); // Set preferred size for the panel
-
+        String senderName = userDataManager.getDataById(senderId).getUsername();
+        String imagePath = userDataManager.getDataById(senderId).getProfilePhotoPath();
         // Create JLabel for the image
         JLabel imageLabel = new JLabel();
         ImageIcon icon = new ImageIcon(imagePath); // Load the image from the given path
@@ -49,8 +50,10 @@ public class RequestsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Define action for Accept button
-                friendMangerWindow1.acceptFriendRequest(currentUserId , senderId,userDataManager);
+//                friendMangerWindow1.acceptFriendRequest(currentUserId , senderId,userDataManager);
+                userRelationsDataManager.getDataById(currentUserId).acceptFriendRequest(senderId,userRelationsDataManager);
                 JOptionPane.showMessageDialog(RequestsPanel.this, "Accepted: " + senderName);
+                userRelationsDataManager.saveData();
                 window.populateRequestsList(userDataManager);
             }
         });
@@ -59,8 +62,10 @@ public class RequestsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Define action for Decline button
-                friendMangerWindow1.declineFriendRequest(currentUserId , senderId,userDataManager);
+//                friendMangerWindow1.declineFriendRequest(currentUserId , senderId,userDataManager);
+                userRelationsDataManager.getDataById(currentUserId).declineFriendRequest(senderId , userRelationsDataManager);
                 JOptionPane.showMessageDialog(RequestsPanel.this, "Declined: " + senderName);
+                userRelationsDataManager.saveData();
                 window.populateRequestsList(userDataManager);
                 // Add logic here for friendMangerWindow1.declineFriendRequest() if applicable
             }

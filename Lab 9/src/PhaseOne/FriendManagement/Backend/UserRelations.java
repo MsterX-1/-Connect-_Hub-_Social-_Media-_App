@@ -15,6 +15,16 @@ public class UserRelations {
     private ArrayList<String> suggestionsList;
     private HashMap<String , String> pendingRequests;
 
+    public UserRelations(String userId) {
+        this.userId = userId;
+        friendsList = new ArrayList<>();
+        friendRequestsList = new ArrayList<>();
+        blockList = new ArrayList<>();
+        suggestionsList = new ArrayList<>();
+        pendingRequests = new HashMap<>();
+    }
+
+    public UserRelations(){}
     public String getUserId() {
         return userId;
     }
@@ -47,21 +57,12 @@ public class UserRelations {
         //block user if he is not already in the blocklist
         if(!blockList.contains(userId)) {
             blockList.add(userId);
-            JOptionPane.showMessageDialog(null, "user added to blocklist!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
         }
-        else
-            JOptionPane.showMessageDialog(null, "User already blocked!", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public void unblockUser(String userId){
         //checks blocklist for id to unblock
-        if(blockList.contains(userId)) {
             blockList.remove(userId);
-            JOptionPane.showMessageDialog(null, "user removed from blocklist!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else
-            JOptionPane.showMessageDialog(null, "User is not in your blocklist!", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public void removeFriend(String friendId){
@@ -69,19 +70,17 @@ public class UserRelations {
         if(friendsList.contains(friendId)) {
             friendsList.remove(friendId);
             suggestionsList.add(friendId);
-            JOptionPane.showMessageDialog(null, "Friend removed!", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
-        else
-            JOptionPane.showMessageDialog(null, "User is not in your friends list!", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public void sendFriendRequest(String receiverId){
-        if(!friendRequestsList.contains(receiverId)) {
-            friendRequestsList.add(receiverId);
+    public void sendFriendRequest(String receiverId , DataManager<UserRelations> userRelationsManager){
+            //check if a request was already sent
+        if(!pendingRequests.containsKey(receiverId)) {
+            //adds user to receivers friend requests list
+            userRelationsManager.getDataById(receiverId).getFriendRequestsList().add(userId);
+            //adds receiver to users pending requests
             pendingRequests.put(receiverId, "pending");
         }
-        else
-            JOptionPane.showMessageDialog(null, "you have already sent a friend request to this user", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public void acceptFriendRequest(String senderId, DataManager<UserRelations> userRelationsManager){
@@ -94,15 +93,16 @@ public class UserRelations {
         //remove sender from suggestions list
         suggestionsList.remove(senderId);
         //remove receiver from sender's suggestions list
-        userRelationsManager.getDataById(senderId).suggestionsList.add(userId);
+        userRelationsManager.getDataById(senderId).suggestionsList.remove(userId);
         //remove receiver from sender's pending requests
         userRelationsManager.getDataById(senderId).pendingRequests.remove(userId);
-        JOptionPane.showMessageDialog(null, "Friend request accepted!", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void declineFriendRequest(String senderId){
+    public void declineFriendRequest(String senderId , DataManager<UserRelations> userRelationsManager){
+        //remove sender id from receiver's friend requests
         friendRequestsList.remove(senderId);
-        JOptionPane.showMessageDialog(null, "Friend request declined!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        //remove receiver id from sender's pending list
+        userRelationsManager.getDataById(senderId).pendingRequests.remove(userId);
 
     }
 }

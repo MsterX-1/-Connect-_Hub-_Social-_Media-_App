@@ -33,9 +33,9 @@ public class RelationDatabase implements IdentifiableDatabase<UserRelations> {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         try {
-            UserRelations[] loadedUserRelationss = objectMapper.readValue(filePath, UserRelations[].class);
+            UserRelations[] loadedUserRelations = objectMapper.readValue(filePath, UserRelations[].class);
             relations.clear(); // Clear existing relations to avoid duplication
-            relations.addAll(Arrays.asList(loadedUserRelationss));
+            relations.addAll(Arrays.asList(loadedUserRelations));
             System.out.println("Successfully loaded relations from " + filePath);
         } catch (JsonParseException | JsonMappingException e) {
             System.out.println("Error parsing JSON file: " + filePath + ". Check file format and structure.");

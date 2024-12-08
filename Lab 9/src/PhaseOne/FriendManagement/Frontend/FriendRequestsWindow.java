@@ -1,6 +1,7 @@
 package PhaseOne.FriendManagement.Frontend;
 
 import Databases.DataManager;
+import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.UserAccountManagement.Backend.User;
 import CustomJPanels.RequestsPanel;
 
@@ -11,12 +12,12 @@ public class FriendRequestsWindow extends JFrame {
     private JScrollPane requestsScrollPane;
     private JPanel requestsContainer;
     private String userId;
-    private FriendMangerWindow1 friendMangerWindow1;
     private FriendRequestsWindow friendRequestsWindow;
-    public FriendRequestsWindow(String userId , DataManager<User>userDataManager , FriendMangerWindow1 friendMangerWindow1) {
+    private DataManager<UserRelations> userRelationsDataManager;
+    public FriendRequestsWindow(String userId , DataManager<User>userDataManager , DataManager<UserRelations> userRelationsDataManager) {
         this.userId = userId;
-        this.friendMangerWindow1 = friendMangerWindow1;
         friendRequestsWindow = this;
+        this.userRelationsDataManager = userRelationsDataManager;
         setContentPane(mainPanel);
         setSize(400, 400);
         setLocationRelativeTo(null);
@@ -31,16 +32,13 @@ public class FriendRequestsWindow extends JFrame {
     }
     public void populateRequestsList(DataManager<User> userDataManager) {
         // Simulate data for demonstration
-        if(userDataManager.getDataById(userId).getFriendsRequestsIds() == null)
+        if(userRelationsDataManager.getDataById(userId).getFriendRequestsList() == null)
             return;
         requestsContainer.removeAll();
-        for (int i = 0; i < userDataManager.getDataById(userId).getFriendsRequestsIds().size(); i++) {
-            String senderId = userDataManager.getDataById(userId).getFriendsRequestsIds().get(i);
-            String senderName = userDataManager.getDataById(senderId).getUsername();
-            String imagePaths = userDataManager.getDataById(senderId).getProfilePhotoPath();
-
+        for (int i = 0; i < userRelationsDataManager.getDataById(userId).getFriendRequestsList().size(); i++) {
+            String senderId = userRelationsDataManager.getDataById(userId).getFriendRequestsList().get(i);
             // Create a PostPanel for each post
-            RequestsPanel requestsPanel = new RequestsPanel(senderName,imagePaths,friendMangerWindow1 , userId , senderId , friendRequestsWindow , userDataManager);
+            RequestsPanel requestsPanel = new RequestsPanel(userRelationsDataManager , userId , senderId , friendRequestsWindow , userDataManager);
 
             // Add padding and border to each PostPanel
             requestsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
