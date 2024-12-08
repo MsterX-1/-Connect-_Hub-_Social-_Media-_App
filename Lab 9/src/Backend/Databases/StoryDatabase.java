@@ -80,5 +80,14 @@ public class StoryDatabase implements Database<Story> {
     public ArrayList<Story> getData() {
         return new ArrayList<>(stories); // Return a copy to protect encapsulation
     }
+
+    @Override
+    public Story getDataById(String id) {
+        for (Story story : stories) {
+            if(id.equals(story.getContentId()))
+                return story;
+        }
+        return null;
+    }
 }
 

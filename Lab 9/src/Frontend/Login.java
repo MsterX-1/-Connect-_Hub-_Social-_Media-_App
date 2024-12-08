@@ -56,7 +56,6 @@ public class Login extends JFrame {
                                 JOptionPane.showMessageDialog(login, "Login Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
                                 userDataManager.getAllData().get(i).setStatus(true); // Set status to Online
                                 String userId = userDataManager.getAllData().get(i).getUserId();
-                                System.out.println(userId);
                                 userDataManager.saveData();
                                 loginSuccessful = true; // Mark login as successful
                                 new Newsfeed(userDataManager, userId, mainWindow);

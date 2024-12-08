@@ -32,12 +32,6 @@ public class DataManager<T> {
     }
 
     public T getDataById(String id) {
-        T data = null;
-        for (int i = 0; i < database.getData().size(); i++) {
-            if (id.equals(database.getData().get(i))) {
-                data = database.getData().get(i);
-            }
-        }
-        return data;
+       return database.getDataById(id);
     }
 }

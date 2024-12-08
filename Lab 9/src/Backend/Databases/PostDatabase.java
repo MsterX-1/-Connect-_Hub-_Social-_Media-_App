@@ -76,4 +76,13 @@ public class PostDatabase implements Database<Post> {
     public ArrayList<Post> getData() {
         return new ArrayList<>(posts); // Return a copy to protect encapsulation
     }
+
+    @Override
+    public Post getDataById(String id) {
+        for (Post post : posts) {
+            if(id.equals(post.getContentId()))
+                return post;
+        }
+        return null;
+    }
 }

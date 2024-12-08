@@ -8,4 +8,5 @@ public interface Database<T> {
     void insertData( T data );
     void deleteData(T data);
     ArrayList<T> getData( );
+    T getDataById(String id);
 }

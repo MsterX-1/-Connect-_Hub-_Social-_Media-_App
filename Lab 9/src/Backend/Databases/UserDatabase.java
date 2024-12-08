@@ -1,4 +1,5 @@
 package Backend.Databases;
+import Backend.ContentCreation.Post;
 import Backend.Interfaces.Database;
 import Backend.User;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -72,5 +73,14 @@ public class UserDatabase implements Database<User>{
     @Override
     public ArrayList<User> getData() {
         return new ArrayList<>(users); // Return a copy to protect encapsulation
+    }
+
+    @Override
+    public User getDataById(String id) {
+        for (User user : users) {
+            if(id.equals(user.getUserId()))
+                return user;
+        }
+        return null;
     }
 }
