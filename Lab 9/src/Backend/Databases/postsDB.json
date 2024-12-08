@@ -43,7 +43,23 @@
   "authorId" : "2",
   "content" : {
     "text" : "ljabdsihkasd",
-    "imagePaths" : [  ]
+    "imagePaths" : [ ]
   },
   "timeStamp" : [ 2024, 12, 8, 0, 34, 15, 249618400 ]
+}, {
+  "contentId" : "Post 7",
+  "authorId" : "6",
+  "content" : {
+    "text" : "fvrfvfrg",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 8, 4, 58, 13, 213016900 ]
+}, {
+  "contentId" : "Post 8",
+  "authorId" : "6",
+  "content" : {
+    "text" : "fffff",
+    "imagePaths" : [ ]
+  },
+  "timeStamp" : [ 2024, 12, 8, 4, 58, 20, 116241500 ]
 } ]

@@ -10,7 +10,7 @@ public class DatabaseFactory {
         if (type.equalsIgnoreCase("user")) {
            // return (Database<T>) new UserDatabase();
         } else if (type.equalsIgnoreCase("post")) {
-            return (Database<T>) new PostDatabase(new File("Lab 9/src/Backend/Databases/postsDB.json"));
+            return (Database<T>) new PostDatabase(new File("C:\\Users\\Legion\\OneDrive\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Backend\\Databases\\postsDB.json"));
         } else if (type.equalsIgnoreCase("story")) {
             return (Database<T>) new StoryDatabase(new File("Lab 9/src/Backend/Databases/storiesDB.json"));
         }

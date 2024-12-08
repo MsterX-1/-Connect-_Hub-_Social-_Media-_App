@@ -52,9 +52,9 @@
   "status" : false,
   "bio" : "Hey There !",
   "friendsIds" : [ "3" ],
-  "friendsRequestsIds" : [ "1" ],
+  "friendsRequestsIds" : [ "1", "6" ],
   "blockedIds" : [ "2" ],
-  "suggestedIds" : [ "5", "6" ],
+  "suggestedIds" : [ "5" ],
   "blockedByIds" : [ ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
@@ -67,7 +67,7 @@
   "status" : false,
   "bio" : "Hey There !",
   "friendsIds" : [ ],
-  "friendsRequestsIds" : [ ],
+  "friendsRequestsIds" : [ "6" ],
   "blockedIds" : [ ],
   "suggestedIds" : [ "1", "2", "3", "4" ],
   "blockedByIds" : [ ],
@@ -79,13 +79,13 @@
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
   "username" : "user",
   "dateOfBirth" : [ 1999, 12, 8 ],
-  "status" : false,
+  "status" : true,
   "bio" : "Hey There !",
-  "friendsIds" : [ ],
+  "friendsIds" : [ "6", "6" ],
   "friendsRequestsIds" : [ ],
   "blockedIds" : [ ],
   "suggestedIds" : [ "1", "2", "3", "4", "5" ],
   "blockedByIds" : [ ],
-  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
-  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+  "profilePhotoPath" : "C:\\Users\\Legion\\OneDrive\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
+  "coverPhotoPath" : "C:\\Users\\Legion\\OneDrive\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
 } ]
