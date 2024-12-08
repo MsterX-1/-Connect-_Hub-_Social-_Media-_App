@@ -3,6 +3,7 @@ package Databases;
 
 import Databases.Content.PostDatabase;
 import Databases.Content.StoryDatabase;
+import Databases.Relations.RelationDatabase;
 import Databases.User.UserDatabase;
 import Interfaces.Database;
 
@@ -16,6 +17,8 @@ public class DatabaseFactory {
             return (Database<T>) new PostDatabase(new File("Lab 9/src/Databases/Content/postsDB.json"));
         } else if (type.equalsIgnoreCase("story")) {
             return (Database<T>) new StoryDatabase(new File("Lab 9/src/Databases/Content/storiesDB.json"));
+        } else if (type.equalsIgnoreCase("relations")) {
+            return (Database<T>) new RelationDatabase(new File("Lab 9/src/Databases/Relations/relationsDB.json"));
         }
         throw new IllegalArgumentException("No database implementation for type: " + type);
     }

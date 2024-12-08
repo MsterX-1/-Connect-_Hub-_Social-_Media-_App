@@ -72,7 +72,7 @@ public class FriendMangerWindow1 extends JFrame{
        checkRequestsButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-             //  new FriendRequestsWindow(currentUserId,userDatabase,friendMangerWindow1);///////////////////
+               new FriendRequestsWindow(currentUserId,userDataManager,friendMangerWindow1);
            }
        });
    }

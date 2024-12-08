@@ -1,8 +1,7 @@
-package Databases.Content;
+package Databases.Relations;
 
 import Interfaces.IdentifiableDatabase;
-import PhaseOne.ContentCreation.Backend.Story;
-import Interfaces.Database;
+import PhaseOne.FriendManagement.Backend.UserRelations;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,16 +10,17 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class StoryDatabase implements IdentifiableDatabase<Story> {
+public class RelationDatabase implements IdentifiableDatabase<UserRelations> {
+
     private final File filePath;       // Path to the JSON file
-    private final ArrayList<Story> stories; // Internal list of stories
+    private final ArrayList<UserRelations> relations; // Internal list of relations
 
-    public StoryDatabase(File filePath) {
+    public RelationDatabase(File filePath) {
         this.filePath = filePath;
-        this.stories = new ArrayList<>();
+        this.relations = new ArrayList<>();
     }
 
     @Override
@@ -33,14 +33,10 @@ public class StoryDatabase implements IdentifiableDatabase<Story> {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         try {
-            Story[] loadedStories = objectMapper.readValue(filePath, Story[].class);
-            stories.clear(); // Clear existing stories to avoid duplication
-            for (Story story : loadedStories) {
-                if (!Story.storyHasExpired(LocalDateTime.now(), story.getTimeStamp()))
-                    stories.add(story);
-
-            }
-            System.out.println("Successfully loaded stories from " + filePath);
+            UserRelations[] loadedUserRelationss = objectMapper.readValue(filePath, UserRelations[].class);
+            relations.clear(); // Clear existing relations to avoid duplication
+            relations.addAll(Arrays.asList(loadedUserRelationss));
+            System.out.println("Successfully loaded relations from " + filePath);
         } catch (JsonParseException | JsonMappingException e) {
             System.out.println("Error parsing JSON file: " + filePath + ". Check file format and structure.");
             e.printStackTrace();
@@ -48,7 +44,7 @@ public class StoryDatabase implements IdentifiableDatabase<Story> {
             System.out.println("Error reading file: " + filePath + ". Ensure the file exists and is accessible.");
             e.printStackTrace();
         } catch (Exception e) {
-            System.out.println("Unexpected error while loading stories: " + e.getMessage());
+            System.out.println("Unexpected error while loading relations: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -59,36 +55,35 @@ public class StoryDatabase implements IdentifiableDatabase<Story> {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.registerModule(new JavaTimeModule());
         try {
-            objectMapper.writeValue(filePath, stories);
+            objectMapper.writeValue(filePath, relations);
         } catch (IOException e) {
-            System.out.println("Error while saving stories to " + filePath);
+            System.out.println("Error while saving relations to " + filePath);
         }
     }
 
     @Override
-    public void insertData(Story story) {
-        stories.add(story);
+    public void insertData(UserRelations UserRelations) {
+        relations.add(UserRelations);
         saveToJson(); // Persist the changes
     }
 
     @Override
-    public void deleteData(Story story) {
-        stories.remove(story);
+    public void deleteData(UserRelations UserRelations) {
+        relations.remove(UserRelations);
         saveToJson(); // Persist the changes
     }
 
     @Override
-    public ArrayList<Story> getData() {
-        return new ArrayList<>(stories); // Return a copy to protect encapsulation
+    public ArrayList<UserRelations> getData() {
+        return new ArrayList<>(relations); // Return a copy to protect encapsulation
     }
 
     @Override
-    public Story getDataById(String id) {
-        for (Story story : stories) {
-            if(id.equals(story.getContentId()))
-                return story;
+    public UserRelations getDataById(String id) {
+        for (UserRelations UserRelations : relations) {
+            if(id.equals(UserRelations.getUserId()))
+                return UserRelations;
         }
         return null;
     }
 }
-

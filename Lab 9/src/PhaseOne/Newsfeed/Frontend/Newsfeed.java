@@ -177,7 +177,6 @@ public class Newsfeed extends JFrame {
             String friendId = userDataManager.getDataById(userId).getFriendsIds().get(i);
             String friendName = userDataManager.getDataById(friendId).getUsername();
             String friendStatus = userDataManager.getDataById(friendId).checkStatus();
-            System.out.println(friendStatus);
             String imagePaths = userDataManager.getDataById(friendId).getProfilePhotoPath();
 
             // Create a PostPanel for each post

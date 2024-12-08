@@ -1,5 +1,6 @@
 package Databases.User;
 import Interfaces.Database;
+import Interfaces.IdentifiableDatabase;
 import PhaseOne.UserAccountManagement.Backend.User;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -10,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-public class UserDatabase implements Database<User>{
+public class UserDatabase implements IdentifiableDatabase<User> {
     private final File filePath;       // Path to the JSON file
     private final ArrayList<User> users; // Internal list of users
 

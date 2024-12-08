@@ -1,7 +1,7 @@
 package Databases.Content;
 
+import Interfaces.IdentifiableDatabase;
 import PhaseOne.ContentCreation.Backend.Post;
-import Interfaces.Database;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PostDatabase implements Database<Post> {
+public class PostDatabase implements IdentifiableDatabase<Post> {
     private final File filePath;       // Path to the JSON file
     private final ArrayList<Post> posts; // Internal list of posts
 
