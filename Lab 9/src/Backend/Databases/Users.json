@@ -11,8 +11,8 @@
   "blockedIds" : [ "3" ],
   "suggestedIds" : [ "2", "4", "5", "6" ],
   "blockedByIds" : [ ],
-  "profilePhotoPath" : "C:\\Users\\amrra\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg",
-  "coverPhotoPath" : "C:\\Users\\amrra\\Documents\\GitHub\\-Connect-_Hub-_Social-_Media-_App\\Lab 9\\src\\Frontend\\DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
 }, {
   "userId" : "2",
   "email" : "b@gmail.com",
@@ -85,6 +85,36 @@
   "friendsRequestsIds" : [ ],
   "blockedIds" : [ ],
   "suggestedIds" : [ "1", "2", "3", "4", "5" ],
+  "blockedByIds" : [ ],
+  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+}, {
+  "userId" : "7",
+  "email" : "new@gmail.com",
+  "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+  "username" : "new",
+  "dateOfBirth" : [ 2001, 12, 13 ],
+  "status" : false,
+  "bio" : "Hey There !",
+  "friendsIds" : [ ],
+  "friendsRequestsIds" : [ ],
+  "blockedIds" : [ ],
+  "suggestedIds" : [ "1", "2", "3", "4", "5", "6" ],
+  "blockedByIds" : [ ],
+  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+}, {
+  "userId" : "8",
+  "email" : "bebo@gmail.com",
+  "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+  "username" : "bebo",
+  "dateOfBirth" : [ 1998, 12, 3 ],
+  "status" : true,
+  "bio" : "Hey There !",
+  "friendsIds" : [ ],
+  "friendsRequestsIds" : [ ],
+  "blockedIds" : [ ],
+  "suggestedIds" : [ "1", "2", "3", "4", "5", "6", "7" ],
   "blockedByIds" : [ ],
   "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"

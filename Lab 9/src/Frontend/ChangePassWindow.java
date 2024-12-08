@@ -1,10 +1,12 @@
 package Frontend;
 
-import Backend.UserDatabase;
+import Backend.Databases.DataManager;
+import Backend.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class ChangePassWindow extends JFrame {
@@ -16,12 +18,11 @@ public class ChangePassWindow extends JFrame {
     private ProfileManagementPage profileManagementPage;
     private EditProfile editProfile;
     private String userId;
-    private UserDatabase userDatabase;
- public ChangePassWindow(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, UserDatabase userDatabase) {
+
+ public ChangePassWindow(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, DataManager<User> userDataManager) {
      this.profileManagementPage = profileManagementPage;
      this.editProfile = editProfile;
      this.userId = userId;
-     this.userDatabase = userDatabase;
      setTitle("Change Password");
      setSize(400, 300);
      setLocationRelativeTo(null);
@@ -43,27 +44,22 @@ public class ChangePassWindow extends JFrame {
              if (oldPassword.isEmpty() || newPassword.isEmpty()) {
                  JOptionPane.showMessageDialog(ChangePassWindowContainer, "All Fields Must Be Filled", "Error", JOptionPane.ERROR_MESSAGE);
              }else {
-                 String hashedInputOldPass;// input of the user changed to hash to check the old pass in the database
-                 try {
-                     hashedInputOldPass = userDatabase.hashPasswords(oldPassword);
-                 } catch (NoSuchAlgorithmException ex) {
-                     throw new RuntimeException(ex);
-                 }
-                 int index = userDatabase.getUserIndexById(userId);
-                 String OldUserPassInDatabase = userDatabase.getUsers().get(index).getPassword();
+
+                 String hashedInputOldPass= HashingPassword(oldPassword);// password hashed ,input of the user changed to hash to check the old pass in the database
+
+                 String OldUserPassInDatabase = userDataManager.getDataById(userId).getPassword();
+
                  if(!hashedInputOldPass.equals(OldUserPassInDatabase)) {
                      JOptionPane.showMessageDialog(ChangePassWindowContainer, "Old Password does not match", "Error", JOptionPane.ERROR_MESSAGE);
                  }else {
-                     try {
-                         String hashedNewPass = userDatabase.hashPasswords(newPassword);
-                         userDatabase.getUsers().get(index).setPassword(hashedNewPass);
-                         userDatabase.saveToFile();
-                         JOptionPane.showMessageDialog(ChangePassWindowContainer, "Password Changed Successfully", "Info", JOptionPane.INFORMATION_MESSAGE);
-                         editProfile.setVisible(true);
-                         setVisible(false);
-                     } catch (NoSuchAlgorithmException ex) {
-                         throw new RuntimeException(ex);
-                     }
+
+                     String hashedNewPass = HashingPassword(newPassword);// password hashed
+
+                     userDataManager.getDataById(userId).setPassword(hashedNewPass);
+                     userDataManager.saveData();
+                     JOptionPane.showMessageDialog(ChangePassWindowContainer, "Password Changed Successfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+                     editProfile.setVisible(true);
+                     setVisible(false);
 
                  }
 
@@ -74,5 +70,23 @@ public class ChangePassWindow extends JFrame {
 
          }
      });
+ }
+ public String HashingPassword(String password) {
+     //Hashing Password Algorithm
+     MessageDigest encrypt = null;
+     try {
+         encrypt = MessageDigest.getInstance("SHA-256");
+     } catch (NoSuchAlgorithmException ex) {
+         throw new RuntimeException(ex);
+     }
+     byte[] hashedPasswordInBytes = encrypt.digest(password.getBytes());
+     String hashedPasswordInHex = "";
+
+     for (int i =0 ; i< hashedPasswordInBytes.length ; i++) {
+         String hex = Integer.toHexString(0xff & hashedPasswordInBytes[i]); // Unsigned treatment
+         hashedPasswordInHex=hashedPasswordInHex+hex;
+     }
+     password = hashedPasswordInHex;// password hashed
+     return password;
  }
 }

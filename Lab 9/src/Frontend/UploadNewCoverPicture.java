@@ -1,6 +1,7 @@
 package Frontend;
 
-import Backend.UserDatabase;
+import Backend.Databases.DataManager;
+import Backend.User;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -17,12 +18,11 @@ public class UploadNewCoverPicture extends JFrame {
     private ProfileManagementPage profileManagementPage;
     private EditProfile editProfile;
     private String userId;
-    private UserDatabase userDatabase;
-    public UploadNewCoverPicture(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, UserDatabase userDatabase) {
+
+    public UploadNewCoverPicture(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, DataManager<User>userDataManager) {
         this.profileManagementPage = profileManagementPage;
         this.editProfile = editProfile;
         this.userId = userId;
-        this.userDatabase = userDatabase;
         setTitle("Upload Cover Picture");
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -45,9 +45,8 @@ public class UploadNewCoverPicture extends JFrame {
                 String path = selectImage();
                 if(path != null) {
                     //save
-                    int index = userDatabase.getUserIndexById(userId);
-                    userDatabase.getUsers().get(index).setCoverPhotoPath(path);
-                    userDatabase.saveToFile();
+                    userDataManager.getDataById(userId).setCoverPhotoPath(path);
+                    userDataManager.saveData();
                     profileManagementPage.setVisible(true);
                     setVisible(false);
                 }else {

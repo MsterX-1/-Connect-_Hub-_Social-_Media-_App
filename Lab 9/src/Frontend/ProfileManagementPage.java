@@ -3,7 +3,7 @@ package Frontend;
 import Backend.ContentCreation.Post;
 import Backend.ContentCreation.Story;
 import Backend.Databases.DataManager;
-import Backend.UserDatabase;
+import Backend.User;
 import Frontend.CustomPanels.PostPanel;
 
 import javax.swing.*;
@@ -27,13 +27,11 @@ public class ProfileManagementPage extends JFrame {
     private JButton returnButton;
     private JPanel postContainer;
     private JLabel bioLabel;
-    private UserDatabase userDatabase;
     private String userId;
 
 
-    public ProfileManagementPage(String userID, UserDatabase userDatabase, Newsfeed newsfeed, MainWindow mainWindow, DataManager<Post> postDataManager , DataManager<Story> storyDataManager) {
-        this.userDatabase = userDatabase;
-        this.userId = userID;
+    public ProfileManagementPage(String userId, DataManager<User>userDataManager, Newsfeed newsfeed, MainWindow mainWindow, DataManager<Post> postDataManager , DataManager<Story> storyDataManager) {
+        this.userId = userId;
         setTitle("Profile Management");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,12 +49,11 @@ public class ProfileManagementPage extends JFrame {
        ;
 
 
-        int index = userDatabase.getUserIndexById(userId);
-        String bio= userDatabase.getUsers().get(index).getBio();
+        String bio= userDataManager.getDataById(userId).getBio();
         bioLabel.setText(bio);
 
-      String pathPhotoProfile=  userDatabase.getUsers().get(index).getProfilePhotoPath();
-        String pathCoverProfile=  userDatabase.getUsers().get(index).getCoverPhotoPath();
+        String pathPhotoProfile=  userDataManager.getDataById(userId).getProfilePhotoPath();
+        String pathCoverProfile= userDataManager.getDataById(userId).getCoverPhotoPath();
         loadCircularImageToPanel(picturepanel,pathPhotoProfile , 150); // Default profile picture
         loadCircularImageToPanel(coverpanel, pathCoverProfile, 400);
 
@@ -68,7 +65,7 @@ public class ProfileManagementPage extends JFrame {
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new EditProfile(pRofileManagementPage,userID,userDatabase , bioLabel);
+               new EditProfile(pRofileManagementPage,userId,userDataManager , bioLabel);
                //setVisible(false);
             }
         });
@@ -79,9 +76,8 @@ public class ProfileManagementPage extends JFrame {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int index = userDatabase.getUserIndexById(userId);
-                userDatabase.getUsers().get(index).setStatus(false);
-                userDatabase.saveToFile();
+                userDataManager.getDataById(userId).setStatus(false);
+                userDataManager.saveData();
                 JOptionPane.showMessageDialog(null, "Logout Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
                 mainWindow.setVisible(true);
                 setVisible(false);

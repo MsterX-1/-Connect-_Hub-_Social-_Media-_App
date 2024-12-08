@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class User {
+public class User  {
     private String userId;
     private String email;
     private String password;
@@ -173,4 +173,5 @@ public class User {
                 ", coverPicturePath='" + coverPicturePath + '\'' +
                 '}';
     }
+
 }

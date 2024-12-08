@@ -1,7 +1,7 @@
 package Frontend;
 
+import Backend.Databases.DataManager;
 import Backend.User;
-import Backend.UserDatabase;
 import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -28,11 +29,9 @@ public class signup extends JFrame {
     private JPanel signupwindow;
     private JButton backButton;
     private JPasswordField passwordField1;
-    private UserDatabase userDatabase;
     private MainWindow mainWindow;
-    public signup (MainWindow mainWindow, UserDatabase userDatabase){
+    public signup (MainWindow mainWindow, DataManager<User> userDataManager){
         this.mainWindow = mainWindow;
-        this.userDatabase=userDatabase;
         setResizable(false);
         UtilDateModel model = new UtilDateModel();
         model.setValue(Calendar.getInstance().getTime());
@@ -74,24 +73,59 @@ public class signup extends JFrame {
 
                     }
                     else{
-                        String newUserId = ""+(userDatabase.getUsers().size()+1); //initialize user id maybe will change the format latter
-                        ArrayList<String> userSuggestions = new ArrayList<>();
-                        for(int i=0 ; i < userDatabase.getUsers().size() ;i++){
-                            userSuggestions.add(userDatabase.getUsers().get(i).getUserId());
-                        }
-                        User newUser = new User(newUserId,newUserEmail,newUserPassword,newUserName,localDate,false,new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(),userSuggestions,new ArrayList<String>());
+                        //Hashing Password Algorithm
+                        MessageDigest encrypt = null;
                         try {
-                            if (userDatabase.addUser(newUser)) {
-                                JOptionPane.showMessageDialog(signupwindow, "New User Created successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-                                userDatabase.saveToFile();
-                                setVisible(false);
-                                mainWindow.setVisible(true);
-                            } else {
-                                JOptionPane.showMessageDialog(signupwindow, "User already exists", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
+                            encrypt = MessageDigest.getInstance("SHA-256");
                         } catch (NoSuchAlgorithmException ex) {
-                            JOptionPane.showMessageDialog(signupwindow, "An error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            throw new RuntimeException(ex);
                         }
+                        byte[] hashedPasswordInBytes = encrypt.digest(newUserPassword.getBytes());
+                        String hashedPasswordInHex = "";
+
+                        for (int i =0 ; i< hashedPasswordInBytes.length ; i++) {
+                            String hex = Integer.toHexString(0xff & hashedPasswordInBytes[i]); // Unsigned treatment
+                            hashedPasswordInHex=hashedPasswordInHex+hex;
+                        }
+                        newUserPassword = hashedPasswordInHex;// password hashed
+
+                        boolean userExists = false;
+
+                        // Check if username or email already exists
+                        for (int i = 0; i < userDataManager.getAllData().size(); i++) {
+                            if (userDataManager.getAllData().get(i).getUsername().equals(newUserName) || userDataManager.getAllData().get(i).getEmail().equals(newUserEmail)) {
+                                userExists = true;
+                                break; // Exit the loop early if user exists
+                            }
+                        }
+
+                        if (userExists) {
+                            // If a user already exists, show an error message
+                            JOptionPane.showMessageDialog(signupwindow, "User already exists", "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            // Create a new user if no conflict is found
+                            JOptionPane.showMessageDialog(signupwindow, "New User Created successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                            String newUserId = "" + (userDataManager.getAllData().size() + 1); // Initialize user ID, consider changing format later
+                            ArrayList<String> userSuggestions = new ArrayList<>();
+
+                            // Populate user suggestions with existing user IDs
+                            for (int i = 0; i < userDataManager.getAllData().size(); i++) {
+                                userSuggestions.add(userDataManager.getAllData().get(i).getUserId());
+                            }
+
+                            // Create a new User object
+                            User newUser = new User(newUserId, newUserEmail, newUserPassword, newUserName, localDate, false,new ArrayList<>(),new ArrayList<>(), new ArrayList<>(), userSuggestions, new ArrayList<>());
+
+                            // Add the new user to the data manager and save changes
+                            userDataManager.insertData(newUser);
+                            userDataManager.saveData();
+
+                            // Close the signup window and open the main window
+                            setVisible(false);
+                            mainWindow.setVisible(true);
+                        }
+
 
                     }
                 }

@@ -1,6 +1,7 @@
 package Backend.FriendManager;
 
-import Backend.UserDatabase;
+import Backend.Databases.DataManager;
+import Backend.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,14 +17,11 @@ public class FriendMangerWindow1 extends JFrame{
     private JButton suggestionsButton;
     private JPanel FriendsMangerW;
     private JButton checkRequestsButton;
-
-    private UserDatabase userDatabase;
     private String currentUserId ;
 
-   public FriendMangerWindow1( UserDatabase userDatabase, String currentUserId ){
+   public FriendMangerWindow1(DataManager<User>userDataManager, String currentUserId ){
         this.currentUserId = currentUserId;
-FriendMangerWindow1 friendMangerWindow1 = this;
-        this.userDatabase=userDatabase;
+        FriendMangerWindow1 friendMangerWindow1 = this;
         setVisible(true);
         setContentPane(FriendsMangerW);
         setSize(new Dimension(800, 600));
@@ -46,7 +44,7 @@ FriendMangerWindow1 friendMangerWindow1 = this;
                    JOptionPane.showMessageDialog(null, "id can't be empty!", "Error", JOptionPane.ERROR_MESSAGE);
                } else {
                    // User entered valid input
-                   blockUser(currentUserId , blockdUserId);
+                   blockUser(currentUserId , blockdUserId,userDataManager);
 
                }
            }
@@ -65,7 +63,7 @@ FriendMangerWindow1 friendMangerWindow1 = this;
                    JOptionPane.showMessageDialog(null, "id can't be empty!", "Error", JOptionPane.ERROR_MESSAGE);
                } else {
                    // User entered valid input
-                   sendFriendRequest(currentUserId , RequestedFriendId);
+                   sendFriendRequest(currentUserId , RequestedFriendId,userDataManager);
 
                }
               
@@ -74,121 +72,121 @@ FriendMangerWindow1 friendMangerWindow1 = this;
        checkRequestsButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               new FriendRequestsWindow(currentUserId,userDatabase,friendMangerWindow1);
+             //  new FriendRequestsWindow(currentUserId,userDatabase,friendMangerWindow1);///////////////////
            }
        });
    }
-    public void sendFriendRequest(String currentUserId  , String receiver) {
-        ArrayList<String> receiverFriendRequests = userDatabase.getUserById(receiver).getFriendsRequestsIds();
+    public void sendFriendRequest(String currentUserId  , String receiver,DataManager<User> userDataManager) {
+        ArrayList<String> receiverFriendRequests = userDataManager.getDataById(receiver).getFriendsRequestsIds();
         if (receiverFriendRequests.contains(currentUserId)) {
             JOptionPane.showMessageDialog(null, "You have already sent friend request to this user.");
 
 
-        } else if (userDatabase.getUserById(receiver).getFriendsIds().contains(currentUserId)) {
+        } else if (userDataManager.getDataById(receiver).getFriendsIds().contains(currentUserId)) {
             JOptionPane.showMessageDialog(null, "You are already friends with this user.");
 
-        } else if(userDatabase.getUserById(receiver).getBlockedIds().contains(currentUserId)) {
+        } else if(userDataManager.getDataById(receiver).getBlockedIds().contains(currentUserId)) {
             JOptionPane.showMessageDialog(null, "You are blocked by this user.");
         }
         else{
             receiverFriendRequests.add(currentUserId);
-            userDatabase.getUserById(receiver).setFriendsRequestsIds(receiverFriendRequests);
+            userDataManager.getDataById(receiver).setFriendsRequestsIds(receiverFriendRequests);
             JOptionPane.showMessageDialog(null, "Friend request sent successfully.");
 
         }
-        updateSuggestions(currentUserId);
-        updateSuggestions(receiver);
-        userDatabase.saveToFile();
+        updateSuggestions(currentUserId,userDataManager);
+        updateSuggestions(receiver,userDataManager);
+        userDataManager.saveData();
 
     }
-        public void acceptFriendRequest(String currentUserId  , String senderId) {
-            ArrayList<String> currentUserFriendRequests = userDatabase.getUserById(currentUserId).getFriendsRequestsIds();
-            ArrayList<String> senderIdFriends = userDatabase.getUserById(senderId).getFriendsIds();
-            ArrayList<String> currentUserFriends = userDatabase.getUserById(currentUserId).getFriendsIds();
+        public void acceptFriendRequest(String currentUserId  , String senderId, DataManager<User> userDataManager) {
+            ArrayList<String> currentUserFriendRequests = userDataManager.getDataById(currentUserId).getFriendsRequestsIds();
+            ArrayList<String> senderIdFriends = userDataManager.getDataById(senderId).getFriendsIds();
+            ArrayList<String> currentUserFriends = userDataManager.getDataById(currentUserId).getFriendsIds();
             currentUserFriendRequests.remove(senderId);
             senderIdFriends.add(currentUserId);
             currentUserFriends.add(senderId);
-            userDatabase.getUserById(currentUserId).setFriendsIds(currentUserFriends);
-            userDatabase.getUserById(currentUserId).setFriendsRequestsIds(currentUserFriendRequests);
-            userDatabase.getUserById(senderId).setFriendsIds(senderIdFriends);
-            updateSuggestions(currentUserId);
-            updateSuggestions(senderId);
-            userDatabase.saveToFile();
+            userDataManager.getDataById(currentUserId).setFriendsIds(currentUserFriends);
+            userDataManager.getDataById(currentUserId).setFriendsRequestsIds(currentUserFriendRequests);
+            userDataManager.getDataById(senderId).setFriendsIds(senderIdFriends);
+            updateSuggestions(currentUserId,userDataManager);
+            updateSuggestions(senderId,userDataManager);
+            userDataManager.saveData();
 
 
             }
-    public void declineFriendRequest(String currentUserId  , String sender) {
-        ArrayList<String> currentUserFriendRequests = userDatabase.getUserById(currentUserId).getFriendsRequestsIds();
+    public void declineFriendRequest(String currentUserId  , String sender,DataManager<User> userDataManager) {
+        ArrayList<String> currentUserFriendRequests = userDataManager.getDataById(currentUserId).getFriendsRequestsIds();
 
         currentUserFriendRequests.remove(currentUserFriendRequests.indexOf(sender));
-        userDatabase.getUserById(currentUserId).setFriendsRequestsIds(currentUserFriendRequests);
-        updateSuggestions(currentUserId);
-        updateSuggestions(sender);
-        userDatabase.saveToFile();
+        userDataManager.getDataById(currentUserId).setFriendsRequestsIds(currentUserFriendRequests);
+        updateSuggestions(currentUserId,userDataManager);
+        updateSuggestions(sender,userDataManager);
+        userDataManager.saveData();
 
     }
-    public void blockUser(String currentUserId  , String reciver) {
-        if(!userDatabase.getUsers().contains(userDatabase.getUserById(reciver))) {
+    public void blockUser(String currentUserId  , String reciver, DataManager<User> userDataManager) {
+        if(!userDataManager.getAllData().contains(userDataManager.getDataById(reciver))) {
             JOptionPane.showMessageDialog(null, "User is not found");
         } else if(currentUserId.equals(reciver)) {
             JOptionPane.showMessageDialog(null, "You can't block yourself");
         } else {
-            ArrayList<String> currentUserBlocks = userDatabase.getUserById(currentUserId).getBlockedIds();
-            ArrayList<String> reciverUserBlockedBy = userDatabase.getUserById(reciver).getBlockedByIds();
+            ArrayList<String> currentUserBlocks = userDataManager.getDataById(currentUserId).getBlockedIds();
+            ArrayList<String> reciverUserBlockedBy = userDataManager.getDataById(reciver).getBlockedByIds();
 
             // Prevent adding current user to blocked lists if they are trying to block themselves
             if (!currentUserBlocks.contains(reciver)) {
                 currentUserBlocks.add(reciver);
-                userDatabase.getUserById(currentUserId).setBlockedIds(currentUserBlocks);
+                userDataManager.getDataById(currentUserId).setBlockedIds(currentUserBlocks);
             }
             if (!reciverUserBlockedBy.contains(currentUserId)) {
                 reciverUserBlockedBy.add(currentUserId);
-                userDatabase.getUserById(reciver).setBlockedByIds(reciverUserBlockedBy);
+                userDataManager.getDataById(reciver).setBlockedByIds(reciverUserBlockedBy);
             }
 
-            updateSuggestions(currentUserId);
-            updateSuggestions(reciver);
+            updateSuggestions(currentUserId,userDataManager);
+            updateSuggestions(reciver,userDataManager);
             JOptionPane.showMessageDialog(null, "User blocked successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            userDatabase.saveToFile();
+            userDataManager.saveData();
         }
     }
 
-    public void updateSuggestions(String currentUserId  ) {
+    public void updateSuggestions(String currentUserId,DataManager<User> userDataManager) {
 
-        ArrayList<String> suggestionsOfCurrentUser = userDatabase.getUserById(currentUserId).getSuggestedIds();
+        ArrayList<String> suggestionsOfCurrentUser = userDataManager.getDataById(currentUserId).getSuggestedIds();
         ArrayList<String> newSuggestion = new ArrayList<>();
-        ArrayList<String> blockedbyOfCurrentUser = userDatabase.getUserById(currentUserId).getBlockedByIds();
-        ArrayList<String> blockedOfCurrentUser = userDatabase.getUserById(currentUserId).getBlockedIds();
-        ArrayList<String> friendsOfCurrentUser = userDatabase.getUserById(currentUserId).getFriendsIds();
-        ArrayList<String> friendsRequestsOfCurrentUser = userDatabase.getUserById(currentUserId).getFriendsRequestsIds();
-        for(int i = 0; i < userDatabase.getUsers().size(); i++) {
-            if(!blockedbyOfCurrentUser.contains(userDatabase.getUsers().get(i).getUserId())
-                    && !friendsOfCurrentUser.contains(userDatabase.getUsers().get(i).getUserId())
-                    && !friendsRequestsOfCurrentUser.contains(userDatabase.getUsers().get(i).getUserId())
-                    && !blockedOfCurrentUser.contains(userDatabase.getUsers().get(i).getUserId())
-                    && !userDatabase.getUsers().get(i).getUserId().equals(currentUserId)) {
-                newSuggestion.add(userDatabase.getUsers().get(i).getUserId());
+        ArrayList<String> blockedbyOfCurrentUser = userDataManager.getDataById(currentUserId).getBlockedByIds();
+        ArrayList<String> blockedOfCurrentUser = userDataManager.getDataById(currentUserId).getBlockedIds();
+        ArrayList<String> friendsOfCurrentUser = userDataManager.getDataById(currentUserId).getFriendsIds();
+        ArrayList<String> friendsRequestsOfCurrentUser = userDataManager.getDataById(currentUserId).getFriendsRequestsIds();
+        for(int i = 0; i < userDataManager.getAllData().size(); i++) {
+            if(!blockedbyOfCurrentUser.contains(userDataManager.getAllData().get(i).getUserId())
+                    && !friendsOfCurrentUser.contains(userDataManager.getAllData().get(i).getUserId())
+                    && !friendsRequestsOfCurrentUser.contains(userDataManager.getAllData().get(i).getUserId())
+                    && !blockedOfCurrentUser.contains(userDataManager.getAllData().get(i).getUserId())
+                    && !userDataManager.getAllData().get(i).getUserId().equals(currentUserId)) {
+                newSuggestion.add(userDataManager.getAllData().get(i).getUserId());
             }
         }
 
-        userDatabase.getUserById(currentUserId).setSuggestedIds(newSuggestion);
-        userDatabase.saveToFile();
+        userDataManager.getDataById(currentUserId).setSuggestedIds(newSuggestion);
+        userDataManager.saveData();
 
 
     }
-    public void unBlockUser(String currentUserId  , String reciver) {
+    public void unBlockUser(String currentUserId  , String reciver,DataManager<User> userDataManager) {
 
-        ArrayList<String> currentUserBlocks = userDatabase.getUserById(currentUserId).getBlockedIds();
-        ArrayList<String> reciverUserBlockedBy = userDatabase.getUserById(currentUserId).getBlockedByIds();
+        ArrayList<String> currentUserBlocks = userDataManager.getDataById(currentUserId).getBlockedIds();
+        ArrayList<String> reciverUserBlockedBy = userDataManager.getDataById(currentUserId).getBlockedByIds();
 
         currentUserBlocks.remove(reciver);
-        userDatabase.getUserById(currentUserId).setBlockedIds(currentUserBlocks);
+        userDataManager.getDataById(currentUserId).setBlockedIds(currentUserBlocks);
         reciverUserBlockedBy.remove(currentUserId);
-        userDatabase.getUserById(currentUserId).setBlockedByIds(reciverUserBlockedBy);
-        updateSuggestions(currentUserId);
-        updateSuggestions(reciver);
+        userDataManager.getDataById(currentUserId).setBlockedByIds(reciverUserBlockedBy);
+        updateSuggestions(currentUserId,userDataManager);
+        updateSuggestions(reciver,userDataManager);
 
-        userDatabase.saveToFile();
+        userDataManager.saveData();
 
 
     }

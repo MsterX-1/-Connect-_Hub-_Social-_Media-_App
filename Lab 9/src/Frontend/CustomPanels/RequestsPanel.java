@@ -1,8 +1,10 @@
 package Frontend.CustomPanels;
 
+import Backend.Databases.DataManager;
 import Backend.FriendManager.FriendMangerWindow1;
 import Backend.FriendManager.FriendRequestsWindow;
-import Backend.UserDatabase;
+import Backend.User;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +13,7 @@ import java.awt.event.ActionListener;
 
 public class RequestsPanel extends JPanel {
 
-    public RequestsPanel(String senderName, String imagePath, FriendMangerWindow1 friendMangerWindow1 , String currentUserId ,String senderId , FriendRequestsWindow window , UserDatabase userDatabase ) {
+    public RequestsPanel(String senderName, String imagePath, FriendMangerWindow1 friendMangerWindow1 , String currentUserId , String senderId , FriendRequestsWindow window , DataManager<User>userDataManager) {
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
 
@@ -47,9 +49,9 @@ public class RequestsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Define action for Accept button
-                friendMangerWindow1.acceptFriendRequest(currentUserId , senderId);
+                friendMangerWindow1.acceptFriendRequest(currentUserId , senderId,userDataManager);
                 JOptionPane.showMessageDialog(RequestsPanel.this, "Accepted: " + senderName);
-                window.populateRequestsList(userDatabase);
+                window.populateRequestsList(userDataManager);
             }
         });
 
@@ -57,9 +59,9 @@ public class RequestsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Define action for Decline button
-                friendMangerWindow1.declineFriendRequest(currentUserId , senderId);
+                friendMangerWindow1.declineFriendRequest(currentUserId , senderId,userDataManager);
                 JOptionPane.showMessageDialog(RequestsPanel.this, "Declined: " + senderName);
-                window.populateRequestsList(userDatabase);
+                window.populateRequestsList(userDataManager);
                 // Add logic here for friendMangerWindow1.declineFriendRequest() if applicable
             }
         });

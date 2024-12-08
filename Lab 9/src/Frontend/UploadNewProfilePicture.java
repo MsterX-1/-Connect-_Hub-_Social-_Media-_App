@@ -1,6 +1,7 @@
 package Frontend;
 
-import Backend.UserDatabase;
+import Backend.Databases.DataManager;
+import Backend.User;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -20,14 +21,12 @@ public class UploadNewProfilePicture extends JFrame {
     private ProfileManagementPage profileManagementPage;
     private EditProfile editProfile;
     private String userId;
-    private UserDatabase userDatabase;
 
 
-    public UploadNewProfilePicture(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, UserDatabase userDatabase) {
+    public UploadNewProfilePicture(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, DataManager<User> userDataManager) {
         this.profileManagementPage = profileManagementPage;
         this.editProfile = editProfile;
         this.userId = userId;
-        this.userDatabase = userDatabase;
         setTitle("Upload Profile Picture");
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -35,15 +34,12 @@ public class UploadNewProfilePicture extends JFrame {
         setContentPane(panel);
 
 
-
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
 
-
         imageLabel = new JLabel();
         panel.add(imageLabel, BorderLayout.CENTER);
-
 
 
 
@@ -53,9 +49,8 @@ public class UploadNewProfilePicture extends JFrame {
                 String path = selectImage();
         if(path != null) {
             //save
-            int index = userDatabase.getUserIndexById(userId);
-            userDatabase.getUsers().get(index).setProfilePhotoPath(path);
-            userDatabase.saveToFile();
+            userDataManager.getDataById(userId).setProfilePhotoPath(path);
+            userDataManager.saveData();
             profileManagementPage.setVisible(true);
             setVisible(false);
         }else {
@@ -66,7 +61,6 @@ public class UploadNewProfilePicture extends JFrame {
         });
 
 
-
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,8 +69,6 @@ public class UploadNewProfilePicture extends JFrame {
 
             }
         });
-
-
 
 
     }

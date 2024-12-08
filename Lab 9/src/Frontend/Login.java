@@ -1,20 +1,18 @@
 package Frontend;
 
-import Backend.UserDatabase;
-
+import Backend.Databases.DataManager;
+import Backend.User;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Login extends JFrame {
     private MainWindow mainWindow ;
-    private UserDatabase userDatabase;
-    public Login(MainWindow mainWindow, UserDatabase userDatabase){
+    public Login(MainWindow mainWindow, DataManager<User> userDataManager){
         this.mainWindow = mainWindow;
-        this.userDatabase=userDatabase;
-
         setVisible(true);
         setContentPane(login);
         setSize(new Dimension(800, 600));
@@ -28,32 +26,50 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String userName= textField1.getText();
                 String userPassword = new String(passwordField1.getPassword()).trim();
-                if(userName!= null && userPassword!=null)
-                {
+
                     if(userName.isEmpty() || userPassword.isEmpty())
                         JOptionPane.showMessageDialog(login, "ALL fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
+
                     else {
+                        //Hash Algorithm
+                        MessageDigest encrypt = null;
                         try {
-                            if(userDatabase.userLogin(userName , userPassword)) {
-                                JOptionPane.showMessageDialog(login, "Login Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
-                                userDatabase.saveToFile();
-                                // next page
-                                String userId = userDatabase.getUsers().get(userDatabase.getUserIndexByNameAndPass(userName,userPassword)).getUserId();
-                                new Newsfeed(userDatabase, userId,mainWindow);
-
-                                setVisible(false);
-
-                            }
-                            else
-                                JOptionPane.showMessageDialog(login, "the username or password is invalid", "Error", JOptionPane.ERROR_MESSAGE);
-
+                            encrypt = MessageDigest.getInstance("SHA-256");
                         } catch (NoSuchAlgorithmException ex) {
                             throw new RuntimeException(ex);
                         }
+                        byte[] hashedPasswordInBytes = encrypt.digest(userPassword.getBytes());
+                        String hashedPasswordInHex = "";
+
+                        for (int i =0 ; i< hashedPasswordInBytes.length ; i++) {
+                            String hex = Integer.toHexString(0xff & hashedPasswordInBytes[i]); // Unsigned treatment
+                            hashedPasswordInHex=hashedPasswordInHex+hex;
+                        }
+                             userPassword = hashedPasswordInHex;// password hashed
+
+                        boolean loginSuccessful = false; // To track if the login was successful
+
+                        for (int i = 0; i < userDataManager.getAllData().size(); i++) {
+                            if (userDataManager.getAllData().get(i).getUsername().equals(userName) && userDataManager.getAllData().get(i).getPassword().equals(userPassword)){
+
+                                // Login successful
+                                JOptionPane.showMessageDialog(login, "Login Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                userDataManager.getAllData().get(i).setStatus(true); // Set status to Online
+                                String userId = userDataManager.getAllData().get(i).getUserId();
+                                System.out.println(userId);
+                                userDataManager.saveData();
+                                loginSuccessful = true; // Mark login as successful
+                                new Newsfeed(userDataManager, userId, mainWindow);
+                                setVisible(false);
+                                break; // Exit the loop as login is successful
+                            }
+                        }
+                        if (!loginSuccessful) {
+                            // If no user matches after the loop
+                            JOptionPane.showMessageDialog(login, "The username or password is invalid", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
 
                     }
-
-                }
             }
         });
         backButton.addActionListener(new ActionListener() {

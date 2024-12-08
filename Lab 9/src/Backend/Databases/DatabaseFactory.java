@@ -8,7 +8,7 @@ import java.io.File;
 public class DatabaseFactory {
     public static <T> Database<T> createDatabase(String type) {
         if (type.equalsIgnoreCase("user")) {
-           // return (Database<T>) new UserDatabase();
+            return (Database<T>) new UserDatabase(new File("Lab 9/src/Backend/Databases/Users.json"));
         } else if (type.equalsIgnoreCase("post")) {
             return (Database<T>) new PostDatabase(new File("Lab 9/src/Backend/Databases/postsDB.json"));
         } else if (type.equalsIgnoreCase("story")) {

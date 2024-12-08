@@ -1,11 +1,9 @@
 package Frontend;
 
-import Backend.ContentCreation.Post;
 import Backend.Databases.DataManager;
 import Backend.Databases.DatabaseFactory;
 import Backend.Interfaces.Database;
 import Backend.User;
-import Backend.UserDatabase;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +14,8 @@ public class MainWindow extends JFrame {
     private JButton Signup;
     private JButton loginButton;
     private JPanel main;
-    private UserDatabase userDatabase;
 
-    public MainWindow(UserDatabase userDatabase) {
-        this.userDatabase = userDatabase;
-        userDatabase.loadFromFile();
+    public MainWindow(DataManager<User> userDataManager) {
         setVisible(true);
         setContentPane(main);
         setSize(new Dimension(800, 600));
@@ -33,7 +28,7 @@ public class MainWindow extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Login(mainWindow, userDatabase);
+                new Login(mainWindow, userDataManager);
                 setVisible(false);
             }
         });
@@ -41,17 +36,16 @@ public class MainWindow extends JFrame {
         Signup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new signup(mainWindow, userDatabase);
+                new signup(mainWindow, userDataManager);
                 setVisible(false);
             }
         });
     }
 
     public static void main(String[] args) {
-        UserDatabase userDatabase = new UserDatabase();
-//        Database<User> userDatabase = DatabaseFactory.createDatabase("user");
-//        DataManager<User> userDataManager = new DataManager<>(userDatabase);
-//        userDataManager.loadData();
-        new MainWindow(userDatabase);
+        Database<User> userDatabase = DatabaseFactory.createDatabase("user");
+        DataManager<User> userDataManager = new DataManager<>(userDatabase);
+        userDataManager.loadData();
+        new MainWindow(userDataManager);
     }
 }

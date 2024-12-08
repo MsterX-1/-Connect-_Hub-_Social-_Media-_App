@@ -1,5 +1,6 @@
 package Frontend;
-import Backend.UserDatabase;
+import Backend.Databases.DataManager;
+import Backend.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,13 +18,11 @@ public class EditProfile extends JFrame {
     private JButton returnButton;
     private ProfileManagementPage pRofileManagementPage;
     private String userId;
-    private UserDatabase userDatabase;
 
 
-    public EditProfile(ProfileManagementPage pRofileManagementPage, String userId, UserDatabase userDatabase, JLabel bioLabel) {
+    public EditProfile(ProfileManagementPage pRofileManagementPage, String userId, DataManager<User> userDataManager, JLabel bioLabel) {
         this.pRofileManagementPage = pRofileManagementPage;
         this.userId = userId;
-        this.userDatabase = userDatabase;
         EditProfile editProfile = this;
         setTitle("Edit Profile");
         setSize(400, 300);
@@ -36,14 +35,14 @@ public class EditProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new UploadNewProfilePicture(pRofileManagementPage,editProfile,userId,userDatabase).setVisible(true);
+                new UploadNewProfilePicture(pRofileManagementPage,editProfile,userId,userDataManager).setVisible(true);
                 setVisible(false);
             }
         });
         ChangeCoverPicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new UploadNewCoverPicture(pRofileManagementPage,editProfile,userId,userDatabase).setVisible(true);
+                new UploadNewCoverPicture(pRofileManagementPage,editProfile,userId,userDataManager).setVisible(true);
                 setVisible(false);
             }
         });
@@ -56,7 +55,7 @@ public class EditProfile extends JFrame {
         ChangePassButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ChangePassWindow(pRofileManagementPage,editProfile,userId,userDatabase).setVisible(true);
+                new ChangePassWindow(pRofileManagementPage,editProfile,userId,userDataManager).setVisible(true);
                 setVisible(false);
             }
         });
@@ -82,9 +81,8 @@ public class EditProfile extends JFrame {
                 } else {
                     // User entered valid input
                     bioLabel.setText(bio);
-                    int index = userDatabase.getUserIndexById(userId);
-                    userDatabase.getUsers().get(index).setBio(bio);
-                    userDatabase.saveToFile();
+                    userDataManager.getDataById(userId).setBio(bio);
+                    userDataManager.saveData();
                     JOptionPane.showMessageDialog(null, "Bio updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
