@@ -99,7 +99,8 @@ public class Newsfeed extends JFrame {
         imagelabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //SOLID profile management should take both posts and stories
+                System.out.println("Image clicked!");
+
                 new ProfileManagementPage(userId, userDatabase, newsfeed, mainWindow,postManager , storyManager).setVisible(true);
                 setVisible(false);
             }
@@ -146,12 +147,13 @@ public class Newsfeed extends JFrame {
 
         int index = userDatabase.getUserIndexById(userId);
         String pathPhotoProfile = userDatabase.getUserById(userId).getProfilePhotoPath();
-        loadCircularImageToPanel(zzz, pathPhotoProfile, 150);
         ImageIcon imageIcon = new ImageIcon(pathPhotoProfile); // Load image
         Image image = imageIcon.getImage();
         int scaledWidth = imagelabel.getWidth();
         int scaledHeight = imagelabel.getHeight();
         Image scaledImage = image.getScaledInstance(150, 100, Image.SCALE_SMOOTH);
+        //loadCircularImageToPanel(zzz, pathPhotoProfile, 150);
+
         return scaledImage;
     }
 
@@ -162,6 +164,9 @@ public class Newsfeed extends JFrame {
         postScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
+
+
+
     public void refreshFriendsList(UserDatabase userDatabase) {
         freindsContainer.setLayout(new BoxLayout(freindsContainer, BoxLayout.Y_AXIS));
         populateFriendsList(userDatabase);
@@ -169,12 +174,22 @@ public class Newsfeed extends JFrame {
         friendScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
+
+
+
+
+
+
     public void refreshSuggestionsList(UserDatabase userDatabase) {
         suggestionsContainer.setLayout(new BoxLayout(suggestionsContainer, BoxLayout.Y_AXIS));
         populateSuggestionsList(userDatabase);
         suggestionsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         suggestionsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
+
+
+
+
 
     private void populateFriendsList(UserDatabase userDatabase) {
         freindsContainer.removeAll();
@@ -254,55 +269,6 @@ public class Newsfeed extends JFrame {
         // Revalidate and repaint the container to apply updates
         suggestionsContainer.revalidate();
         suggestionsContainer.repaint();
-    }
-    private void loadCircularImageToPanel(JPanel panel, String imagePath, int diameter) {
-        try {
-            File imageFile = new File(imagePath);
-            System.out.println("Attempting to load image from: " + imageFile.getAbsolutePath());
-
-            if (!imageFile.exists()) {
-                throw new IOException("Image file not found at: " + imagePath);
-            }
-
-            ImageIcon imageIcon = new ImageIcon(imageFile.getAbsolutePath());
-            Image image = imageIcon.getImage();
-
-
-            JPanel circlePanel = new JPanel() {
-                @Override
-                protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-                    Graphics2D g2d = (Graphics2D) g;
-
-
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //عشان اعمل smooth edge
-
-
-
-                    Shape circle = new java.awt.geom.Ellipse2D.Float(0, 0, diameter, diameter);//عشان اعمل شكل circle
-                    g2d.setClip(circle);
-
-
-                    g2d.drawImage(image, 0, 0, diameter, diameter, null);// بعمل Scale لل image عشان تبقي جوه الcircle layout اللي انا لسا عامله
-                }
-
-                @Override
-                public Dimension getPreferredSize() {
-                    return new Dimension(diameter, diameter);
-                }
-            };
-
-circlePanel.setBackground(new Color(40,40,40));
-            panel.removeAll();
-            panel.setLayout(new GridBagLayout()); // عشان احطها في النص
-
-            panel.add(circlePanel); // بضيف الدايره في الpanel
-            panel.revalidate();// جدد الlayout
-            panel.repaint(); // للرسم مره اخري
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error loading image: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }
 
 
