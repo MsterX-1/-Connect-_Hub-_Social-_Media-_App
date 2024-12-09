@@ -4,6 +4,7 @@ import Databases.DataManager;
 import Databases.DatabaseFactory;
 import Interfaces.Database;
 import PhaseOne.FriendManagement.Backend.UserRelations;
+import PhaseOne.ProfileManagement.Backend.Profile;
 import RunProgram.MainWindow;
 import PhaseOne.UserAccountManagement.Backend.User;
 import org.jdatepicker.impl.DateComponentFormatter;
@@ -120,13 +121,24 @@ public class signup extends JFrame {
 
                             // Create a new User object
                             User newUser = new User(newUserId, newUserEmail, newUserPassword, newUserName, localDate, false);
+                            //put suggest friend to the new user
                             Database<UserRelations> userRelationsDatabase = DatabaseFactory.createDatabase("relations");
                             DataManager<UserRelations> userRelationsManager = new DataManager<>(userRelationsDatabase);
                             userRelationsManager.loadData();
                             UserRelations userRelations = new UserRelations(newUserId);
                             userRelations.setSuggestionsList(userSuggestions);
+                            for(int i=0;i<userRelationsManager.getAllData().size();i++){
+                                userRelationsManager.getAllData().get(i).getSuggestionsList().add(newUserId);
+                            }
                             userRelationsManager.insertData(userRelations);
                             userRelationsManager.saveData();
+                            // make default profile for new user
+                            Database<Profile> profileDatabase = DatabaseFactory.createDatabase("profile");
+                            DataManager<Profile> profileManager = new DataManager<>(profileDatabase);
+                            profileManager.loadData();
+                            Profile newUserProfile = new Profile(newUserId);
+                            profileManager.insertData(newUserProfile);
+                            profileManager.saveData();
                             // Add the new user to the data manager and save changes
                             userDataManager.insertData(newUser);
                             userDataManager.saveData();

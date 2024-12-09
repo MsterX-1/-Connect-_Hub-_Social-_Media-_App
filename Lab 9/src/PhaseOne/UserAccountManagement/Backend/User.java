@@ -10,9 +10,6 @@ public class User  {
     private String username;
     private LocalDate dateOfBirth;
     private boolean status;
-    private String bio;
-    private String profilePhotoPath;
-    private String coverPicturePath;
 
     public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status) {
         this.userId = userId;
@@ -21,9 +18,6 @@ public class User  {
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.status = status;
-        this.bio = "Hey There !";
-        this.profilePhotoPath = "Lab 9/src/PhotosUsed/DefultPic.jpg";
-        this.coverPicturePath = "Lab 9/src/PhotosUsed/DefultPic.jpg";
     }
     public User() {}
     public String getUserId() {
@@ -34,30 +28,6 @@ public class User  {
         this.userId = userId;
     }
 
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getProfilePhotoPath() {
-        return profilePhotoPath;
-    }
-
-    public void setProfilePhotoPath(String profilePhotoPath) {
-        this.profilePhotoPath = profilePhotoPath;
-    }
-
-    public String getCoverPhotoPath() {
-        return coverPicturePath;
-    }
-
-    public void setCoverPhotoPath(String coverPhotoPath) {
-        this.coverPicturePath = coverPhotoPath;
-    }
 
     public String getEmail() {
 
@@ -105,20 +75,6 @@ public class User  {
         if(isStatus())
             return "online";
         return "offline";
-    }
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", username='" + username + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", status=" + status +
-                ", bio='" + bio + '\'' +
-                ", profilePhotoPath='" + profilePhotoPath + '\'' +
-                ", coverPicturePath='" + coverPicturePath + '\'' +
-                '}';
     }
 
 }

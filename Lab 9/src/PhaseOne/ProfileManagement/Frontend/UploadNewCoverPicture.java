@@ -1,6 +1,7 @@
 package PhaseOne.ProfileManagement.Frontend;
 
 import Databases.DataManager;
+import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class UploadNewCoverPicture extends JFrame {
     private EditProfile editProfile;
     private String userId;
 
-    public UploadNewCoverPicture(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, DataManager<User>userDataManager) {
+    public UploadNewCoverPicture(ProfileManagementPage profileManagementPage, EditProfile editProfile, String userId, DataManager<User>userDataManager,DataManager<Profile> profileManager) {
         this.profileManagementPage = profileManagementPage;
         this.editProfile = editProfile;
         this.userId = userId;
@@ -45,8 +46,8 @@ public class UploadNewCoverPicture extends JFrame {
                 String path = selectImage();
                 if(path != null) {
                     //save
-                    userDataManager.getDataById(userId).setCoverPhotoPath(path);
-                    userDataManager.saveData();
+                    profileManager.getDataById(userId).setCoverPhotoPath(path);
+                    profileManager.saveData();
                     profileManagementPage.setVisible(true);
                     setVisible(false);
                 }else {

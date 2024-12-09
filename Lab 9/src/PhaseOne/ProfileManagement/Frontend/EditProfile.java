@@ -1,5 +1,6 @@
 package PhaseOne.ProfileManagement.Frontend;
 import Databases.DataManager;
+import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 
 import javax.swing.*;
@@ -20,7 +21,7 @@ public class EditProfile extends JFrame {
     private String userId;
 
 
-    public EditProfile(ProfileManagementPage pRofileManagementPage, String userId, DataManager<User> userDataManager, JLabel bioLabel) {
+    public EditProfile(ProfileManagementPage pRofileManagementPage, String userId, DataManager<User> userDataManager, JLabel bioLabel, DataManager<Profile> profileManager) {
         this.pRofileManagementPage = pRofileManagementPage;
         this.userId = userId;
         EditProfile editProfile = this;
@@ -35,23 +36,18 @@ public class EditProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new UploadNewProfilePicture(pRofileManagementPage,editProfile,userId,userDataManager).setVisible(true);
+                new UploadNewProfilePicture(pRofileManagementPage,editProfile,userId,userDataManager,profileManager).setVisible(true);
                 setVisible(false);
             }
         });
         ChangeCoverPicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new UploadNewCoverPicture(pRofileManagementPage,editProfile,userId,userDataManager).setVisible(true);
+                new UploadNewCoverPicture(pRofileManagementPage,editProfile,userId,userDataManager,profileManager).setVisible(true);
                 setVisible(false);
             }
         });
-        ChangeBioButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
         ChangePassButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,8 +77,8 @@ public class EditProfile extends JFrame {
                 } else {
                     // User entered valid input
                     bioLabel.setText(bio);
-                    userDataManager.getDataById(userId).setBio(bio);
-                    userDataManager.saveData();
+                    profileManager.getDataById(userId).setBio(bio);
+                    profileManager.saveData();
                     JOptionPane.showMessageDialog(null, "Bio updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
             }

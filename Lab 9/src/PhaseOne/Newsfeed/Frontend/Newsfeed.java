@@ -8,6 +8,7 @@ import Databases.DatabaseFactory;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.FriendManagement.Frontend.FriendMangerWindow;
 import Interfaces.Database;
+import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.ProfileManagement.Frontend.ProfileManagementPage;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseOne.ContentCreation.Frontend.publishContentWindow;
@@ -58,6 +59,10 @@ public class Newsfeed extends JFrame {
         Database<UserRelations> userRelationsDatabase = DatabaseFactory.createDatabase("relations");
         DataManager<UserRelations> userRelationsDataManager = new DataManager<>(userRelationsDatabase);
         userRelationsDataManager.loadData();
+        //create Profile database and manager
+        Database<Profile> profileDatabase = DatabaseFactory.createDatabase("profile");
+        DataManager<Profile> profileManager = new DataManager<>(profileDatabase);
+        profileManager.loadData();
         //managing posts
         postContainer.setLayout(new BoxLayout(postContainer, BoxLayout.Y_AXIS));
         populatePosts(postManager);
@@ -65,13 +70,13 @@ public class Newsfeed extends JFrame {
         postScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //managing friendsList
         freindsContainer.setLayout(new BoxLayout(freindsContainer, BoxLayout.Y_AXIS));
-        populateFriendsList(userDataManager , userRelationsDataManager);
+        populateFriendsList(userDataManager , userRelationsDataManager,profileManager);
         freindsContainer.setSize(new Dimension(200, 100));
         friendScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         friendScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //managing suggestions
         suggestionsContainer.setLayout(new BoxLayout(suggestionsContainer, BoxLayout.Y_AXIS));
-        populateSuggestionsList(userDataManager , userRelationsDataManager);
+        populateSuggestionsList(userDataManager , userRelationsDataManager,profileManager);
         suggestionsContainer.setSize(new Dimension(200, 100));
         suggestionsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         suggestionsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -92,14 +97,14 @@ public class Newsfeed extends JFrame {
         setContentPane(mainContainer);
 
 
-        imagelabel.setIcon(new ImageIcon(updateNewsFeedPhoto(userDataManager)));
+        imagelabel.setIcon(new ImageIcon(updateNewsFeedPhoto(profileManager)));
         usernameLabel.setText(userDataManager.getDataById(userId).getUsername());
 
         imagelabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //SOLID profile management should take both posts and stories
-                new ProfileManagementPage(userId, userDataManager, newsfeed, mainWindow,postManager , storyManager).setVisible(true);
+                new ProfileManagementPage(userId, userDataManager, newsfeed, mainWindow,postManager , storyManager,profileManager).setVisible(true);
                 setVisible(false);
             }
         });
@@ -121,11 +126,11 @@ public class Newsfeed extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //update posts window
                 refreshPosts(postManager);
-                refreshFriendsList(userDataManager , userRelationsDataManager);
-                refreshSuggestionsList(userDataManager , userRelationsDataManager);
+                refreshFriendsList(userDataManager , userRelationsDataManager,profileManager);
+                refreshSuggestionsList(userDataManager , userRelationsDataManager,profileManager);
 
                 // Update the newsfeed photo
-                Image updatedImage = updateNewsFeedPhoto(userDataManager);
+                Image updatedImage = updateNewsFeedPhoto(profileManager);
                 imagelabel.setIcon(new ImageIcon(updatedImage));
             }
         });
@@ -133,15 +138,15 @@ public class Newsfeed extends JFrame {
         friendManagerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FriendMangerWindow(userDataManager, userId , userRelationsDataManager);
+                new FriendMangerWindow(userDataManager, userId , userRelationsDataManager,profileManager);
 
             }
         });
     }
 
-    public Image updateNewsFeedPhoto(DataManager<User> userDataManager) {
+    public Image updateNewsFeedPhoto(DataManager<Profile> profileManager) {
 
-        String pathPhotoProfile = userDataManager.getDataById(userId).getProfilePhotoPath();
+        String pathPhotoProfile = profileManager.getDataById(userId).getProfilePhotoPath();
         ImageIcon imageIcon = new ImageIcon(pathPhotoProfile); // Load image
         Image image = imageIcon.getImage();
         int scaledWidth = imagelabel.getWidth();
@@ -157,21 +162,21 @@ public class Newsfeed extends JFrame {
         postScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
-    public void refreshFriendsList(DataManager<User> userDataManager , DataManager<UserRelations> userRelationsDataManager) {
+    public void refreshFriendsList(DataManager<User> userDataManager , DataManager<UserRelations> userRelationsDataManager,DataManager<Profile> profileManager) {
         freindsContainer.setLayout(new BoxLayout(freindsContainer, BoxLayout.Y_AXIS));
-        populateFriendsList(userDataManager , userRelationsDataManager);
+        populateFriendsList(userDataManager , userRelationsDataManager,profileManager);
         friendScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         friendScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
-    public void refreshSuggestionsList(DataManager<User> userDataManager , DataManager<UserRelations> userRelationsDataManager) {
+    public void refreshSuggestionsList(DataManager<User> userDataManager , DataManager<UserRelations> userRelationsDataManager,DataManager<Profile> profileManager) {
         suggestionsContainer.setLayout(new BoxLayout(suggestionsContainer, BoxLayout.Y_AXIS));
-        populateSuggestionsList(userDataManager , userRelationsDataManager);
+        populateSuggestionsList(userDataManager , userRelationsDataManager,profileManager);
         suggestionsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         suggestionsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
-    private void populateFriendsList(DataManager<User> userDataManager ,DataManager<UserRelations> userRelationsManager ) {
+    private void populateFriendsList(DataManager<User> userDataManager ,DataManager<UserRelations> userRelationsManager ,DataManager<Profile> profileManager) {
         freindsContainer.removeAll();
         // Simulate data for demonstration
         if(userRelationsManager.getDataById(userId).getFriendsList() == null)
@@ -181,7 +186,7 @@ public class Newsfeed extends JFrame {
             String friendId = userRelationsManager.getDataById(userId).getFriendsList().get(i);
             String friendName = userDataManager.getDataById(friendId).getUsername();
             String friendStatus = userDataManager.getDataById(friendId).checkStatus();
-            String imagePaths = userDataManager.getDataById(friendId).getProfilePhotoPath();
+            String imagePaths = profileManager.getDataById(friendId).getProfilePhotoPath();
 
             // Create a PostPanel for each post
             ProfilePanel friendPanel = new ProfilePanel(friendName + "( " + friendStatus + " )", imagePaths);
@@ -224,7 +229,7 @@ public class Newsfeed extends JFrame {
         postContainer.repaint();
     }
 
-    private void populateSuggestionsList(DataManager<User> userDataManager , DataManager<UserRelations> userRelationsDataManager) {
+    private void populateSuggestionsList(DataManager<User> userDataManager , DataManager<UserRelations> userRelationsDataManager,DataManager<Profile> profileManager) {
         suggestionsContainer.removeAll();
         // Simulate data for demonstration
         if(userRelationsDataManager.getDataById(userId).getSuggestionsList() == null)
@@ -232,7 +237,7 @@ public class Newsfeed extends JFrame {
         for (int i = 0; i < userRelationsDataManager.getDataById(userId).getSuggestionsList().size(); i++) {
             String suggestedId = userRelationsDataManager.getDataById(userId).getSuggestionsList().get(i);
             String suggestedName = userDataManager.getDataById(suggestedId).getUsername();
-            String imagePaths = userDataManager.getDataById(suggestedId).getProfilePhotoPath();
+            String imagePaths = profileManager.getDataById(suggestedId).getProfilePhotoPath();
 
             // Create a PostPanel for each post
             ProfilePanel profilePanel = new ProfilePanel(suggestedName, imagePaths);

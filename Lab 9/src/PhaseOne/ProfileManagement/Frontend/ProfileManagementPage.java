@@ -4,6 +4,7 @@ import PhaseOne.ContentCreation.Backend.Post;
 import PhaseOne.ContentCreation.Backend.Story;
 import Databases.DataManager;
 import PhaseOne.Newsfeed.Frontend.Newsfeed;
+import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import CustomJPanels.PostPanel;
 import RunProgram.MainWindow;
@@ -32,7 +33,7 @@ public class ProfileManagementPage extends JFrame {
     private String userId;
 
 
-    public ProfileManagementPage(String userId, DataManager<User>userDataManager, Newsfeed newsfeed, MainWindow mainWindow, DataManager<Post> postDataManager , DataManager<Story> storyDataManager) {
+    public ProfileManagementPage(String userId, DataManager<User>userDataManager, Newsfeed newsfeed, MainWindow mainWindow, DataManager<Post> postDataManager , DataManager<Story> storyDataManager, DataManager<Profile> profileManager) {
         this.userId = userId;
         setTitle("Profile Management");
         setSize(1000, 800);
@@ -51,11 +52,11 @@ public class ProfileManagementPage extends JFrame {
        ;
 
 
-        String bio= userDataManager.getDataById(userId).getBio();
+        String bio= profileManager.getDataById(userId).getBio();
         bioLabel.setText(bio);
 
-        String pathPhotoProfile=  userDataManager.getDataById(userId).getProfilePhotoPath();
-        String pathCoverProfile= userDataManager.getDataById(userId).getCoverPhotoPath();
+        String pathPhotoProfile=  profileManager.getDataById(userId).getProfilePhotoPath();
+        String pathCoverProfile= profileManager.getDataById(userId).getCoverPhotoPath();
         loadCircularImageToPanel(picturepanel,pathPhotoProfile , 150); // Default profile picture
         loadCircularImageToPanel(coverpanel, pathCoverProfile, 400);
 
@@ -67,7 +68,7 @@ public class ProfileManagementPage extends JFrame {
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new EditProfile(pRofileManagementPage,userId,userDataManager , bioLabel);
+               new EditProfile(pRofileManagementPage,userId,userDataManager , bioLabel,profileManager);
                //setVisible(false);
             }
         });

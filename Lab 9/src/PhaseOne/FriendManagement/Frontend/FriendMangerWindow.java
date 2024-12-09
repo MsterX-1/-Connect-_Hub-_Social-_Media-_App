@@ -4,6 +4,7 @@ import Databases.DataManager;
 import Databases.DatabaseFactory;
 import Interfaces.Database;
 import PhaseOne.FriendManagement.Backend.UserRelations;
+import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 
 import javax.swing.*;
@@ -22,7 +23,7 @@ public class FriendMangerWindow extends JFrame{
     private JButton checkRequestsButton;
     private String currentUserId ;
 
-   public FriendMangerWindow(DataManager<User>userDataManager, String currentUserId , DataManager<UserRelations> userRelationsDataManager){
+   public FriendMangerWindow(DataManager<User>userDataManager, String currentUserId , DataManager<UserRelations> userRelationsDataManager, DataManager<Profile> profileManager){
        this.currentUserId = currentUserId;
         FriendMangerWindow friendMangerWindow1 = this;
         setVisible(true);
@@ -80,7 +81,7 @@ public class FriendMangerWindow extends JFrame{
            public void actionPerformed(ActionEvent e) {
              //  new FriendRequestsWindow(currentUserId,userDataManager,friendMangerWindow1);
                //SOLID
-               new FriendRequestsWindow(currentUserId,userDataManager, userRelationsDataManager);
+               new FriendRequestsWindow(currentUserId,userDataManager, userRelationsDataManager,profileManager);
            }
        });
    }
