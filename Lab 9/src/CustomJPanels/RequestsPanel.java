@@ -54,6 +54,7 @@ public class RequestsPanel extends JPanel {
                 userRelationsDataManager.getDataById(currentUserId).acceptFriendRequest(senderId,userRelationsDataManager);
                 JOptionPane.showMessageDialog(RequestsPanel.this, "Accepted: " + senderName);
                 userRelationsDataManager.saveData();
+                //to refresh request window
                 window.populateRequestsList(userDataManager);
             }
         });
@@ -66,8 +67,8 @@ public class RequestsPanel extends JPanel {
                 userRelationsDataManager.getDataById(currentUserId).declineFriendRequest(senderId , userRelationsDataManager);
                 JOptionPane.showMessageDialog(RequestsPanel.this, "Declined: " + senderName);
                 userRelationsDataManager.saveData();
+                //to refresh request window
                 window.populateRequestsList(userDataManager);
-                // Add logic here for friendMangerWindow1.declineFriendRequest() if applicable
             }
         });
     }
