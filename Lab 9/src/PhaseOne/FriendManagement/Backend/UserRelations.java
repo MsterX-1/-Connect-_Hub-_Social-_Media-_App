@@ -24,6 +24,10 @@ public class UserRelations {
         pendingRequests = new HashMap<>();
     }
 
+    public void setSuggestionsList(ArrayList<String> suggestionsList) {
+        this.suggestionsList = suggestionsList;
+    }
+
     public UserRelations(){}
     public String getUserId() {
         return userId;

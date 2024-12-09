@@ -14,7 +14,7 @@ public class User  {
     private String profilePhotoPath;
     private String coverPicturePath;
 
-    public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status , ArrayList<String> friendsIds , ArrayList<String> friendsRequestsIds , ArrayList<String> blockedIds , ArrayList<String> suggestedIds ,ArrayList<String> blockedByIds) {
+    public User(String userId, String email, String password, String username, LocalDate dateOfBirth, boolean status) {
         this.userId = userId;
         this.email = email;
         this.password = password;
@@ -22,8 +22,8 @@ public class User  {
         this.dateOfBirth = dateOfBirth;
         this.status = status;
         this.bio = "Hey There !";
-        this.profilePhotoPath = "Lab 9/src/Frontend/DefultPic.jpg";
-        this.coverPicturePath = "Lab 9/src/Frontend/DefultPic.jpg";
+        this.profilePhotoPath = "Lab 9/src/PhotosUsed/DefultPic.jpg";
+        this.coverPicturePath = "Lab 9/src/PhotosUsed/DefultPic.jpg";
     }
     public User() {}
     public String getUserId() {

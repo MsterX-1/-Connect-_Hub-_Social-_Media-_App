@@ -4,20 +4,20 @@
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
   "username" : "amr",
   "dateOfBirth" : [ 2001, 12, 6 ],
-  "status" : true,
+  "status" : false,
   "bio" : "my new bio",
-  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
-  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg"
 }, {
   "userId" : "2",
   "email" : "b@gmail.com",
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
   "username" : "khalifa",
   "dateOfBirth" : [ 2003, 12, 6 ],
-  "status" : true,
+  "status" : false,
   "bio" : "Hey There !",
-  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
-  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg"
 }, {
   "userId" : "3",
   "email" : "c@gmail.com",
@@ -26,8 +26,8 @@
   "dateOfBirth" : [ 2003, 12, 6 ],
   "status" : false,
   "bio" : "Hey There !",
-  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
-  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg"
 }, {
   "userId" : "4",
   "email" : "d@gmail.com",
@@ -36,8 +36,8 @@
   "dateOfBirth" : [ 2003, 12, 6 ],
   "status" : false,
   "bio" : "Hey There !",
-  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
-  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg"
 }, {
   "userId" : "5",
   "email" : "team@email.com",
@@ -46,8 +46,8 @@
   "dateOfBirth" : [ 1991, 12, 18 ],
   "status" : false,
   "bio" : "Hey There !",
-  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
-  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg"
 }, {
   "userId" : "6",
   "email" : "user@gmail.com",
@@ -56,8 +56,8 @@
   "dateOfBirth" : [ 1999, 12, 8 ],
   "status" : false,
   "bio" : "Hey There !",
-  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
-  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg"
 }, {
   "userId" : "7",
   "email" : "new@gmail.com",
@@ -66,8 +66,8 @@
   "dateOfBirth" : [ 2001, 12, 13 ],
   "status" : false,
   "bio" : "Hey There !",
-  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
-  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg"
 }, {
   "userId" : "8",
   "email" : "bebo@gmail.com",
@@ -76,6 +76,6 @@
   "dateOfBirth" : [ 1998, 12, 3 ],
   "status" : true,
   "bio" : "Hey There !",
-  "profilePhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg",
-  "coverPhotoPath" : "Lab 9/src/Frontend/DefultPic.jpg"
+  "profilePhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg"
 } ]
