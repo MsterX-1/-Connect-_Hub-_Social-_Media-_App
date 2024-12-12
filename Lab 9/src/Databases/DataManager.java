@@ -2,6 +2,7 @@ package Databases;
 
 import Interfaces.Database;
 import Interfaces.IdentifiableDatabase;
+import Interfaces.NameKeyDatabase;
 
 import java.util.ArrayList;
 
@@ -34,5 +35,8 @@ public class DataManager<T> {
 
     public T getDataById(String id) {
        return ( (IdentifiableDatabase<T> ) database).getDataById(id);
+    }
+    public T getDataByName(String name) {
+        return ( (NameKeyDatabase<T>) database).getDataByName(name);
     }
 }
