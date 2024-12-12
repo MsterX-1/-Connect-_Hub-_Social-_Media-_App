@@ -46,16 +46,15 @@ public class SearchWindow extends JFrame{
                 } else if (userInput.isEmpty()){
                     JOptionPane.showMessageDialog(null,"the search bar is empty" );
                 }else {
+                    searchContainer.setLayout(new BoxLayout(searchContainer, BoxLayout.Y_AXIS));
+
                     Search search = new Search(userId,userdataManagr,userRelationsDataManager,groupDataManager);
-                    ArrayList<String> foundFriendsId = search.sreachFormUserFriends(userInput);
-                    System.out.println(foundFriendsId);
-                    ArrayList<String> foundNonFriendsId= search.sreachFormNonFriends(userInput);
-                    ArrayList<String> foundgroups = search.sreachFromGoups(userInput);
+                    ArrayList<String> foundFriendsId = search.searchFormUserFriends(userInput);
+                    ArrayList<String> foundNonFriendsId= search.searchFormNonFriends(userInput);
+                    ArrayList<String> foundgroups = search.searchFromGroups(userInput);
                     if(foundFriendsId !=null && !foundFriendsId.isEmpty()) {
-                        System.out.println("inside if");
                         searchContainer.removeAll();
                         for (int i = 0; i < foundFriendsId.size(); i++) {
-                            System.out.println("inside for loop");
                             String friendId = foundFriendsId.get(i);
                             String userName = userdataManagr.getDataById(friendId).getUsername();
                             String imagePath = profileDataManager.getDataById(friendId).getProfilePhotoPath();
@@ -70,6 +69,10 @@ public class SearchWindow extends JFrame{
                         }
 
                     }
+
+
+                    scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                    scrollpane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
                 }
             }
         });
