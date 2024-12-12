@@ -4,21 +4,23 @@ import Databases.DataManager;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupRole;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GroupOwnerSettingWindow extends JFrame {
-    private JButton promoteMemberButton;
-    private JButton demoteMemberButton;
+    private JButton promoteDemoteMemberButton;
     private JButton removeMemberButton;
     private JButton manageGroupPostsButton;
     private JButton deleteTheGroupButton;
     private JPanel panel;
+    private JButton changeGroupPhotoButton;
 
-    public GroupOwnerSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager) {
+    public GroupOwnerSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, GroupWindow groupWindow, DataManager<GroupRole> groupRoleDataManager) {
         setTitle("Group Owner Setting");
+        GroupOwnerSettingWindow groupSetting = this;
         setContentPane(panel);
         setVisible(true);
         setSize(400, 300);
@@ -34,6 +36,7 @@ public class GroupOwnerSettingWindow extends JFrame {
                 if (response == JOptionPane.YES_OPTION) {
                     // Logic for deleting the group
                     groupDataManager.removeData(groupDataManager.getDataByName(groupName));
+                    groupRoleDataManager.removeData(groupRoleDataManager.getDataByName(groupName));
 
                     // return to the news feed
 
@@ -48,7 +51,26 @@ public class GroupOwnerSettingWindow extends JFrame {
         removeMemberButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RemoveMemberFromGroupWindow(groupName,groupDataManager,userDataManager,profileDataManager);
+                new RemoveMemberAsOwnerWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
+            }
+        });
+        changeGroupPhotoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UploadNewGroupPicture(groupDataManager,groupName,groupWindow,groupSetting);
+                setVisible(false);
+            }
+        });
+        manageGroupPostsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        promoteDemoteMemberButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PromoteAndDemoteMembersWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
             }
         });
     }

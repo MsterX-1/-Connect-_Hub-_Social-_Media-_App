@@ -4,6 +4,7 @@ package Databases;
 import Databases.Content.PostDatabase;
 import Databases.Content.StoryDatabase;
 import Databases.Group.GroupDatabase;
+import Databases.GroupRole.GroupRoleDatabase;
 import Databases.Profile.ProfileDatabase;
 import Databases.Relations.RelationDatabase;
 import Databases.User.UserDatabase;
@@ -25,6 +26,8 @@ public class DatabaseFactory {
             return (Database<T>) new ProfileDatabase(new File("Lab 9/src/Databases/Profile/profilesDB.json"));
         } else if (type.equalsIgnoreCase("group")) {
             return (Database<T>) new GroupDatabase(new File("Lab 9/src/Databases/Group/GroupsDB.json"));
+        } else if (type.equalsIgnoreCase("groupRole")) {
+            return (Database<T>) new GroupRoleDatabase(new File("Lab 9/src/Databases/GroupRole/GroupRoleDB.json"));
         }
         throw new IllegalArgumentException("No database implementation for type: " + type);
     }

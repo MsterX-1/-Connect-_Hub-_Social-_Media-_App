@@ -6,6 +6,7 @@ import Interfaces.Database;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupRole;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,8 +23,9 @@ public class GroupWindow extends JFrame {
     private JPanel membersContainer;
     private JLabel descriptionLabel;
 
-    public GroupWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager,DataManager<Profile> profileDataManager) {
+    public GroupWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager,DataManager<Profile> profileDataManager,DataManager<GroupRole> groupRoleDataManager,String userId) {
         setTitle("Group Management");
+        GroupWindow groupWindow= this;
         setContentPane(panel);
         setVisible(true);
         setSize(1000, 800);
@@ -42,9 +44,33 @@ public class GroupWindow extends JFrame {
         groupSettingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new GroupOwnerSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager);
+                if (isOwner(userId,groupName,groupRoleDataManager)){
+
+                    new GroupOwnerSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager);
+
+                } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
+
+                    new GroupAdminSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
+                }else {
+
+                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId);
+                }
             }
         });
+    }
+    public boolean isOwner(String userId , String groupName,DataManager<GroupRole> groupRoleDataManager){
+        if (userId.equals(groupRoleDataManager.getDataByName(groupName).getGroupCreator()))
+            return true;
+        else
+            return false;
+    }
+    public boolean isAdmin(String userId , String groupName,DataManager<GroupRole> groupRoleDataManager) {
+        for(int i =0; i<groupRoleDataManager.getDataByName(groupName).getGroupAdmins().size(); i++){
+            if (userId.equals(groupRoleDataManager.getDataByName(groupName).getGroupAdmins().get(i))){
+                return true;
+            }
+        }
+        return false;
     }
     public void updateGroupPicture(String imagePath) {
         System.out.println("Updating group picture with: " + imagePath);
@@ -103,18 +129,35 @@ public class GroupWindow extends JFrame {
         Database<Group> groupDatabase = DatabaseFactory.createDatabase("group");
         DataManager<Group> groupDataManager = new DataManager<>(groupDatabase);
         groupDataManager.loadData();
+
         Group g1 = new Group("ELGamdeen");
         g1.getGroupMembers().add("1");//id
         g1.getGroupMembers().add("2");
         g1.getGroupMembers().add("3");
         groupDataManager.insertData(g1);
+
         Database<User> userDatabase = DatabaseFactory.createDatabase("user");
         DataManager<User> userDataManager = new DataManager<>(userDatabase);
         userDataManager.loadData();
+
         Database<Profile> profileDatabase = DatabaseFactory.createDatabase("profile");
         DataManager<Profile> profileDataManager = new DataManager<>(profileDatabase);
         profileDataManager.loadData();
-        GroupWindow window = new GroupWindow("ELGamdeen",groupDataManager,userDataManager,profileDataManager);
+        String userId = "3";
+
+        Database<GroupRole> groupRoleDatabase = DatabaseFactory.createDatabase("groupRole");
+        DataManager<GroupRole> groupRoleDataManager = new DataManager<>(groupRoleDatabase);
+        groupRoleDataManager.loadData();
+
+
+        GroupRole groupRole = new GroupRole("ELGamdeen","1");
+        groupRoleDataManager.insertData(groupRole);
+        groupRoleDataManager.getDataByName("ELGamdeen").getGroupAdmins().add("2");
+        groupRoleDataManager.getDataByName("ELGamdeen").getGroupMembers().add("3");
+        groupRoleDataManager.saveData();
+
+
+        GroupWindow window = new GroupWindow("ELGamdeen",groupDataManager,userDataManager,profileDataManager,groupRoleDataManager,userId);
 
     }
 }
