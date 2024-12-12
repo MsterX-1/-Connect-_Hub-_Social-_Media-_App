@@ -35,7 +35,8 @@ public class signup extends JFrame {
     private JButton backButton;
     private JPasswordField passwordField1;
     private MainWindow mainWindow;
-    public signup (MainWindow mainWindow, DataManager<User> userDataManager){
+
+    public signup(MainWindow mainWindow, DataManager<User> userDataManager) {
         this.mainWindow = mainWindow;
         setResizable(false);
         UtilDateModel model = new UtilDateModel();
@@ -59,6 +60,64 @@ public class signup extends JFrame {
         setVisible(true);
 
 
+        signupwindow = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g); // Ensure the component is painted properly
+                // Set the background image
+                ImageIcon backgroundImage = new ImageIcon("C:\\Users\\Legion\\Downloads\\html-color-codes-color-tutorials.jpg");
+                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        signupwindow.setLayout(null);
+        setContentPane(signupwindow);
+
+        backButton.setBackground(Color.white);
+        backButton.setFont(new Font("Arial", Font.BOLD, 15));
+        backButton.setForeground(Color.black);
+        signUpButton.setBounds(680, 500, 100, 29);
+        signUpButton.setFont(new Font("Arial", Font.BOLD, 15));
+        signUpButton.setForeground(Color.black);
+        signUpButton.setBackground(Color.white);
+        textField1 = new JTextField();
+        textField1.setBounds(400, 150, 250, 29);
+        textField2 = new JTextField();
+        textField2.setBounds(400, 250, 250, 29);
+        passwordField1 = new JPasswordField();
+        passwordField1.setBounds(400, 300, 250, 29);
+
+        JLabel label1 = new JLabel("UserName");
+        label1.setFont(new Font("Arial", Font.BOLD, 15));
+        label1.setBounds(30, 150, 250, 29);
+        JLabel label2 = new JLabel("Email");
+        label2.setFont(new Font("Arial", Font.BOLD, 15));
+        label2.setBounds(30, 250, 250, 29);
+        JLabel label3 = new JLabel("Date of Birth");
+        label3.setFont(new Font("Arial", Font.BOLD, 15));
+        label3.setBounds(30, 373, 250, 29);
+        JLabel label4 = new JLabel("Password");
+        label4.setFont(new Font("Arial", Font.BOLD, 15));
+        label4.setBounds(30, 300, 250, 29);
+        label4.setForeground(Color.white);
+
+        label2.setForeground(Color.white);
+        label2.setBackground(Color.black);
+        label1.setForeground(Color.white);
+        label1.setBackground(Color.black);
+        label3.setForeground(Color.white);
+        label3.setBackground(Color.black);
+
+
+        signupwindow.add(backButton);
+        signupwindow.add(signUpButton);
+        signupwindow.add(textField1);
+        signupwindow.add(textField2);
+        signupwindow.add(passwordField1);
+        signupwindow.add(datelib);
+        signupwindow.add(label1);
+        signupwindow.add(label2);
+        signupwindow.add(label3);
+        signupwindow.add(label4);
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,18 +125,17 @@ public class signup extends JFrame {
                 String newUserEmail = textField2.getText();
                 String newUserPassword = new String(passwordField1.getPassword()).trim();
                 java.util.Date selectedDate = (java.util.Date) datePicker.getModel().getValue();
-                if(newUserName.isEmpty() || newUserEmail.isEmpty() || newUserPassword.isEmpty()) {
+                if (newUserName.isEmpty() || newUserEmail.isEmpty() || newUserPassword.isEmpty()) {
                     JOptionPane.showMessageDialog(signupwindow, "all fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
-                }else{
+                } else {
                     LocalDate localDate = selectedDate.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-                    if(ChronoUnit.YEARS.between(localDate , LocalDate.now()) <15 )
+                    if (ChronoUnit.YEARS.between(localDate, LocalDate.now()) < 15)
                         JOptionPane.showMessageDialog(signupwindow, "the date is invalid for the a user", "Error", JOptionPane.ERROR_MESSAGE);
-                    else if(!isValidEmail(newUserEmail)){
+                    else if (!isValidEmail(newUserEmail)) {
 
                         JOptionPane.showMessageDialog(signupwindow, "invalid email pattern", "Error", JOptionPane.ERROR_MESSAGE);
 
-                    }
-                    else{
+                    } else {
                         //Hashing Password Algorithm
                         MessageDigest encrypt = null;
                         try {
@@ -88,9 +146,9 @@ public class signup extends JFrame {
                         byte[] hashedPasswordInBytes = encrypt.digest(newUserPassword.getBytes());
                         String hashedPasswordInHex = "";
 
-                        for (int i =0 ; i< hashedPasswordInBytes.length ; i++) {
+                        for (int i = 0; i < hashedPasswordInBytes.length; i++) {
                             String hex = Integer.toHexString(0xff & hashedPasswordInBytes[i]); // Unsigned treatment
-                            hashedPasswordInHex=hashedPasswordInHex+hex;
+                            hashedPasswordInHex = hashedPasswordInHex + hex;
                         }
                         newUserPassword = hashedPasswordInHex;// password hashed
 
@@ -127,7 +185,7 @@ public class signup extends JFrame {
                             userRelationsManager.loadData();
                             UserRelations userRelations = new UserRelations(newUserId);
                             userRelations.setSuggestionsList(userSuggestions);
-                            for(int i=0;i<userRelationsManager.getAllData().size();i++){
+                            for (int i = 0; i < userRelationsManager.getAllData().size(); i++) {
                                 userRelationsManager.getAllData().get(i).getSuggestionsList().add(newUserId);
                             }
                             userRelationsManager.insertData(userRelations);
@@ -164,7 +222,7 @@ public class signup extends JFrame {
         });
     }
 
-    public  boolean isValidEmail(String email) {
+    public boolean isValidEmail(String email) {
         // Updated Regular expression for a valid email format
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
@@ -177,5 +235,6 @@ public class signup extends JFrame {
         // Return whether the email matches the pattern
         return matcher.matches();
     }
+
 
 }

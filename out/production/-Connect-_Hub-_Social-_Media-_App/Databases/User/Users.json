@@ -19,4 +19,11 @@
   "username" : "khalifa",
   "dateOfBirth" : [ 2001, 12, 5 ],
   "status" : false
+}, {
+  "userId" : "4",
+  "email" : "fe@f.com",
+  "password" : "25602777cecc667d222cfeb59c62be1591a64d751c3142c1381dee13677a294",
+  "username" : "RR",
+  "dateOfBirth" : [ 1994, 1, 12 ],
+  "status" : false
 } ]

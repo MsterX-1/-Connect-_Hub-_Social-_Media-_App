@@ -27,6 +27,30 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         MainWindow mainWindow = this;
 
+        main = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g); // Ensure the component is painted properly
+                // Set the background image
+                ImageIcon backgroundImage = new ImageIcon("C:\\Users\\Legion\\Downloads\\html-color-codes-color-tutorials.jpg");
+                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        main.setLayout(null);
+        setContentPane(main);
+        loginButton = new JButton("Login");
+        Signup = new JButton("Sign Up");
+        // Set button sizes and positions (adjust as needed)
+        loginButton.setBounds(470, 280, 100, 29);// x, y, width, height
+        loginButton.setFont(new Font("Arial", Font.BOLD, 15));
+        loginButton.setForeground(Color.black);
+        loginButton.setBackground(Color.white);
+        Signup.setBounds(220, 280, 100, 29); // x, y, width, height
+        Signup.setFont(new Font("Arial", Font.BOLD, 15));
+        Signup.setForeground(Color.black);
+        Signup.setBackground(Color.white);
+        main.add(loginButton);
+        main.add(Signup);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
