@@ -64,6 +64,18 @@ public class FriendPanel extends JPanel {
                 // new UserProfileWindow();
             }
         });
+        addFriend.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //remove friend from user's friends list
+                userRelationsDataManager.getDataById(userId).sendFriendRequest(friendId, userRelationsDataManager);
+
+                //save to relation database
+                userRelationsDataManager.saveData();
+
+
+            }
+        });
 
         removeFriend.addActionListener(new ActionListener() {
             @Override

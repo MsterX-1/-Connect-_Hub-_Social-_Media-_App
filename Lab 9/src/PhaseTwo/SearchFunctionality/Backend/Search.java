@@ -28,12 +28,16 @@ public class Search {
     }
 
     public void loadNonFriendsIds(DataManager<User> userdataManager) {// get user's non friends ids by comparing user's friends ids with all user database
-        if (userFriendsIds != null && userNonFriendsIds != null)
+        if (userFriendsIds != null && userFriendsIds.size() >= 0) {
+
             for (int i = 0; i < userdataManager.getAllData().size(); i++) {
                 String Userid = userdataManager.getAllData().get(i).getUserId();
-                if (!userFriendsIds.contains(Userid))
+                if (!userFriendsIds.contains(Userid)) {
                     userNonFriendsIds.add(Userid);
-            }
+
+                }
+                }
+        }
     }
 
     public void loadGroupsNames(DataManager<Group> groupDataManager) { // get groups' names from groups database
@@ -59,9 +63,10 @@ public class Search {
         if (userNonFriendsIds != null)
             for (int i = 0; i < userNonFriendsIds.size(); i++) {
                 String userName = userdataManager.getDataById(userNonFriendsIds.get(i)).getUsername(); // get the user name(user non friend) by id from user database
-                if (userName.equalsIgnoreCase(userInput) || userName.toLowerCase().startsWith(userInput.toLowerCase()))    // checks whether the username start with or the same as user input
-                    foundNonFriendsIds.add(userFriendsIds.get(i));
+                if (userName.equalsIgnoreCase(userInput) || userName.toLowerCase().startsWith(userInput.toLowerCase())) {    // checks whether the username start with or the same as user input
+                    foundNonFriendsIds.add(userNonFriendsIds.get(i));
 
+                }
             }
         return foundNonFriendsIds;
     }

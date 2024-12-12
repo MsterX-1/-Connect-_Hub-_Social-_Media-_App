@@ -3,20 +3,34 @@
   "friendsList" : [ "2" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "3" ],
+  "suggestionsList" : [ "3", "4", "5" ],
   "pendingRequests" : { }
 }, {
   "userId" : "2",
   "friendsList" : [ "1", "3" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ ],
+  "suggestionsList" : [ "4", "5" ],
   "pendingRequests" : { }
 }, {
   "userId" : "3",
   "friendsList" : [ "2" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "1" ],
+  "suggestionsList" : [ "1", "4", "5" ],
+  "pendingRequests" : { }
+}, {
+  "userId" : "4",
+  "friendsList" : [ ],
+  "friendRequestsList" : [ ],
+  "blockList" : [ ],
+  "suggestionsList" : [ "1", "2", "3", "5" ],
+  "pendingRequests" : { }
+}, {
+  "userId" : "5",
+  "friendsList" : [ ],
+  "friendRequestsList" : [ ],
+  "blockList" : [ ],
+  "suggestionsList" : [ "1", "2", "3", "4" ],
   "pendingRequests" : { }
 } ]

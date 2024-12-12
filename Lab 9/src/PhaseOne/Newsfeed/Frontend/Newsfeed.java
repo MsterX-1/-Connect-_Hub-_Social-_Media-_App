@@ -104,7 +104,7 @@ public class Newsfeed extends JFrame {
         // Frame properties
         setVisible(true);
         setTitle("NewsFeed");
-        setSize(new Dimension(1000, 800));
+        setSize(new Dimension(1500, 800));
         currentUserPanel.setPreferredSize(new Dimension(400, 200));
         friendScrollPane.setSize(new Dimension(600, 200));
         postScrollPane.setSize(new Dimension(600, 500));
