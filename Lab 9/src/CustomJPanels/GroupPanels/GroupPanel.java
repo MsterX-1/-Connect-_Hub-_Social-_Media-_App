@@ -1,17 +1,20 @@
 package CustomJPanels.GroupPanels;
 
+import Databases.DataManager;
+import PhaseTwo.GroupManagement.Backend.Group;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GroupPanel extends JPanel {
-    public GroupPanel(String groupName, String groupImagePath) {
+    public GroupPanel(String groupName, String groupImagePath , String userId , DataManager<Group> groupDataManager) {
 
 
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
-        setPreferredSize(new Dimension(600, 70)); // Set preferred size for the panel
+        setPreferredSize(new Dimension(300, 70)); // Set preferred size for the panel
 
         // Create JLabel for the image
         JLabel imageLabel = new JLabel();
@@ -33,10 +36,15 @@ public class GroupPanel extends JPanel {
         JButton joinGroup = new JButton("Join Group");
         buttonPanel.add(viewGroup);
 
-        //if group member
-        buttonPanel.add(leaveGroup);
-        //if not group member
-        buttonPanel.add(joinGroup);
+
+        if(groupDataManager.getDataByName(groupName).getGroupMembers().contains(userId)) {
+            //if user is a group member
+            buttonPanel.add(leaveGroup);
+        }
+        else {
+            //if user is not a group member
+            buttonPanel.add(joinGroup);
+        }
 
         // Add components to the main panel
         add(imageLabel);      // Add the image label on the left

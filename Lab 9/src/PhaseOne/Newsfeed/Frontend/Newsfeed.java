@@ -1,7 +1,11 @@
 package PhaseOne.Newsfeed.Frontend;
 
 
-import CustomJPanels.PanelManager;
+import CustomJPanels.FriendPanels.FriendsUIManager;
+import CustomJPanels.GroupPanels.GroupUIManager;
+
+import CustomJPanels.PostPanels.PostsUIManager;
+import CustomJPanels.SuggestionPanels.SuggestionsUiManager;
 import PhaseOne.ContentCreation.Backend.Post;
 import PhaseOne.ContentCreation.Backend.Story;
 import Databases.DataManager;
@@ -12,6 +16,7 @@ import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.ProfileManagement.Frontend.ProfileManagementPage;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseOne.ContentCreation.Frontend.publishContentWindow;
+import PhaseTwo.GroupManagement.Backend.Group;
 import RunProgram.MainWindow;
 
 import javax.swing.*;
@@ -32,8 +37,8 @@ public class Newsfeed extends JFrame {
     private JScrollPane postScrollPane;
     private JScrollPane friendScrollPane;
     private JPanel friendsContainer;
-    private JScrollPane suggestionsScrollPane;
-    private JPanel suggestionsContainer;
+    private JScrollPane friendSuggestionsScrollPane;
+    private JPanel friendSuggestionsContainer;
     private JButton friendManagerButton;
     private JPanel currentUserPanel;
     private JPanel lowerButtons;
@@ -42,6 +47,7 @@ public class Newsfeed extends JFrame {
     private JPanel userGroupsContainer;
     private JPanel suggestedGroupsContainer;
     private JButton createGroupButton;
+    private JScrollPane groupSuggestionsScrollpane;
     private String userId;
 
 
@@ -52,30 +58,38 @@ public class Newsfeed extends JFrame {
         Database<Post> postDatabase = DatabaseFactory.createDatabase("post");
         DataManager<Post> postManager = new DataManager<>(postDatabase);
         postManager.loadData();
+
         //create story database and create a data manager
         Database<Story> storyDatabase = DatabaseFactory.createDatabase("story");
         DataManager<Story> storyManager = new DataManager<>(storyDatabase);
         storyManager.loadData();
+
         //create user relation database and manager
         Database<UserRelations> userRelationsDatabase = DatabaseFactory.createDatabase("relations");
         DataManager<UserRelations> userRelationsDataManager = new DataManager<>(userRelationsDatabase);
         userRelationsDataManager.loadData();
+
         //create Profile database and manager
         Database<Profile> profileDatabase = DatabaseFactory.createDatabase("profile");
         DataManager<Profile> profileManager = new DataManager<>(profileDatabase);
         profileManager.loadData();
 
-        //initializing panel manager
-        PanelManager panelManager = new PanelManager(userId,userRelationsDataManager,userDataManager , profileManager , postManager);
+        //create Profile database and manager
+        Database<Group> groupDatabase = DatabaseFactory.createDatabase("group");
+        DataManager<Group> groupDataManager = new DataManager<>(groupDatabase);
+        profileManager.loadData();
 
         //managing posts
-        panelManager.getPostsUIManager().refreshList(postContainer,postScrollPane);
+        PostsUIManager postsUIManager = new PostsUIManager(userId,postManager);
 
         //managing friendsList
-        panelManager.getFriendsUIManager().refreshList(friendsContainer, friendScrollPane);
+        FriendsUIManager friendsUIManager = new FriendsUIManager(userId,userRelationsDataManager , userDataManager , profileManager);
 
         //managing suggestions
-        panelManager.getSuggestionsUIManager().refreshList(suggestionsContainer, suggestionsScrollPane);
+        SuggestionsUiManager suggestionsUiManager = new SuggestionsUiManager(userId,userRelationsDataManager , userDataManager , profileManager);
+
+        //managing user groups
+        GroupUIManager groupUIManager = new GroupUIManager(userId,groupDataManager);
 
 
         Newsfeed newsfeed = this;
@@ -86,7 +100,7 @@ public class Newsfeed extends JFrame {
         currentUserPanel.setPreferredSize(new Dimension(400, 200));
         friendScrollPane.setSize(new Dimension(600, 200));
         postScrollPane.setSize(new Dimension(600, 500));
-        suggestionsScrollPane.setSize(new Dimension(400, 500));
+        friendSuggestionsScrollPane.setSize(new Dimension(400, 500));
         lowerButtons.setPreferredSize(new Dimension(1000, 100));
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,11 +135,12 @@ public class Newsfeed extends JFrame {
         refreshButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //update posts window
-                panelManager.getPostsUIManager().refreshList(postContainer,postScrollPane);
-                panelManager.getFriendsUIManager().refreshList(friendsContainer, friendScrollPane);
-                panelManager.getSuggestionsUIManager().refreshList(suggestionsContainer, suggestionsScrollPane);
-
+                //update all scrollpanes window
+                postsUIManager.refreshList(postContainer,postScrollPane);
+                friendsUIManager.refreshList(friendsContainer, friendScrollPane);
+                suggestionsUiManager.refreshList(friendSuggestionsContainer, friendSuggestionsScrollPane);
+                groupUIManager.refreshList(userGroupsContainer,groupScrollPane);
+                groupUIManager.refreshList(suggestedGroupsContainer,groupSuggestionsScrollpane);
 
                 // Update the newsfeed photo
                 Image updatedImage = updateNewsFeedPhoto(profileManager);
@@ -137,6 +152,12 @@ public class Newsfeed extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new MenuWindow(userDataManager, userId , userRelationsDataManager,profileManager);
+            }
+        });
+        createGroupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

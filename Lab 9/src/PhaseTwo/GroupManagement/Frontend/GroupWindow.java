@@ -99,22 +99,22 @@ public class GroupWindow extends JFrame {
             JOptionPane.showMessageDialog(this, "Error loading image: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    public static void main(String[] args) {
-        Database<Group> groupDatabase = DatabaseFactory.createDatabase("group");
-        DataManager<Group> groupDataManager = new DataManager<>(groupDatabase);
-        groupDataManager.loadData();
-        Group g1 = new Group("ELGamdeen");
-        g1.getGroupMembers().add("1");//id
-        g1.getGroupMembers().add("2");
-        g1.getGroupMembers().add("3");
-        groupDataManager.insertData(g1);
-        Database<User> userDatabase = DatabaseFactory.createDatabase("user");
-        DataManager<User> userDataManager = new DataManager<>(userDatabase);
-        userDataManager.loadData();
-        Database<Profile> profileDatabase = DatabaseFactory.createDatabase("profile");
-        DataManager<Profile> profileDataManager = new DataManager<>(profileDatabase);
-        profileDataManager.loadData();
-        GroupWindow window = new GroupWindow("ELGamdeen",groupDataManager,userDataManager,profileDataManager);
-
-    }
+//    public static void main(String[] args) {
+//        Database<Group> groupDatabase = DatabaseFactory.createDatabase("group");
+//        DataManager<Group> groupDataManager = new DataManager<>(groupDatabase);
+//        groupDataManager.loadData();
+//        Group g1 = new Group("ELGamdeen");
+//        g1.getGroupMembers().add("1");//id
+//        g1.getGroupMembers().add("2");
+//        g1.getGroupMembers().add("3");
+//        groupDataManager.insertData(g1);
+//        Database<User> userDatabase = DatabaseFactory.createDatabase("user");
+//        DataManager<User> userDataManager = new DataManager<>(userDatabase);
+//        userDataManager.loadData();
+//        Database<Profile> profileDatabase = DatabaseFactory.createDatabase("profile");
+//        DataManager<Profile> profileDataManager = new DataManager<>(profileDatabase);
+//        profileDataManager.loadData();
+//        GroupWindow window = new GroupWindow("ELGamdeen",groupDataManager,userDataManager,profileDataManager);
+//
+//    }
 }
