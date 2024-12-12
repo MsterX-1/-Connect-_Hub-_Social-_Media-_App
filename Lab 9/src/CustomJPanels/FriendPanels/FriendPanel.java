@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 public class FriendPanel extends JPanel {
 
-    public FriendPanel(String friendName , String friendImagePath , DataManager<UserRelations> userRelationsDataManager) {
+    public FriendPanel(String friendName , String friendImagePath ,String userId , String friendId , DataManager<UserRelations> userRelationsDataManager) {
 
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
@@ -54,7 +54,7 @@ public class FriendPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //remove friend from user's friends list
-                userRelationsDataManager.getDataById("currentUserId").removeFriend("friendId");
+                userRelationsDataManager.getDataById(userId).removeFriend(friendId);
                 //refresh panel check requestPanel
 
             }
