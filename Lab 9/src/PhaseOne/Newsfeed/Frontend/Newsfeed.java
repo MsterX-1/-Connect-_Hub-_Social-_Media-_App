@@ -2,8 +2,9 @@ package PhaseOne.Newsfeed.Frontend;
 
 
 import CustomJPanels.FriendPanels.FriendsUIManager;
-import CustomJPanels.GroupPanels.GroupUIManager;
 
+
+import CustomJPanels.GroupPanels.GroupUIManager;
 import CustomJPanels.PostPanels.PostsUIManager;
 import CustomJPanels.SuggestionPanels.SuggestionsUiManager;
 import PhaseOne.ContentCreation.Backend.Post;
@@ -91,6 +92,13 @@ public class Newsfeed extends JFrame {
         //managing user groups
         GroupUIManager groupUIManager = new GroupUIManager(userId,groupDataManager);
 
+        postsUIManager.refreshList(postContainer,postScrollPane);
+        friendsUIManager.refreshList(friendsContainer, friendScrollPane);
+        suggestionsUiManager.refreshList(friendSuggestionsContainer, friendSuggestionsScrollPane);
+        groupUIManager.refreshList(userGroupsContainer,groupScrollPane);
+        groupUIManager.refreshList(suggestedGroupsContainer,groupSuggestionsScrollpane);
+
+
 
         Newsfeed newsfeed = this;
         // Frame properties
@@ -100,7 +108,7 @@ public class Newsfeed extends JFrame {
         currentUserPanel.setPreferredSize(new Dimension(400, 200));
         friendScrollPane.setSize(new Dimension(600, 200));
         postScrollPane.setSize(new Dimension(600, 500));
-        friendSuggestionsScrollPane.setSize(new Dimension(400, 500));
+        friendSuggestionsScrollPane.setSize(new Dimension(600, 200));
         lowerButtons.setPreferredSize(new Dimension(1000, 100));
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -17,7 +17,7 @@ public class FriendPanel extends JPanel {
 
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
-        setPreferredSize(new Dimension(300, 70)); // Set preferred size for the panel
+        setPreferredSize(new Dimension(300, 90)); // Set preferred size for the panel
 
         // Create JLabel for the image
         JLabel imageLabel = new JLabel();
@@ -36,11 +36,17 @@ public class FriendPanel extends JPanel {
         // Create buttons for Accept and Decline
         JButton viewProfile = new JButton("View profile");
         JButton removeFriend = new JButton("Remove Friend");
+        JButton addFriend = new JButton("Add Friend");
         JButton blockUser = new JButton("Block");
         JButton unblockUser = new JButton("Unblock");
 
         buttonPanel.add(viewProfile);
-        buttonPanel.add(removeFriend);
+
+        if (userRelationsDataManager.getDataById(userId).getFriendsList().contains(friendId))
+            buttonPanel.add(removeFriend);
+        else
+            buttonPanel.add(addFriend);
+
         if (userRelationsDataManager.getDataById(userId).getBlockList().contains(friendId)) {
             buttonPanel.add(unblockUser);
         } else
