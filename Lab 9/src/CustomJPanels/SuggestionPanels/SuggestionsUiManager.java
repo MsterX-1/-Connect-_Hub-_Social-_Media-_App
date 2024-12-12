@@ -1,5 +1,6 @@
 package CustomJPanels.SuggestionPanels;
 
+import CustomJPanels.FriendPanels.FriendPanel;
 import Databases.DataManager;
 import Interfaces.UIManager;
 import PhaseOne.FriendManagement.Backend.UserRelations;
@@ -42,7 +43,7 @@ public class SuggestionsUiManager implements UIManager {
             String imagePaths = profileDataManager.getDataById(suggestedId).getProfilePhotoPath();
 
             // Create a PostPanel for each post
-            SuggestionPanel profilePanel = new SuggestionPanel(suggestedName, imagePaths , userId , suggestedId , userRelationsDataManager);
+            FriendPanel profilePanel = new FriendPanel(suggestedName, imagePaths , userId , suggestedId , userRelationsDataManager);
 
             // Add padding and border to each PostPanel
             profilePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
