@@ -3,6 +3,7 @@ package CustomJPanels.SuggestionPanels;
 
 import Databases.DataManager;
 import PhaseOne.FriendManagement.Backend.UserRelations;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class SuggestionPanel extends JPanel {
 
-    public SuggestionPanel(String suggestedUserName, String suggestedUserImagePath, String userId, String suggestedUserId, DataManager<UserRelations> userRelationsDataManager ) {
+    public SuggestionPanel(String suggestedUserName, String suggestedUserImagePath, String userId, String suggestedUserId, DataManager<UserRelations> userRelationsDataManager , DataManager<Notification> notificationsDataManager) {
 
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
@@ -63,8 +64,18 @@ public class SuggestionPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 //remove friend from user's friends list
                 userRelationsDataManager.getDataById(userId).sendFriendRequest(suggestedUserId, userRelationsDataManager);
-                //refresh panel check requestPanel
+
+                //save to relation database
                 userRelationsDataManager.saveData();
+
+                //add notification to sender
+                notificationsDataManager.getDataById(userId).sentFriendRequest(suggestedUserId);
+
+                //add notification to recipient
+                notificationsDataManager.getDataById(suggestedUserId).sentFriendRequest(userId);
+
+                //save to notification database
+                notificationsDataManager.saveData();
             }
         });
         blockUser.addActionListener(new ActionListener() {

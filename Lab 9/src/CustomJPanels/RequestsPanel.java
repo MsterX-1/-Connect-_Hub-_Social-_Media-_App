@@ -38,6 +38,7 @@ public class RequestsPanel extends JPanel {
         // Create buttons for Accept and Decline
         JButton acceptButton = new JButton("Accept");
         JButton declineButton = new JButton("Decline");
+        
         buttonPanel.add(acceptButton);
         buttonPanel.add(declineButton);
 
@@ -51,7 +52,6 @@ public class RequestsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Define action for Accept button
-//                friendMangerWindow1.acceptFriendRequest(currentUserId , senderId,userDataManager);
                 userRelationsDataManager.getDataById(currentUserId).acceptFriendRequest(senderId,userRelationsDataManager);
                 JOptionPane.showMessageDialog(RequestsPanel.this, "Accepted: " + senderName);
                 userRelationsDataManager.saveData();
@@ -64,7 +64,6 @@ public class RequestsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Define action for Decline button
-//                friendMangerWindow1.declineFriendRequest(currentUserId , senderId,userDataManager);
                 userRelationsDataManager.getDataById(currentUserId).declineFriendRequest(senderId , userRelationsDataManager);
                 JOptionPane.showMessageDialog(RequestsPanel.this, "Declined: " + senderName);
                 userRelationsDataManager.saveData();
