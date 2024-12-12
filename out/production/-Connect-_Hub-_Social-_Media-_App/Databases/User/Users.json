@@ -4,19 +4,19 @@
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
   "username" : "yousef",
   "dateOfBirth" : [ 2004, 12, 9 ],
-  "status" : false
+  "status" : true
 }, {
   "userId" : "2",
   "email" : "a@gmai.com",
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
   "username" : "amr",
   "dateOfBirth" : [ 2003, 12, 11 ],
-  "status" : true
+  "status" : false
 }, {
   "userId" : "3",
   "email" : "k@gmail.com",
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
   "username" : "khalifa",
   "dateOfBirth" : [ 2001, 12, 5 ],
-  "status" : false
+  "status" : true
 } ]

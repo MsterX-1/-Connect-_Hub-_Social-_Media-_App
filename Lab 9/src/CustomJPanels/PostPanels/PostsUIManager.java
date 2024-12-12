@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class PostsUIManager implements UIManager {
     private String userId;
-    private DataManager<Post> postManager;
+    private DataManager<Post> postDataManager;
 
-    public PostsUIManager(String userId, DataManager<Post> postManager) {
+    public PostsUIManager(String userId, DataManager<Post> postDataManager) {
         this.userId = userId;
-        this.postManager = postManager;
+        this.postDataManager = postDataManager;
     }
 
     @Override
@@ -28,11 +28,11 @@ public class PostsUIManager implements UIManager {
     public void populateList(JPanel postContainer) {
         postContainer.removeAll();
         // Simulate data for demonstration
-        if(postManager.getAllData() == null)
+        if(postDataManager.getAllData() == null)
             return;
-        for (int i = 0; i < postManager.getAllData().size(); i++) {
-            String text = postManager.getAllData().get(i).getContent().getText();
-            ArrayList<String> imagePaths = postManager.getAllData().get(i).getContent().getImagePaths();
+        for (int i = 0; i < postDataManager.getAllData().size(); i++) {
+            String text = postDataManager.getAllData().get(i).getContent().getText();
+            ArrayList<String> imagePaths = postDataManager.getAllData().get(i).getContent().getImagePaths();
 
             // Create a PostPanel for each post
             PostPanel postPanel = new PostPanel(text, imagePaths);

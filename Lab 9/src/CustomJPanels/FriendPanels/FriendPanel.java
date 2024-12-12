@@ -3,6 +3,7 @@ package CustomJPanels.FriendPanels;
 
 import Databases.DataManager;
 import PhaseOne.FriendManagement.Backend.UserRelations;
+import PhaseOne.Newsfeed.Frontend.Newsfeed;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +12,12 @@ import java.awt.event.ActionListener;
 
 public class FriendPanel extends JPanel {
 
-    public FriendPanel(String friendName , String friendImagePath ,String userId , String friendId , DataManager<UserRelations> userRelationsDataManager) {
+    public FriendPanel(String friendName, String friendImagePath, String userId, String friendId, DataManager<UserRelations> userRelationsDataManager) {
+
 
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
-        setPreferredSize(new Dimension(600, 70)); // Set preferred size for the panel
+        setPreferredSize(new Dimension(300, 90)); // Set preferred size for the panel
 
         // Create JLabel for the image
         JLabel imageLabel = new JLabel();
@@ -34,8 +36,21 @@ public class FriendPanel extends JPanel {
         // Create buttons for Accept and Decline
         JButton viewProfile = new JButton("View profile");
         JButton removeFriend = new JButton("Remove Friend");
+        JButton addFriend = new JButton("Add Friend");
+        JButton blockUser = new JButton("Block");
+        JButton unblockUser = new JButton("Unblock");
+
         buttonPanel.add(viewProfile);
-        buttonPanel.add(removeFriend);
+
+        if (userRelationsDataManager.getDataById(userId).getFriendsList().contains(friendId))
+            buttonPanel.add(removeFriend);
+        else
+            buttonPanel.add(addFriend);
+
+        if (userRelationsDataManager.getDataById(userId).getBlockList().contains(friendId)) {
+            buttonPanel.add(unblockUser);
+        } else
+            buttonPanel.add(blockUser);
 
         // Add components to the main panel
         add(imageLabel);      // Add the image label on the left
@@ -54,8 +69,32 @@ public class FriendPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //remove friend from user's friends list
-                userRelationsDataManager.getDataById(userId).removeFriend(friendId);
-                //refresh panel check requestPanel
+                userRelationsDataManager.getDataById(userId).removeFriend(friendId, userRelationsDataManager);
+                //save data to json
+                userRelationsDataManager.saveData();
+
+
+            }
+        });
+        blockUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //block user
+                userRelationsDataManager.getDataById(userId).blockUser(friendId);
+                //save data to json
+                userRelationsDataManager.saveData();
+
+
+            }
+        });
+        unblockUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //block user
+                userRelationsDataManager.getDataById(userId).unblockUser(friendId);
+                //save data to json
+                userRelationsDataManager.saveData();
+
 
             }
         });

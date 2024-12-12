@@ -1,6 +1,5 @@
 package CustomJPanels.FriendPanels;
 
-import CustomJPanels.ProfilePanel;
 import Databases.DataManager;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.ProfileManagement.Backend.Profile;
@@ -10,15 +9,15 @@ import javax.swing.*;
 
 public class FriendsUIManager implements UIManager {
     String userId;
-    private DataManager<UserRelations> userRelationsManager;
-    private DataManager<Profile> profileManager;
+    private DataManager<UserRelations> userRelationsDataManagerRelationsManager;
+    private DataManager<Profile> profileDataManager;
     private DataManager<User> userDataManager;
 
     public FriendsUIManager(String userId, DataManager<UserRelations> userRelationsManager ,DataManager<User> userDataManager , DataManager<Profile> profileManager) {
         this.userId = userId;
-        this.userRelationsManager = userRelationsManager;
+        this.userRelationsDataManagerRelationsManager = userRelationsManager;
         this.userDataManager = userDataManager;
-        this.profileManager = profileManager;
+        this.profileDataManager = profileManager;
     }
 
 
@@ -31,17 +30,17 @@ public class FriendsUIManager implements UIManager {
     public void populateList( JPanel friendsContainer) {
         friendsContainer.removeAll();
         // Simulate data for demonstration
-        if (userRelationsManager.getDataById(userId).getFriendsList() == null)
+        if (userRelationsDataManagerRelationsManager.getDataById(userId).getFriendsList() == null)
             return;
-        for (int i = 0; i < userRelationsManager.getDataById(userId).getFriendsList().size(); i++) {
+        for (int i = 0; i < userRelationsDataManagerRelationsManager.getDataById(userId).getFriendsList().size(); i++) {
 
-            String friendId = userRelationsManager.getDataById(userId).getFriendsList().get(i);
+            String friendId = userRelationsDataManagerRelationsManager.getDataById(userId).getFriendsList().get(i);
             String friendName = userDataManager.getDataById(friendId).getUsername();
             String friendStatus = userDataManager.getDataById(friendId).checkStatus();
-            String imagePaths = profileManager.getDataById(friendId).getProfilePhotoPath();
+            String imagePaths = profileDataManager.getDataById(friendId).getProfilePhotoPath();
 
             // Create a PostPanel for each post
-            FriendPanel friendPanel = new FriendPanel(friendName + "( " + friendStatus + " )", imagePaths , userId, friendId ,userRelationsManager);
+            FriendPanel friendPanel = new FriendPanel(friendName + "( " + friendStatus + " )", imagePaths , userId, friendId , userRelationsDataManagerRelationsManager);
 
             // Add padding and border to each PostPanel
             friendPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

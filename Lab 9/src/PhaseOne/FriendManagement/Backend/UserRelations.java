@@ -69,22 +69,46 @@ public class UserRelations {
             blockList.remove(userId);
     }
 
-    public void removeFriend(String friendId){
-        //remove friend from user's friends list and add that friend to suggestions list
+    public void removeFriend(String friendId , DataManager<UserRelations> userRelationsManager ){
+        //remove friend both user's friends list and add that friend to both suggestions list
         if(friendsList.contains(friendId)) {
+            //remove from friends list
             friendsList.remove(friendId);
+            userRelationsManager.getDataById(friendId).getFriendsList().remove(userId);
+
+            //add to suggestion list
+            userRelationsManager.getDataById(friendId).getSuggestionsList().add(userId);
             suggestionsList.add(friendId);
         }
     }
 
     public void sendFriendRequest(String receiverId , DataManager<UserRelations> userRelationsManager){
-            //check if a request was already sent
+        //check if user has received a request from the receiver
+        if(friendRequestsList.contains(receiverId)) {
+            //add both to friends list
+            friendsList.add(receiverId);
+            userRelationsManager.getDataById(receiverId).getFriendsList().add(userId);
+
+            //remove receiver from requests and remove user from receiver's pending
+            userRelationsManager.getDataById(receiverId).getPendingRequests().remove(userId);
+            friendRequestsList.remove(receiverId);
+
+            //remove both from suggestions
+            suggestionsList.remove(receiverId);
+            userRelationsManager.getDataById(receiverId).getSuggestionsList().remove(userId);
+
+            return;
+        }
+
+
+        //check if a request was already sent
         if(!pendingRequests.containsKey(receiverId)) {
             //adds user to receivers friend requests list
             userRelationsManager.getDataById(receiverId).getFriendRequestsList().add(userId);
             //adds receiver to users pending requests
             pendingRequests.put(receiverId, "pending");
         }
+
     }
 
     public void acceptFriendRequest(String senderId, DataManager<UserRelations> userRelationsManager){
