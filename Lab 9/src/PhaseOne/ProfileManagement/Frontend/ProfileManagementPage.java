@@ -6,7 +6,7 @@ import Databases.DataManager;
 import PhaseOne.Newsfeed.Frontend.Newsfeed;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
-import CustomJPanels.PostPanel;
+import CustomJPanels.PostPanels.PostPanel;
 import RunProgram.MainWindow;
 
 import javax.swing.*;

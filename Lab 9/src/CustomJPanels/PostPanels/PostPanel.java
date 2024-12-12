@@ -1,4 +1,4 @@
-package CustomJPanels;
+package CustomJPanels.PostPanels;
 
 import javax.swing.*;
 import java.awt.*;
