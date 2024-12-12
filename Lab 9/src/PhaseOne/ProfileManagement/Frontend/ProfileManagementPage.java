@@ -46,10 +46,10 @@ public class ProfileManagementPage extends JFrame {
         populatePosts(postDataManager);
         postScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         postScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        //
+
         coverpanel.setLayout(new FlowLayout());
         picturepanel.setLayout(new FlowLayout());
-       ;
+
 
 
         String bio= profileManager.getDataById(userId).getBio();
