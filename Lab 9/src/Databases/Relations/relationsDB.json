@@ -10,7 +10,7 @@
   "friendsList" : [ "1", "3" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [  ],
+  "suggestionsList" : [ ],
   "pendingRequests" : { }
 }, {
   "userId" : "3",

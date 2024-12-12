@@ -28,7 +28,7 @@ public class EditProfile extends JFrame {
         setTitle("Edit Profile");
         setSize(400, 300);
         setLocationRelativeTo(null);
-        setResizable(true);
+        setResizable(false);
         setContentPane(panel);
         setVisible(true);
 

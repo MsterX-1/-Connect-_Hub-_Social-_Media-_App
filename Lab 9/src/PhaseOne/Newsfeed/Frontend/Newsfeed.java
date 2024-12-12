@@ -7,13 +7,11 @@ import PhaseOne.ContentCreation.Backend.Story;
 import Databases.DataManager;
 import Databases.DatabaseFactory;
 import PhaseOne.FriendManagement.Backend.UserRelations;
-import PhaseOne.FriendManagement.Frontend.FriendMangerWindow;
 import Interfaces.Database;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.ProfileManagement.Frontend.ProfileManagementPage;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseOne.ContentCreation.Frontend.publishContentWindow;
-import CustomJPanels.ProfilePanel;
 import RunProgram.MainWindow;
 
 import javax.swing.*;
@@ -27,7 +25,6 @@ import java.awt.event.MouseEvent;
 public class Newsfeed extends JFrame {
     private JPanel mainContainer;
     private JButton refreshButton;
-    private JButton profileManagmentButton;
     private JButton createPostButton;
     private JLabel imageLabel;
     private JButton createStoryButton;
@@ -41,8 +38,12 @@ public class Newsfeed extends JFrame {
     private JPanel currentUserPanel;
     private JPanel lowerButtons;
     private JLabel usernameLabel;
-    private JPanel imagePlace;
+    private JScrollPane groupScrollPane;
+    private JPanel userGroupsContainer;
+    private JPanel suggestedGroupsContainer;
+    private JButton createGroupButton;
     private String userId;
+
 
     public Newsfeed(DataManager<User> userDataManager, String userId, MainWindow mainWindow) {
         this.userId = userId;
@@ -64,6 +65,7 @@ public class Newsfeed extends JFrame {
         DataManager<Profile> profileManager = new DataManager<>(profileDatabase);
         profileManager.loadData();
 
+        //initializing panel manager
         PanelManager panelManager = new PanelManager(userId,userRelationsDataManager,userDataManager , profileManager , postManager);
 
         //managing posts
@@ -73,11 +75,8 @@ public class Newsfeed extends JFrame {
         panelManager.getFriendsUIManager().refreshList(friendsContainer, friendScrollPane);
 
         //managing suggestions
-        suggestionsContainer.setLayout(new BoxLayout(suggestionsContainer, BoxLayout.Y_AXIS));
-        populateSuggestionsList(userDataManager , userRelationsDataManager,profileManager);
-        suggestionsContainer.setSize(new Dimension(200, 100));
-        suggestionsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        suggestionsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        panelManager.getSuggestionsUIManager().refreshList(suggestionsContainer, suggestionsScrollPane);
+
 
         Newsfeed newsfeed = this;
         // Frame properties
@@ -125,7 +124,8 @@ public class Newsfeed extends JFrame {
                 //update posts window
                 panelManager.getPostsUIManager().refreshList(postContainer,postScrollPane);
                 panelManager.getFriendsUIManager().refreshList(friendsContainer, friendScrollPane);
-                refreshSuggestionsList(userDataManager , userRelationsDataManager,profileManager);
+                panelManager.getSuggestionsUIManager().refreshList(suggestionsContainer, suggestionsScrollPane);
+
 
                 // Update the newsfeed photo
                 Image updatedImage = updateNewsFeedPhoto(profileManager);
@@ -136,13 +136,12 @@ public class Newsfeed extends JFrame {
         friendManagerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FriendMangerWindow(userDataManager, userId , userRelationsDataManager,profileManager);
-
+                new MenuWindow(userDataManager, userId , userRelationsDataManager,profileManager);
             }
         });
     }
 
-    public Image updateNewsFeedPhoto(DataManager<Profile> profileManager) {
+    private Image updateNewsFeedPhoto(DataManager<Profile> profileManager) {
 
         String pathPhotoProfile = profileManager.getDataById(userId).getProfilePhotoPath();
         ImageIcon imageIcon = new ImageIcon(pathPhotoProfile); // Load image
@@ -151,45 +150,6 @@ public class Newsfeed extends JFrame {
         int scaledHeight = imageLabel.getHeight();
         Image scaledImage = image.getScaledInstance(150, 100, Image.SCALE_SMOOTH);
         return scaledImage;
-    }
-
-
-
-
-    public void refreshSuggestionsList(DataManager<User> userDataManager , DataManager<UserRelations> userRelationsDataManager,DataManager<Profile> profileManager) {
-        suggestionsContainer.setLayout(new BoxLayout(suggestionsContainer, BoxLayout.Y_AXIS));
-        populateSuggestionsList(userDataManager , userRelationsDataManager,profileManager);
-        suggestionsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        suggestionsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-    }
-
-
-
-
-    private void populateSuggestionsList(DataManager<User> userDataManager , DataManager<UserRelations> userRelationsDataManager,DataManager<Profile> profileManager) {
-        suggestionsContainer.removeAll();
-        // Simulate data for demonstration
-        if(userRelationsDataManager.getDataById(userId).getSuggestionsList() == null)
-            return;
-        for (int i = 0; i < userRelationsDataManager.getDataById(userId).getSuggestionsList().size(); i++) {
-            String suggestedId = userRelationsDataManager.getDataById(userId).getSuggestionsList().get(i);
-            String suggestedName = userDataManager.getDataById(suggestedId).getUsername();
-            String imagePaths = profileManager.getDataById(suggestedId).getProfilePhotoPath();
-
-            // Create a PostPanel for each post
-            ProfilePanel profilePanel = new ProfilePanel(suggestedName, imagePaths);
-
-            // Add padding and border to each PostPanel
-            profilePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-            // Add the PostPanel to the container
-            suggestionsContainer.add(profilePanel);
-
-        }
-
-        // Revalidate and repaint the container to apply updates
-        suggestionsContainer.revalidate();
-        suggestionsContainer.repaint();
     }
 
 }
