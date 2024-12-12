@@ -17,7 +17,7 @@ public class FriendPanel extends JPanel {
 
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
-        setPreferredSize(new Dimension(600, 70)); // Set preferred size for the panel
+        setPreferredSize(new Dimension(300, 70)); // Set preferred size for the panel
 
         // Create JLabel for the image
         JLabel imageLabel = new JLabel();
@@ -36,8 +36,15 @@ public class FriendPanel extends JPanel {
         // Create buttons for Accept and Decline
         JButton viewProfile = new JButton("View profile");
         JButton removeFriend = new JButton("Remove Friend");
+        JButton blockUser = new JButton("Block");
+        JButton unblockUser = new JButton("Unblock");
+
         buttonPanel.add(viewProfile);
         buttonPanel.add(removeFriend);
+        if (userRelationsDataManager.getDataById(userId).getBlockList().contains(friendId)) {
+            buttonPanel.add(unblockUser);
+        } else
+            buttonPanel.add(blockUser);
 
         // Add components to the main panel
         add(imageLabel);      // Add the image label on the left
@@ -56,7 +63,29 @@ public class FriendPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //remove friend from user's friends list
-                userRelationsDataManager.getDataById(userId).removeFriend(friendId , userRelationsDataManager);
+                userRelationsDataManager.getDataById(userId).removeFriend(friendId, userRelationsDataManager);
+                //save data to json
+                userRelationsDataManager.saveData();
+
+
+            }
+        });
+        blockUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //block user
+                userRelationsDataManager.getDataById(userId).blockUser(friendId);
+                //save data to json
+                userRelationsDataManager.saveData();
+
+
+            }
+        });
+        unblockUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //block user
+                userRelationsDataManager.getDataById(userId).unblockUser(friendId);
                 //save data to json
                 userRelationsDataManager.saveData();
 

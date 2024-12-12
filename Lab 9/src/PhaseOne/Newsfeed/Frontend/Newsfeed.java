@@ -7,7 +7,6 @@ import PhaseOne.ContentCreation.Backend.Story;
 import Databases.DataManager;
 import Databases.DatabaseFactory;
 import PhaseOne.FriendManagement.Backend.UserRelations;
-import PhaseOne.FriendManagement.Frontend.FriendMangerWindow;
 import Interfaces.Database;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.ProfileManagement.Frontend.ProfileManagementPage;
@@ -26,7 +25,6 @@ import java.awt.event.MouseEvent;
 public class Newsfeed extends JFrame {
     private JPanel mainContainer;
     private JButton refreshButton;
-    private JButton profileManagmentButton;
     private JButton createPostButton;
     private JLabel imageLabel;
     private JButton createStoryButton;
@@ -40,7 +38,10 @@ public class Newsfeed extends JFrame {
     private JPanel currentUserPanel;
     private JPanel lowerButtons;
     private JLabel usernameLabel;
-    private JPanel imagePlace;
+    private JScrollPane groupScrollPane;
+    private JPanel userGroupsContainer;
+    private JPanel suggestedGroupsContainer;
+    private JButton createGroupButton;
     private String userId;
 
 
@@ -135,7 +136,7 @@ public class Newsfeed extends JFrame {
         friendManagerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FriendMangerWindow(userDataManager, userId , userRelationsDataManager,profileManager);
+                new MenuWindow(userDataManager, userId , userRelationsDataManager,profileManager);
             }
         });
     }

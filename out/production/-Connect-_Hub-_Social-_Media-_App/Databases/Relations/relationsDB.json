@@ -7,17 +7,16 @@
   "pendingRequests" : { }
 }, {
   "userId" : "2",
-  "friendsList" : [ "1" ],
+  "friendsList" : [ "1", "3" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "3" ],
+  "suggestionsList" : [ ],
   "pendingRequests" : { }
 }, {
   "userId" : "3",
-  "friendsList" : [ ],
-  "friendRequestsList" : [  ],
+  "friendsList" : [ "2" ],
+  "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "1", "2" ],
-  "pendingRequests" : {
-  }
+  "suggestionsList" : [ "1" ],
+  "pendingRequests" : { }
 } ]
