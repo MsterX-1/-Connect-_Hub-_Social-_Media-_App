@@ -2,11 +2,15 @@ package PhaseTwo.SearchFunctionality.Frontend;
 
 import CustomJPanels.FriendPanels.FriendPanel;
 import CustomJPanels.FriendPanels.FriendsUIManager;
+import CustomJPanels.GroupPanels.GroupPanel;
+import CustomJPanels.GroupPanels.GroupSuggestionsPanel;
 import Databases.DataManager;
 import PhaseOne.FriendManagement.Backend.UserRelations;
+import PhaseOne.Newsfeed.Frontend.Newsfeed;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupRole;
 import PhaseTwo.SearchFunctionality.Backend.Search;
 
 import javax.swing.*;
@@ -27,7 +31,7 @@ public class SearchWindow extends JFrame{
     String userInput;
 
 
-    public SearchWindow(String userId , DataManager<User> userdataManager, DataManager<UserRelations> userRelationsDataManager, DataManager<Group> groupDataManager , FriendsUIManager friendsUIManager,DataManager<Profile> profileDataManager) {
+    public SearchWindow(String userId , DataManager<User> userdataManager, DataManager<UserRelations> userRelationsDataManager, DataManager<Group> groupDataManager , FriendsUIManager friendsUIManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed) {
 
         setContentPane(main);
         setSize(600, 400);
@@ -83,6 +87,40 @@ public class SearchWindow extends JFrame{
                             // Add the PostPanel to the container
                             searchContainer.add(friendPanel);
 
+                        }
+                    }
+                    if(foundGroups !=null && !foundGroups.isEmpty()) {
+                        for (int i = 0; i < foundGroups.size(); i++) {
+                            String groupName = foundGroups.get(i);
+                            String groupImagePath = groupDataManager.getDataByName(groupName).getGroupPhotoPath();
+                            if(groupDataManager.getDataByName(groupName).getGroupMembers().contains(userId)){
+
+                                // Create a group Panel for each post
+                                GroupPanel groupPanel = new GroupPanel(groupName, groupImagePath,userId, groupDataManager,groupRoleDataManager,userdataManager,profileDataManager,newsfeed);
+
+                                // Add padding and border to each PostPanel
+                                groupPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+                                // Add the PostPanel to the container
+                                searchContainer.add(groupPanel);
+                            }
+                        }
+                    }
+                    if(foundGroups !=null && !foundGroups.isEmpty()) {
+                        for (int i = 0; i < foundGroups.size(); i++) {
+                            String groupName = foundGroups.get(i);
+                            String groupImagePath = groupDataManager.getDataByName(groupName).getGroupPhotoPath();
+                            if(!groupDataManager.getDataByName(groupName).getGroupMembers().contains(userId)){
+
+                                // Create a group Panel for each post
+                                GroupSuggestionsPanel groupSuggestionsPanel = new GroupSuggestionsPanel(groupName, groupImagePath,userId, groupDataManager,groupRoleDataManager);
+
+                                // Add padding and border to each PostPanel
+                                groupSuggestionsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+                                // Add the PostPanel to the container
+                                searchContainer.add(groupSuggestionsPanel);
+                            }
                         }
                     }
 

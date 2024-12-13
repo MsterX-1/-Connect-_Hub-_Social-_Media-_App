@@ -1,7 +1,12 @@
 package CustomJPanels.GroupPanels;
 
 import Databases.DataManager;
+import PhaseOne.Newsfeed.Frontend.Newsfeed;
+import PhaseOne.ProfileManagement.Backend.Profile;
+import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.GroupManagement.Frontend.GroupWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GroupPanel extends JPanel {
-    public GroupPanel(String groupName, String groupImagePath , String userId , DataManager<Group> groupDataManager) {
+    public GroupPanel(String groupName, String groupImagePath, String userId, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, Newsfeed newsfeed) {
 
 
         // Set layout manager for horizontal alignment
@@ -33,18 +38,18 @@ public class GroupPanel extends JPanel {
         // Create buttons for Accept and Decline
         JButton viewGroup = new JButton("View Group");
         JButton leaveGroup = new JButton("Leave Group");
-        JButton joinGroup = new JButton("Join Group");
         buttonPanel.add(viewGroup);
 
 
-        if(groupDataManager.getDataByName(groupName).getGroupMembers().contains(userId)) {
-            //if user is a group member
+        // Check if the user is a member of the group and if their role is normal
+        if (groupDataManager.getDataByName(groupName).getGroupMembers().contains(userId) &&
+                groupRoleDataManager.getDataByName(groupName).getGroupMembers().contains(userId) &&
+                !groupRoleDataManager.getDataByName(groupName).getGroupAdmins().contains(userId) &&
+                !groupRoleDataManager.getDataByName(groupName).getGroupCreator().contains(userId)) {
+            // User is a normal member, show the Leave Group button
             buttonPanel.add(leaveGroup);
         }
-        else {
-            //if user is not a group member
-            buttonPanel.add(joinGroup);
-        }
+
 
         // Add components to the main panel
         add(imageLabel);      // Add the image label on the left
@@ -55,21 +60,35 @@ public class GroupPanel extends JPanel {
         viewGroup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new GroupWindow(groupName, groupDataManager, userDataManager, profileDataManager, groupRoleDataManager, userId, newsfeed);
+                newsfeed.setVisible(false);
             }
         });
 
         leaveGroup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to Leave the group?", "Confirm Leaving the Group",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+                if (response == JOptionPane.YES_OPTION) {
+                    // Logic for leaving from the group
+                    groupDataManager.getDataByName(groupName).getGroupMembers().remove(userId);
+                    groupRoleDataManager.getDataByName(groupName).getGroupMembers().remove(userId);
+                    groupDataManager.saveData();
+                    groupRoleDataManager.saveData();
 
-            }
-        });
-        joinGroup.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
+                    JOptionPane.showMessageDialog(null, "You Left the Group!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Group Leaving Canceled", "Canceled", JOptionPane.ERROR_MESSAGE);
+                }
             }
+
+
         });
+
     }
 }
+

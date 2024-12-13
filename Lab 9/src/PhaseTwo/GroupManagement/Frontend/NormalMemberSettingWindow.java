@@ -1,6 +1,7 @@
 package PhaseTwo.GroupManagement.Frontend;
 
 import Databases.DataManager;
+import PhaseOne.Newsfeed.Frontend.Newsfeed;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 
@@ -13,7 +14,7 @@ public class NormalMemberSettingWindow extends JFrame {
     private JButton leaveTheGroupButton;
     private JPanel panel;
 
-    public NormalMemberSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager,String userId) {
+    public NormalMemberSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed,GroupWindow groupWindow   ) {
         setTitle("Normal User Setting");
         setContentPane(panel);
         setVisible(true);
@@ -35,6 +36,9 @@ public class NormalMemberSettingWindow extends JFrame {
                     groupRoleDataManager.saveData();
 
                     // return to the news feed
+                    newsfeed.setVisible(true);
+                    groupWindow.setVisible(false);
+                    setVisible(false);
 
 
 

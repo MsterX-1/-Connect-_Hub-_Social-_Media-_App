@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GroupAdminSettingWindow extends JFrame {
-    private JButton checkMembbershipRequestsButton;
+    private JButton checkMembershipRequestsButton;
     private JButton removeMemberButton;
     private JButton managePostsButton;
     private JPanel panel;
@@ -27,6 +27,12 @@ public class GroupAdminSettingWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new RemoveMemberAsAdminWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
+            }
+        });
+        checkMembershipRequestsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CheckMemberShipRequestWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
             }
         });
     }

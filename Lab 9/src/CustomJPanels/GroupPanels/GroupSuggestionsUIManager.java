@@ -1,32 +1,20 @@
 package CustomJPanels.GroupPanels;
 
 import Databases.DataManager;
-import Interfaces.UIManager;
-import PhaseOne.Newsfeed.Frontend.Newsfeed;
-import PhaseOne.ProfileManagement.Backend.Profile;
-import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
-
-public class GroupUIManager {
+public class GroupSuggestionsUIManager {
     private String userId;
     private DataManager<Group> groupDataManager;
     private DataManager<GroupRole> groupRoleDataManager;
-    private DataManager<Profile> profileDataManager;
-    private  DataManager<User> userDataManager;
-    private Newsfeed newsfeed;
 
-    public GroupUIManager(String userId, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, Newsfeed newsfeed) {
+    public GroupSuggestionsUIManager(String userId, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager) {
         this.userId = userId;
         this.groupDataManager = groupDataManager;
         this.groupRoleDataManager = groupRoleDataManager;
-        this.userDataManager = userDataManager;
-        this.profileDataManager = profileDataManager;
-        this.newsfeed = newsfeed;
     }
 
     public void refreshList(JPanel groupContainer, JScrollPane groupScrollPane) {
@@ -45,18 +33,16 @@ public class GroupUIManager {
 
             String groupName = groupDataManager.getAllData().get(i).getGroupName();
             String groupImagePath = groupDataManager.getAllData().get(i).getGroupPhotoPath();
-            if(groupDataManager.getDataByName(groupName).getGroupMembers().contains(userId)){
-
+            if(!groupDataManager.getDataByName(groupName).getGroupMembers().contains(userId)){
                 // Create a group Panel for each post
-                GroupPanel groupPanel = new GroupPanel(groupName, groupImagePath,userId, groupDataManager,groupRoleDataManager,userDataManager,profileDataManager,newsfeed);
+                GroupSuggestionsPanel groupSuggestionsPanel = new GroupSuggestionsPanel(groupName, groupImagePath,userId, groupDataManager,groupRoleDataManager);
 
                 // Add padding and border to each PostPanel
-                groupPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                groupSuggestionsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
                 // Add the PostPanel to the container
-                groupContainer.add(groupPanel);
+                groupContainer.add(groupSuggestionsPanel);
             }
-
 
 
         }

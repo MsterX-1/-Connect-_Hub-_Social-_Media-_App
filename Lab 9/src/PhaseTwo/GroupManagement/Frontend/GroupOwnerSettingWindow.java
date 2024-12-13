@@ -1,6 +1,7 @@
 package PhaseTwo.GroupManagement.Frontend;
 
 import Databases.DataManager;
+import PhaseOne.Newsfeed.Frontend.Newsfeed;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
@@ -17,8 +18,9 @@ public class GroupOwnerSettingWindow extends JFrame {
     private JButton deleteTheGroupButton;
     private JPanel panel;
     private JButton changeGroupPhotoButton;
+    private JButton checkMemberShipRequestsButton;
 
-    public GroupOwnerSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, GroupWindow groupWindow, DataManager<GroupRole> groupRoleDataManager) {
+    public GroupOwnerSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, GroupWindow groupWindow, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed) {
         setTitle("Group Owner Setting");
         GroupOwnerSettingWindow groupSetting = this;
         setContentPane(panel);
@@ -39,6 +41,9 @@ public class GroupOwnerSettingWindow extends JFrame {
                     groupRoleDataManager.removeData(groupRoleDataManager.getDataByName(groupName));
 
                     // return to the news feed
+                    newsfeed.setVisible(true);
+                    groupWindow.setVisible(false);
+                    setVisible(false);
 
 
 
@@ -71,6 +76,12 @@ public class GroupOwnerSettingWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new PromoteAndDemoteMembersWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
+            }
+        });
+        checkMemberShipRequestsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CheckMemberShipRequestWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
             }
         });
     }

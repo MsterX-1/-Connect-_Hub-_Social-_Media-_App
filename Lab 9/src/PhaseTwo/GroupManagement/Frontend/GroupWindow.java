@@ -3,6 +3,7 @@ package PhaseTwo.GroupManagement.Frontend;
 import Databases.DataManager;
 import Databases.DatabaseFactory;
 import Interfaces.Database;
+import PhaseOne.Newsfeed.Frontend.Newsfeed;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
@@ -22,20 +23,21 @@ public class GroupWindow extends JFrame {
     private JButton returnToNewsfeedButton;
     private JPanel membersContainer;
     private JLabel descriptionLabel;
+    private JLabel groupNameLabel;
 
-    public GroupWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager,DataManager<Profile> profileDataManager,DataManager<GroupRole> groupRoleDataManager,String userId) {
-        setTitle("Group Management");
+    public GroupWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed) {
+        setTitle("Group Profile");
         GroupWindow groupWindow= this;
         setContentPane(panel);
         setVisible(true);
         setSize(1000, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         picturePanel.setLayout(new FlowLayout());
 
         String description=groupDataManager.getDataByName(groupName).getGroupDescription();
         descriptionLabel.setText(description);
+        groupNameLabel.setText(groupName);
 
         String groupPhotoPath= groupDataManager.getDataByName(groupName).getGroupPhotoPath();
         loadCircularImageToPanel(picturePanel,groupPhotoPath , 300);
@@ -46,15 +48,22 @@ public class GroupWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (isOwner(userId,groupName,groupRoleDataManager)){
 
-                    new GroupOwnerSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager);
+                    new GroupOwnerSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed);
 
                 } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
 
                     new GroupAdminSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
                 }else {
 
-                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId);
+                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow);
                 }
+            }
+        });
+        returnToNewsfeedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newsfeed.setVisible(true);
+                setVisible(false);
             }
         });
     }
@@ -124,40 +133,5 @@ public class GroupWindow extends JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error loading image: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-    public static void main(String[] args) {
-        Database<Group> groupDatabase = DatabaseFactory.createDatabase("group");
-        DataManager<Group> groupDataManager = new DataManager<>(groupDatabase);
-        groupDataManager.loadData();
-
-        Group g1 = new Group("ELGamdeen");
-        g1.getGroupMembers().add("1");//id
-        g1.getGroupMembers().add("2");
-        g1.getGroupMembers().add("3");
-        groupDataManager.insertData(g1);
-
-        Database<User> userDatabase = DatabaseFactory.createDatabase("user");
-        DataManager<User> userDataManager = new DataManager<>(userDatabase);
-        userDataManager.loadData();
-
-        Database<Profile> profileDatabase = DatabaseFactory.createDatabase("profile");
-        DataManager<Profile> profileDataManager = new DataManager<>(profileDatabase);
-        profileDataManager.loadData();
-        String userId = "3";
-
-        Database<GroupRole> groupRoleDatabase = DatabaseFactory.createDatabase("groupRole");
-        DataManager<GroupRole> groupRoleDataManager = new DataManager<>(groupRoleDatabase);
-        groupRoleDataManager.loadData();
-
-
-        GroupRole groupRole = new GroupRole("ELGamdeen","1");
-        groupRoleDataManager.insertData(groupRole);
-        groupRoleDataManager.getDataByName("ELGamdeen").getGroupAdmins().add("2");
-        groupRoleDataManager.getDataByName("ELGamdeen").getGroupMembers().add("3");
-        groupRoleDataManager.saveData();
-
-
-        GroupWindow window = new GroupWindow("ELGamdeen",groupDataManager,userDataManager,profileDataManager,groupRoleDataManager,userId);
-
     }
 }

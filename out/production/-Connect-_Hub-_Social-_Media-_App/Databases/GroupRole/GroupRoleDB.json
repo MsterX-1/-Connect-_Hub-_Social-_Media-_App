@@ -1,6 +1,11 @@
 [ {
-  "groupName" : "gp1",
+  "groupName" : "TeamYousef",
   "groupCreator" : "1",
+  "groupAdmins" : [ ],
+  "groupMembers" : [ ]
+}, {
+  "groupName" : "TeamKhalifa",
+  "groupCreator" : "3",
   "groupAdmins" : [ ],
   "groupMembers" : [ ]
 } ]
