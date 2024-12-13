@@ -1,10 +1,13 @@
 package CustomJPanels.PostPanels;
 
 import Databases.DataManager;
+import Databases.DatabaseFactory;
+import Interfaces.Database;
 import Interfaces.UIManager;
 import PhaseOne.ContentCreation.Backend.Post;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.UserAccountManagement.Backend.User;
+import PhaseTwo.GroupManagement.Backend.GroupPosts;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class PostsUIManager {
 
     public void populateList(JPanel postContainer, String type) {
         postContainer.removeAll();
+
         // Simulate data for demonstration
         if (postDataManager.getAllData() == null)
             return;

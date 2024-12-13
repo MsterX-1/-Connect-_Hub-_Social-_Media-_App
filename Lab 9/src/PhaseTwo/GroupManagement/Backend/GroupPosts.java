@@ -32,15 +32,16 @@ public class GroupPosts{
         posts.add(newPost);
 
     }
-    public void editPost(int postIndex , String newText, String newImage ) {
-        Post post = posts.get(postIndex);
-        String oldImage = post.getContent().getImagePaths().get(0);
+    public void editPostText(Post post , String newText ) {
         post.addText(newText);
-        post.editImage(oldImage,newImage);
     }
-    public void removePost(int postIndex) {
-        Post post = posts.get(postIndex);
-            posts.remove(post);
+    public void editPostImage(Post post , String newImagePath ) {
+        String oldImagePath = post.getContent().getImagePaths().get(0);
+        post.editImage(oldImagePath,newImagePath);
+    }
+    public void removePost(Post deletedPost) {
+
+            posts.remove(deletedPost);
     }
 
 }

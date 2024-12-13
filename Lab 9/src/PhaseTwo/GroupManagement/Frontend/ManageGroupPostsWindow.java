@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class ManageGroupPostsWindow extends JFrame{
     private JButton createPostButton;
-    private JButton editPostButton;
+    private JButton modifyPostWindow;
     private JButton deletePostButton;
     private JPanel main;
 
@@ -28,17 +28,12 @@ public class ManageGroupPostsWindow extends JFrame{
                 new CreatePostWindow(groupName,userId,groupPostsDataManager);
             }
         });
-        editPostButton.addActionListener(new ActionListener() {
+        modifyPostWindow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EditGroupPost(groupName,userId, groupPostsDataManager);
+                new DeletePost(groupName,userId, groupPostsDataManager);
             }
         });
-        deletePostButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DeletePost(groupName, userId,groupPostsDataManager);
-            }
-        });
+
     }
 }

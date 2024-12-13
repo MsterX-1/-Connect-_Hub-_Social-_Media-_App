@@ -28,6 +28,7 @@ public class GroupWindow extends JFrame {
     private JLabel descriptionLabel;
     private JLabel groupNameLabel;
     private JScrollPane groupPostsScrollPane;
+    private JButton refreshButton;
 
     public GroupWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed) {
         setTitle("Group Profile");
@@ -75,6 +76,12 @@ public class GroupWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 newsfeed.setVisible(true);
                 setVisible(false);
+            }
+        });
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                groupPostsUIManager.refreshList(groupPostsContainer,groupPostsScrollPane);
             }
         });
     }
