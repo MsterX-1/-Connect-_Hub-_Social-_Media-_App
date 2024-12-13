@@ -1,11 +1,11 @@
 package PhaseTwo.ProfileViewer;
 
-import CustomJPanels.PostPanels.PostPanel;
 import CustomJPanels.PostPanels.PostsUIManager;
 import Databases.DataManager;
 import Databases.DatabaseFactory;
 import Interfaces.Database;
 import PhaseOne.ContentCreation.Backend.Post;
+import PhaseOne.ContentCreation.Frontend.ViewStoryWindow;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ProfileViewer extends JFrame {
     private JPanel mainPanel;
@@ -26,6 +25,7 @@ public class ProfileViewer extends JFrame {
     private JPanel postsPanel;
     private JLabel biolabel;
     private JLabel userName;
+    private JButton viewStoryButton;
     private String userId;
 
 
@@ -61,7 +61,15 @@ public class ProfileViewer extends JFrame {
         loadRectangularImageToPanel(coverPanel, pathCoverProfile);
 
 
+        viewStoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                new ViewStoryWindow();
+                setVisible(false);
+
+            }
+        });
     }
 
     private void loadCircularImageToPanel(JPanel panel, String imagePath, int diameter) {
