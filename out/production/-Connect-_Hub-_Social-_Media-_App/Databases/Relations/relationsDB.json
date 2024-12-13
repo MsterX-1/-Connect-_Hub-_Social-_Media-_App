@@ -7,10 +7,10 @@
   "pendingRequests" : { }
 }, {
   "userId" : "2",
-  "friendsList" : [ "1", "3" ],
+  "friendsList" : [ "1", "3", "4" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "4", "5" ],
+  "suggestionsList" : [ "5" ],
   "pendingRequests" : { }
 }, {
   "userId" : "3",
@@ -21,10 +21,10 @@
   "pendingRequests" : { }
 }, {
   "userId" : "4",
-  "friendsList" : [ ],
+  "friendsList" : [ "2" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "1", "2", "3", "5" ],
+  "suggestionsList" : [ "1", "3", "5" ],
   "pendingRequests" : { }
 }, {
   "userId" : "5",
