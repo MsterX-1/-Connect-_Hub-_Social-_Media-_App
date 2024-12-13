@@ -4,33 +4,9 @@
     "contentId" : "0",
     "authorId" : "2",
     "content" : {
-      "text" : "six",
+      "text" : "amr created a post",
       "imagePaths" : [ null ]
     },
-    "timeStamp" : [ 2024, 12, 13, 22, 23, 22, 725242800 ]
-  }, {
-    "contentId" : "0",
-    "authorId" : "2",
-    "content" : {
-      "text" : "1",
-      "imagePaths" : [ null ]
-    },
-    "timeStamp" : [ 2024, 12, 13, 22, 29, 0, 767122900 ]
-  }, {
-    "contentId" : "0",
-    "authorId" : "2",
-    "content" : {
-      "text" : "2",
-      "imagePaths" : [ null ]
-    },
-    "timeStamp" : [ 2024, 12, 13, 22, 29, 2, 378254800 ]
-  }, {
-    "contentId" : "0",
-    "authorId" : "2",
-    "content" : {
-      "text" : "three",
-      "imagePaths" : [ null ]
-    },
-    "timeStamp" : [ 2024, 12, 13, 22, 29, 4, 40992300 ]
+    "timeStamp" : [ 2024, 12, 13, 23, 22, 25, 641939400 ]
   } ]
 } ]

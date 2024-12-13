@@ -23,7 +23,7 @@ public class GroupOwnerSettingWindow extends JFrame {
     private JButton checkMemberShipRequestsButton;
 
 
-    public GroupOwnerSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, GroupWindow groupWindow, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed, DataManager<Notification> notificationDataManager,String userId) {
+    public GroupOwnerSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, GroupWindow groupWindow, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed, DataManager<Notification> notificationDataManager,String userId , DataManager<GroupPosts> groupPostsDataManager) {
         setTitle("Group Owner Setting");
         GroupOwnerSettingWindow groupSetting = this;
         setContentPane(panel);
@@ -72,7 +72,7 @@ public class GroupOwnerSettingWindow extends JFrame {
         manageGroupPostsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ManageGroupPostsWindow(groupName,userId,groupPostsDataManager);
+                new ManageGroupPostsWindow(groupName,userId,groupPostsDataManager,groupDataManager,notificationDataManager);
 //                for(int i =0 ; i<groupDataManager.getDataByName(groupName).getGroupMembers().size();i++)
 //                {
 //                    String memberId = groupDataManager.getDataByName(groupName).getGroupMembers().get(i);

@@ -1,7 +1,9 @@
 package PhaseTwo.GroupManagement.Frontend;
 
 import Databases.DataManager;
+import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupPosts;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +15,7 @@ public class ManageGroupPostsWindow extends JFrame{
     private JButton deletePostButton;
     private JPanel main;
 
-    public ManageGroupPostsWindow(String groupName,String userId,DataManager<GroupPosts> groupPostsDataManager) {
+    public ManageGroupPostsWindow(String groupName, String userId, DataManager<GroupPosts> groupPostsDataManager, DataManager<Group> groupDataManager , DataManager<Notification> notificationDataManager) {
 
         setTitle("Create New Group");
         setContentPane(main);
@@ -25,13 +27,13 @@ public class ManageGroupPostsWindow extends JFrame{
         createPostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CreatePostWindow(groupName,userId,groupPostsDataManager);
+                new CreatePostWindow(groupName,userId,groupPostsDataManager,groupDataManager,notificationDataManager);
             }
         });
         modifyPostWindow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new DeletePost(groupName,userId, groupPostsDataManager);
+                new ModifyPost(groupName,userId, groupPostsDataManager);
             }
         });
 

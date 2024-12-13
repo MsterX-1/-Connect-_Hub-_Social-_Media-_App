@@ -61,25 +61,15 @@ public class GroupWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (isOwner(userId,groupName,groupRoleDataManager)){
 
-//<<<<<<< HEAD
-//                    new GroupOwnerSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed,groupPostsDataManager);
-//
-//                } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
-//
-//                    new GroupAdminSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
-//                }else {
-//
-//                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow,groupPostsDataManager);
-//=======
-//                    new GroupOwnerSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed,notificationDataManager,userId);
-//
-//                } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
-//
-//
-//                }else {
-//
-//                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow,notificationDataManager);
-//>>>>>>> notifications-feature
+                    new GroupOwnerSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed,notificationDataManager, userId,groupPostsDataManager);
+
+                } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
+
+                    new GroupAdminSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager,notificationDataManager,userId,groupPostsDataManager);
+                }else {
+
+                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow,groupPostsDataManager);
+
                 }
             }
         });

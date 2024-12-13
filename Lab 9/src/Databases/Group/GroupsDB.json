@@ -1,11 +1,7 @@
 [ {
   "groupName" : "amr",
-  "groupDescription" : "group",
+  "groupDescription" : "amr's group",
   "groupPhotoPath" : "Lab 9/src/PhotosUsed/DefaultGroupPic.jpg",
-  "groupMembers" : [ "2", "3" ],
-  "groupName" : "khalifa group",
-  "groupDescription" : "asd",
-  "groupPhotoPath" : "Lab 9/src/PhotosUsed/DefaultGroupPic.jpg",
-  "groupMembers" : [ "1", "2" ],
+  "groupMembers" : [ "2", "1" ],
   "membershipRequests" : [ ]
 } ]

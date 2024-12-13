@@ -4,6 +4,7 @@ import Databases.DataManager;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupPosts;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 import PhaseTwo.NotificationSystem.Backend.Notification;
 
@@ -18,7 +19,7 @@ public class GroupAdminSettingWindow extends JFrame {
     private JPanel panel;
 
 
-    public GroupAdminSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, DataManager<Notification> notificationDataManager,String userId) {
+    public GroupAdminSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, DataManager<Notification> notificationDataManager,String userId, DataManager<GroupPosts> groupPostsDataManager) {
         setTitle("Group Admin Setting");
         setContentPane(panel);
         setVisible(true);
@@ -40,17 +41,9 @@ public class GroupAdminSettingWindow extends JFrame {
         managePostsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(int i =0 ; i<groupDataManager.getDataByName(groupName).getGroupMembers().size();i++)
-                {
-                    String memberId = groupDataManager.getDataByName(groupName).getGroupMembers().get(i);
-                    if(!memberId.equals(userId)) {
-                        System.out.println("member id "+memberId);
-                        System.out.println("user id "+userId);
+                new ManageGroupPostsWindow(groupName,userId,groupPostsDataManager,groupDataManager,notificationDataManager);
 
-                        notificationDataManager.getDataById(memberId).addgroupsPostsNotification(groupName);
-                    }
-                }
-                notificationDataManager.saveData();
+
             }
         });
     }

@@ -8,14 +8,14 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DeletePost extends JFrame {
+public class ModifyPost extends JFrame {
     private JPanel panel1;
     private JScrollPane deleteScroll;
     private JPanel deletePanel;
     private JPanel buttonPanel;
     private JButton refreshButton;
 
-    public DeletePost(String groupName, String userId, DataManager<GroupPosts> groupPostsDataManager) {
+    public ModifyPost(String groupName, String userId, DataManager<GroupPosts> groupPostsDataManager) {
 
         setContentPane(panel1);
         setSize(600, 700);

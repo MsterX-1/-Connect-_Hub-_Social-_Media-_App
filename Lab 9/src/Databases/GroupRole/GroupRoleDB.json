@@ -1,10 +1,6 @@
 [ {
   "groupName" : "amr",
   "groupCreator" : "2",
-  "groupAdmins" : [ ],
-  "groupMembers" : [ "3" ]
-  "groupName" : "khalifa group",
-  "groupCreator" : "1",
-  "groupAdmins" : [ ],
-  "groupMembers" : [ "2" ]
+  "groupAdmins" : [ "1" ],
+  "groupMembers" : [ ]
 } ]

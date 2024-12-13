@@ -3,7 +3,9 @@ package PhaseTwo.GroupManagement.Frontend;
 import Databases.DataManager;
 import Databases.DatabaseFactory;
 import Interfaces.Database;
+import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupPosts;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +22,7 @@ public class CreatePostWindow extends JFrame {
     private JPanel main;
     private String imagePath;
 
-    public CreatePostWindow(String groupName , String userId,DataManager<GroupPosts> groupPostsDataManager) {
+    public CreatePostWindow(String groupName , String userId, DataManager<GroupPosts> groupPostsDataManager, DataManager<Group> groupDataManager ,DataManager<Notification> notificationDataManager) {
         setContentPane(main);
         setSize(600, 400);
         setLocationRelativeTo(null);
@@ -38,11 +40,23 @@ public class CreatePostWindow extends JFrame {
 
                     groupPostsDataManager.getDataByName(groupName).addPost(userId, text, imagePath);
                     groupPostsDataManager.saveData();
+
+                    for(int i =0 ; i<groupDataManager.getDataByName(groupName).getGroupMembers().size();i++)
+                    {
+                        String memberId = groupDataManager.getDataByName(groupName).getGroupMembers().get(i);
+                        if(!memberId.equals(userId)) {
+
+                            notificationDataManager.getDataById(memberId).addgroupsPostsNotification(groupName);
+                        }
+                    }
+                    notificationDataManager.saveData();
+
                     setVisible(false);
                     dispose();
                 }
                 else
                     JOptionPane.showMessageDialog(null, "Please enter some text");
+
             }
         });
         addImageButton.addActionListener(new ActionListener() {

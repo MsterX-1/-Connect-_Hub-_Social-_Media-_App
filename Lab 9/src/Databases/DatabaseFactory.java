@@ -30,6 +30,10 @@ public class DatabaseFactory {
             return (Database<T>) new GroupDatabase(new File("Lab 9/src/Databases/Group/GroupsDB.json"));
         } else if (type.equalsIgnoreCase("groupRole")) {
             return (Database<T>) new GroupRoleDatabase(new File("Lab 9/src/Databases/GroupRole/GroupRoleDB.json"));
+        }else if (type.equalsIgnoreCase("notification")) {
+            return (Database<T>) new NotificationDatabase(new File("Lab 9/src/Databases/Notification/NotificationsDB.json"));
+        }else if (type.equalsIgnoreCase("groupPost")) {
+            return (Database<T>) new GroupPostsDatabase(new File("Lab 9/src/Databases/GroupPosts/GroupPostsDB.json"));
         }
         throw new IllegalArgumentException("No database implementation for type: " + type);
     }

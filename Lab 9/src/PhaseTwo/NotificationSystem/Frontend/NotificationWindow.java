@@ -16,8 +16,6 @@ public class NotificationWindow extends JFrame{
     private JPanel notificationPanel;
     private JScrollPane friendsScroll;
     private JPanel friendsPanel;
-    private JScrollPane groupScroll;
-    private JPanel groupPanel;
     private DataManager<UserRelations> userRelationsDataManager;
     private DataManager<Notification> notificationDataManager;
     private String userId;
