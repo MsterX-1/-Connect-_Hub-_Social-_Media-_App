@@ -15,7 +15,7 @@ public class NormalMemberSettingWindow extends JFrame {
     private JButton leaveTheGroupButton;
     private JPanel panel;
 
-    public NormalMemberSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed, GroupWindow groupWindow, DataManager<Notification> notificationDataManager,String userId) {
+    public NormalMemberSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed, GroupWindow groupWindow, DataManager<Notification> notificationDataManager) {
         setTitle("Normal User Setting");
         setContentPane(panel);
         setVisible(true);

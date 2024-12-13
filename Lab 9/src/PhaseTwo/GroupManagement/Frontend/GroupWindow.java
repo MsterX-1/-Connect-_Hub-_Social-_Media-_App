@@ -56,7 +56,7 @@ public class GroupWindow extends JFrame {
                     new GroupAdminSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager,notificationDataManager,userId);
                 }else {
 
-                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow,notificationDataManager,userId);
+                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow,notificationDataManager);
                 }
             }
         });
