@@ -19,6 +19,7 @@ import PhaseOne.ProfileManagement.Frontend.ProfileManagementPage;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseOne.ContentCreation.Frontend.publishContentWindow;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupPosts;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 import RunProgram.MainWindow;
 
@@ -88,6 +89,11 @@ public class Newsfeed extends JFrame {
         Database<GroupRole> groupRoleDatabase = DatabaseFactory.createDatabase("groupRole");
         DataManager<GroupRole> groupRoleDataManager = new DataManager<>(groupRoleDatabase);
         groupRoleDataManager.loadData();
+
+        Database<GroupPosts> groupPostsDatabase = DatabaseFactory.createDatabase("groupPost");
+        DataManager<GroupPosts> groupPostsDataManager = new DataManager<>(groupPostsDatabase);
+        groupPostsDataManager.loadData();
+
 
         //managing posts
         PostsUIManager postsUIManager = new PostsUIManager(userId , postManager , userRelationsDataManager);
@@ -175,7 +181,7 @@ public class Newsfeed extends JFrame {
         createGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new CreatNewGroupWindow(userId,groupDataManager,groupRoleDataManager);
+               new CreatNewGroupWindow(userId,groupDataManager,groupRoleDataManager,groupPostsDataManager);
             }
         });
     }

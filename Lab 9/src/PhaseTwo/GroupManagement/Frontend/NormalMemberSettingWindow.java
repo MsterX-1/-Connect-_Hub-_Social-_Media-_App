@@ -49,10 +49,11 @@ public class NormalMemberSettingWindow extends JFrame {
             }
 
         });
+
         postContentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new CreatePostWindow(groupName,userId);
             }
         });
     }

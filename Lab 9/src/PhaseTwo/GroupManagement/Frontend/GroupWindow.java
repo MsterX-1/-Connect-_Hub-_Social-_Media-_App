@@ -1,12 +1,15 @@
 package PhaseTwo.GroupManagement.Frontend;
 
+import CustomJPanels.GroupPosts.GroupPostsUIManager;
 import Databases.DataManager;
 import Databases.DatabaseFactory;
 import Interfaces.Database;
+import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.Newsfeed.Frontend.Newsfeed;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupPosts;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 
 import javax.swing.*;
@@ -21,9 +24,10 @@ public class GroupWindow extends JFrame {
     private JPanel picturePanel;
     private JButton groupSettingButton;
     private JButton returnToNewsfeedButton;
-    private JPanel membersContainer;
+    private JPanel groupPostsContainer;
     private JLabel descriptionLabel;
     private JLabel groupNameLabel;
+    private JScrollPane groupPostsScrollPane;
 
     public GroupWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed) {
         setTitle("Group Profile");
@@ -34,7 +38,14 @@ public class GroupWindow extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         picturePanel.setLayout(new FlowLayout());
-
+        Database<GroupPosts> groupDatabase = DatabaseFactory.createDatabase("groupPost");
+        DataManager<GroupPosts> groupPostsDataManager = new DataManager<>(groupDatabase);
+        groupPostsDataManager.loadData();
+        Database<UserRelations> userRelationsDatabase = DatabaseFactory.createDatabase("relations");
+        DataManager<UserRelations> userRelationsDataManager = new DataManager<>(userRelationsDatabase);
+        userRelationsDataManager.loadData();
+        GroupPostsUIManager groupPostsUIManager = new GroupPostsUIManager(groupName,groupPostsDataManager,userRelationsDataManager);
+        groupPostsUIManager.refreshList(groupPostsContainer,groupPostsScrollPane);
         String description=groupDataManager.getDataByName(groupName).getGroupDescription();
         descriptionLabel.setText(description);
         groupNameLabel.setText(groupName);
@@ -48,11 +59,11 @@ public class GroupWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (isOwner(userId,groupName,groupRoleDataManager)){
 
-                    new GroupOwnerSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed);
+                    new GroupOwnerSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed);
 
                 } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
 
-                    new GroupAdminSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
+                    new GroupAdminSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
                 }else {
 
                      new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow);

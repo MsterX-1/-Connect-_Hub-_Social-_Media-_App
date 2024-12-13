@@ -29,7 +29,16 @@ public class NotificationDatabase implements IdentifiableDatabase<Notification> 
     public void loadFromJson() {
 
         if (!filePath.exists() || filePath.length() == 0) {
-            return;             //terminates method if file does not exist or is empty
+            try {
+                // Create a new file if it doesn't exist or is empty
+                boolean isCreated = filePath.createNewFile();
+                if (isCreated) {
+                    System.out.println("File created: " + filePath.getPath());
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+            }
+            return;  // Terminates the method if file does not exist or is empty
         }
 
         ObjectMapper objectMapper = new ObjectMapper();

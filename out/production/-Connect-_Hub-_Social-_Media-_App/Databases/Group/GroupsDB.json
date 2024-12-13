@@ -1,13 +1,7 @@
 [ {
-  "groupName" : "TeamYousef",
-  "groupDescription" : "helloo",
+  "groupName" : "amr",
+  "groupDescription" : "group",
   "groupPhotoPath" : "Lab 9/src/PhotosUsed/DefaultGroupPic.jpg",
-  "groupMembers" : [ "1" ],
-  "membershipRequests" : [ ]
-}, {
-  "groupName" : "TeamKhalifa",
-  "groupDescription" : "hoolllaaa",
-  "groupPhotoPath" : "Lab 9/src/PhotosUsed/DefaultGroupPic.jpg",
-  "groupMembers" : [ "3" ],
+  "groupMembers" : [ "2" ],
   "membershipRequests" : [ ]
 } ]

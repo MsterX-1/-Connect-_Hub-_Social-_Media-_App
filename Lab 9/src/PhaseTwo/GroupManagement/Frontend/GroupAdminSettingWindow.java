@@ -16,7 +16,7 @@ public class GroupAdminSettingWindow extends JFrame {
     private JButton managePostsButton;
     private JPanel panel;
 
-    public GroupAdminSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager) {
+    public GroupAdminSettingWindow(String groupName ,String userId, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager) {
         setTitle("Group Admin Setting");
         setContentPane(panel);
         setVisible(true);

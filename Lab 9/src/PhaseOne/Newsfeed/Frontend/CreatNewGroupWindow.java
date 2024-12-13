@@ -2,6 +2,7 @@ package PhaseOne.Newsfeed.Frontend;
 
 import Databases.DataManager;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupPosts;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 
 import javax.swing.*;
@@ -14,13 +15,14 @@ public class CreatNewGroupWindow extends JFrame {
     private JTextField descriptionField;
     private JButton createGroupButton;
 
-    public CreatNewGroupWindow(String userId, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager) {
+    public CreatNewGroupWindow(String userId, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager,DataManager<GroupPosts> groupPostsDataManager) {
         setTitle("Create New Group");
         setContentPane(panel);
         setVisible(true);
         setSize(400, 300);
         setLocationRelativeTo(null);
         setResizable(false);
+
 
         createGroupButton.addActionListener(new ActionListener() {
             @Override
@@ -49,11 +51,17 @@ public class CreatNewGroupWindow extends JFrame {
 
                 GroupRole groupRole = new GroupRole(groupName, userId); // Create group role for the creator
 
+                //create group post
+                GroupPosts groupPost = new GroupPosts(groupName);
+
                 // Add to data managers and save
                 groupDataManager.insertData(group);
                 groupRoleDataManager.insertData(groupRole);
+                groupPostsDataManager.insertData(groupPost);
+
                 groupDataManager.saveData();
                 groupRoleDataManager.saveData();
+                groupPostsDataManager.saveData();
 
                 // Notify success and close the window
                 JOptionPane.showMessageDialog(null, "Group Created Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);

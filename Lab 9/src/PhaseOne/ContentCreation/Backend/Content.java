@@ -24,7 +24,7 @@ public abstract class Content {
         this.contentId = contentId;
     }
 
-    protected void setAuthorId(String authorId) {
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 
@@ -65,16 +65,16 @@ public abstract class Content {
         content.getImagePaths().add(imagePath);
     }
 
-//    //remove image
-//    public void removeImage(String imagePath) {
-//        content.getImagePaths().remove(imagePath);
-//    }
-//
-//    //edit image
-//    public void editImage(String oldImagePath, String newImagePath) {
-//        removeImage(oldImagePath);
-//        addImage(newImagePath);
-//    }
+    //remove image
+    public void removeImage(String imagePath) {
+        content.getImagePaths().remove(imagePath);
+    }
+
+    //edit image
+    public void editImage(String oldImagePath, String newImagePath) {
+        removeImage(oldImagePath);
+        addImage(newImagePath);
+    }
 
     public abstract void publishContent(String authorId);
 
