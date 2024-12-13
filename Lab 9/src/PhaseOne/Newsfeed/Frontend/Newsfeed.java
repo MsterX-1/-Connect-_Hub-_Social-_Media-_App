@@ -18,6 +18,7 @@ import PhaseOne.ProfileManagement.Frontend.ProfileManagementPage;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseOne.ContentCreation.Frontend.publishContentWindow;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupRole;
 import RunProgram.MainWindow;
 
 import javax.swing.*;
@@ -75,10 +76,15 @@ public class Newsfeed extends JFrame {
         DataManager<Profile> profileManager = new DataManager<>(profileDatabase);
         profileManager.loadData();
 
-        //create Profile database and manager
+        //create group database and manager
         Database<Group> groupDatabase = DatabaseFactory.createDatabase("group");
         DataManager<Group> groupDataManager = new DataManager<>(groupDatabase);
         profileManager.loadData();
+
+        // creat groupRole database and manager
+        Database<GroupRole> groupRoleDatabase = DatabaseFactory.createDatabase("groupRole");
+        DataManager<GroupRole> groupRoleDataManager = new DataManager<>(groupRoleDatabase);
+        groupRoleDataManager.loadData();
 
         //managing posts
         PostsUIManager postsUIManager = new PostsUIManager(userId,postManager);
@@ -104,7 +110,7 @@ public class Newsfeed extends JFrame {
         // Frame properties
         setVisible(true);
         setTitle("NewsFeed");
-        setSize(new Dimension(1000, 800));
+        setSize(new Dimension(1500, 800));
         currentUserPanel.setPreferredSize(new Dimension(400, 200));
         friendScrollPane.setSize(new Dimension(600, 200));
         postScrollPane.setSize(new Dimension(600, 500));
@@ -165,7 +171,7 @@ public class Newsfeed extends JFrame {
         createGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+               new CreatNewGroupWindow(userId,groupDataManager,groupRoleDataManager);
             }
         });
     }
