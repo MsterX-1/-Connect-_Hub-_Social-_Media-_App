@@ -1,10 +1,12 @@
 package PhaseTwo.ProfileViewer;
 
 import CustomJPanels.PostPanels.PostPanel;
+import CustomJPanels.PostPanels.PostsUIManager;
 import Databases.DataManager;
 import Databases.DatabaseFactory;
 import Interfaces.Database;
 import PhaseOne.ContentCreation.Backend.Post;
+import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 
@@ -24,17 +26,22 @@ public class ProfileViewer extends JFrame {
     private JPanel postsPanel;
     private JLabel biolabel;
     private JLabel userName;
-    private JButton returnButton;
     private String userId;
 
 
-    public ProfileViewer(String userId, DataManager<User> userDataManager, DataManager<Profile> profileManager) {
+    public ProfileViewer(String userId, DataManager<User> userDataManager, DataManager<Profile> profileManager, DataManager<UserRelations> userRelationsDataManager ) {
+
+        Database<Post> postDatabase = DatabaseFactory.createDatabase("post");
+        DataManager<Post> postDataManager = new DataManager<>(postDatabase);
+        PostsUIManager postsUIManager = new PostsUIManager(userId, postDataManager , userRelationsDataManager);
+        postsUIManager.refreshList(postsPanel,postScroll,"profile");
+
+
         this.userId = userId;
         setVisible(true);
         setContentPane(mainPanel);
         setTitle("Profile Viewer");
-        setSize(1000, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         setResizable(false);
 
@@ -53,13 +60,7 @@ public class ProfileViewer extends JFrame {
         loadRectangularImageToPanel(coverPanel, pathCoverProfile);
 
 
-        returnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-               
-            }
-        });
     }
 
     private void loadCircularImageToPanel(JPanel panel, String imagePath, int diameter) {
@@ -149,17 +150,17 @@ public class ProfileViewer extends JFrame {
     }
 
 
-    public static void main(String[] args) {
-
-        Database<User> userDatabase = DatabaseFactory.createDatabase("user");
-        DataManager<User> userDataManager = new DataManager<>(userDatabase);
-
-        Database<Profile> profileDatabase = DatabaseFactory.createDatabase("profile");
-        DataManager<Profile> profileManager = new DataManager<>(profileDatabase);
-        userDataManager.loadData();
-        profileManager.loadData();
-
-        new ProfileViewer("1", userDataManager, profileManager);
-
-    }
+//    public static void main(String[] args) {
+//
+//        Database<User> userDatabase = DatabaseFactory.createDatabase("user");
+//        DataManager<User> userDataManager = new DataManager<>(userDatabase);
+//
+//        Database<Profile> profileDatabase = DatabaseFactory.createDatabase("profile");
+//        DataManager<Profile> profileManager = new DataManager<>(profileDatabase);
+//        userDataManager.loadData();
+//        profileManager.loadData();
+//
+//        new ProfileViewer("1", userDataManager, profileManager);
+//
+//    }
 }

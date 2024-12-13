@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 
-public class GroupUIManager implements UIManager {
+public class GroupUIManager {
     private String userId;
     private DataManager<Group> groupDataManager;
 
@@ -17,7 +17,6 @@ public class GroupUIManager implements UIManager {
         this.groupDataManager = groupDataManager;
     }
 
-    @Override
     public void refreshList(JPanel groupContainer, JScrollPane groupScrollPane) {
         groupContainer.setLayout(new BoxLayout(groupContainer, BoxLayout.Y_AXIS));
         populateList(groupContainer);
@@ -25,7 +24,6 @@ public class GroupUIManager implements UIManager {
         groupScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
-    @Override
     public void populateList(JPanel groupContainer) {
         groupContainer.removeAll();
         // Simulate data for demonstration

@@ -2,8 +2,12 @@ package CustomJPanels.FriendPanels;
 
 
 import Databases.DataManager;
+import PhaseOne.ContentCreation.Backend.Post;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.Newsfeed.Frontend.Newsfeed;
+import PhaseOne.ProfileManagement.Backend.Profile;
+import PhaseOne.UserAccountManagement.Backend.User;
+import PhaseTwo.ProfileViewer.ProfileViewer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +16,7 @@ import java.awt.event.ActionListener;
 
 public class FriendPanel extends JPanel {
 
-    public FriendPanel(String friendName, String friendImagePath, String userId, String friendId, DataManager<UserRelations> userRelationsDataManager) {
+    public FriendPanel(String friendName, String friendImagePath, String userId, String friendId, DataManager<UserRelations> userRelationsDataManager , DataManager<User> userDataManager , DataManager<Profile> profileDataManager   ) {
 
 
         // Set layout manager for horizontal alignment
@@ -61,7 +65,7 @@ public class FriendPanel extends JPanel {
         viewProfile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // new UserProfileWindow();
+                new ProfileViewer(friendId,userDataManager,profileDataManager,userRelationsDataManager);
             }
         });
 

@@ -28,7 +28,7 @@ public class SearchWindow extends JFrame{
     String userInput;
 
 
-    public SearchWindow(String userId , DataManager<User> userdataManagr, DataManager<UserRelations> userRelationsDataManager, DataManager<Group> groupDataManager , FriendsUIManager friendsUIManager,DataManager<Profile> profileDataManager) {
+    public SearchWindow(String userId , DataManager<User> userdataManager, DataManager<UserRelations> userRelationsDataManager, DataManager<Group> groupDataManager , FriendsUIManager friendsUIManager,DataManager<Profile> profileDataManager) {
 
         setContentPane(main);
         setSize(600, 400);
@@ -48,7 +48,7 @@ public class SearchWindow extends JFrame{
                 }else {
                     searchContainer.setLayout(new BoxLayout(searchContainer, BoxLayout.Y_AXIS));
 
-                    Search search = new Search(userId,userdataManagr,userRelationsDataManager,groupDataManager);
+                    Search search = new Search(userId,userdataManager,userRelationsDataManager,groupDataManager);
                     ArrayList<String> foundFriendsId = search.searchFormUserFriends(userInput);
                     ArrayList<String> foundNonFriendsId= search.searchFormNonFriends(userInput);
                     ArrayList<String> foundgroups = search.searchFromGroups(userInput);
@@ -56,9 +56,9 @@ public class SearchWindow extends JFrame{
                         searchContainer.removeAll();
                         for (int i = 0; i < foundFriendsId.size(); i++) {
                             String friendId = foundFriendsId.get(i);
-                            String userName = userdataManagr.getDataById(friendId).getUsername();
+                            String userName = userdataManager.getDataById(friendId).getUsername();
                             String imagePath = profileDataManager.getDataById(friendId).getProfilePhotoPath();
-                            FriendPanel friendPanel = new FriendPanel(userName, imagePath, userId, friendId, userRelationsDataManager);
+                            FriendPanel friendPanel = new FriendPanel(userName, imagePath, userId, friendId, userRelationsDataManager, userdataManager,profileDataManager);
 
                             // Add padding and border to each PostPanel
                             friendPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

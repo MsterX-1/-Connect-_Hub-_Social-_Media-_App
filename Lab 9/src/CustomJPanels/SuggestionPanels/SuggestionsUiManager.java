@@ -43,7 +43,7 @@ public class SuggestionsUiManager implements UIManager {
             String imagePaths = profileDataManager.getDataById(suggestedId).getProfilePhotoPath();
 
             // Create a PostPanel for each post
-            FriendPanel profilePanel = new FriendPanel(suggestedName, imagePaths , userId , suggestedId , userRelationsDataManager);
+            FriendPanel profilePanel = new FriendPanel(suggestedName, imagePaths , userId , suggestedId , userRelationsDataManager, userDataManager , profileDataManager);
 
             // Add padding and border to each PostPanel
             profilePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
