@@ -15,7 +15,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="d4d15" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="d4d15" binding="container" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints/>
             <properties/>
             <border type="none"/>

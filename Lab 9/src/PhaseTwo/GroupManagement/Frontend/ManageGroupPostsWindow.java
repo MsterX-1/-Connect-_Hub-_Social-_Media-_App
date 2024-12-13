@@ -1,8 +1,6 @@
 package PhaseTwo.GroupManagement.Frontend;
 
 import Databases.DataManager;
-import Databases.DatabaseFactory;
-import Interfaces.Database;
 import PhaseTwo.GroupManagement.Backend.GroupPosts;
 
 import javax.swing.*;
@@ -16,14 +14,13 @@ public class ManageGroupPostsWindow extends JFrame{
     private JPanel main;
 
     public ManageGroupPostsWindow(String groupName,String userId,DataManager<GroupPosts> groupPostsDataManager) {
+
         setTitle("Create New Group");
         setContentPane(main);
         setVisible(true);
         setSize(400, 300);
         setLocationRelativeTo(null);
         setResizable(false);
-
-
 
         createPostButton.addActionListener(new ActionListener() {
             @Override
@@ -34,13 +31,13 @@ public class ManageGroupPostsWindow extends JFrame{
         editPostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new EditGroupPost(groupName,userId, groupPostsDataManager);
             }
         });
         deletePostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new DeletePost(groupName, userId,groupPostsDataManager);
             }
         });
     }

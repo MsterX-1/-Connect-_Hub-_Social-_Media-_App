@@ -1,4 +1,12 @@
 [ {
   "groupName" : "amr",
-  "posts" : [ ]
+  "posts" : [ {
+    "contentId" : "0",
+    "authorId" : "2",
+    "content" : {
+      "text" : "my first group post",
+      "imagePaths" : [ "C:\\Users\\amrra\\Documents\\Lab 8 UML.png" ]
+    },
+    "timeStamp" : [ 2024, 12, 13, 20, 1, 19, 31123300 ]
+  } ]
 } ]

@@ -1,4 +1,4 @@
-package CustomJPanels.FriendPanel;
+package CustomJPanels.NotificationPanel;
 
 
 import Databases.DataManager;
@@ -9,9 +9,9 @@ import PhaseOne.UserAccountManagement.Backend.User;
 import javax.swing.*;
 import java.awt.*;
 
-public class FriendPanel extends JPanel {
+public class NotificationPanel extends JPanel {
 
-    public FriendPanel(String friendName, String friendImagePath, String userId, String friendId, DataManager<UserRelations> userRelationsDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager) {
+    public NotificationPanel(String friendName, String friendImagePath, String userId, String friendId, DataManager<UserRelations> userRelationsDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager) {
 
 
         // Set layout manager for horizontal alignment

@@ -34,12 +34,15 @@ public class GroupPostPanel extends javax.swing.JPanel {
         // Set some padding for the PostPanel
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JButton edit =new JButton();
-        JButton remove=new JButton();
+        JButton edit = new JButton("edit post");
+        JButton remove = new JButton("remove post ");
+
+
         edit.setBackground(Color.white);
         edit.setForeground(Color.black);
         remove.setForeground(Color.black);
         remove.setBackground(Color.white);
+
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
