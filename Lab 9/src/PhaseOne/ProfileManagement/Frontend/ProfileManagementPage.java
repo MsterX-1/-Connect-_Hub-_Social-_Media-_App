@@ -33,7 +33,7 @@ public class ProfileManagementPage extends JFrame {
     private String userId;
 
 
-    public ProfileManagementPage(String userId, DataManager<User>userDataManager, Newsfeed newsfeed, MainWindow mainWindow, DataManager<Post> postDataManager , DataManager<Story> storyDataManager, DataManager<Profile> profileManager) {
+    public ProfileManagementPage(String userId, DataManager<User> userDataManager, Newsfeed newsfeed, MainWindow mainWindow, DataManager<Post> postDataManager, DataManager<Story> storyDataManager, DataManager<Profile> profileManager) {
         this.userId = userId;
         setTitle("Profile Management");
         setSize(1000, 800);
@@ -49,18 +49,24 @@ public class ProfileManagementPage extends JFrame {
 
         coverpanel.setLayout(new FlowLayout());
         picturepanel.setLayout(new FlowLayout());
+        panel.setBackground(Color.orange);
+        coverpanel.setBackground(Color.orange);
+        picturepanel.setBackground(Color.orange);
 
-
-
-        String bio= profileManager.getDataById(userId).getBio();
+        String bio = profileManager.getDataById(userId).getBio();
         bioLabel.setText(bio);
 
-        String pathPhotoProfile=  profileManager.getDataById(userId).getProfilePhotoPath();
-        String pathCoverProfile= profileManager.getDataById(userId).getCoverPhotoPath();
-        loadCircularImageToPanel(picturepanel,pathPhotoProfile , 150); // Default profile picture
+        String pathPhotoProfile = profileManager.getDataById(userId).getProfilePhotoPath();
+        String pathCoverProfile = profileManager.getDataById(userId).getCoverPhotoPath();
+        loadCircularImageToPanel(picturepanel, pathPhotoProfile, 150); // Default profile picture
         loadCircularImageToPanel(coverpanel, pathCoverProfile, 400);
 
-
+        editButton.setForeground(Color.black);
+        editButton.setBackground(Color.white);
+        returnButton.setBackground(Color.white);
+        returnButton.setForeground(Color.black);
+        logoutButton.setForeground(Color.black);
+        logoutButton.setBackground(Color.white);
 
         editButton.addActionListener(e -> {
             System.out.println("Edit button clicked!");
@@ -68,8 +74,8 @@ public class ProfileManagementPage extends JFrame {
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new EditProfile(pRofileManagementPage,userId,userDataManager , bioLabel,profileManager);
-               //setVisible(false);
+                new EditProfile(pRofileManagementPage, userId, userDataManager, bioLabel, profileManager);
+                //setVisible(false);
             }
         });
 
@@ -94,13 +100,14 @@ public class ProfileManagementPage extends JFrame {
             }
         });
     }
+
     private void populatePosts(DataManager<Post> postManager) {
         postContainer.removeAll();
         // Simulate data for demonstration
-        if(postManager.getAllData() == null)
+        if (postManager.getAllData() == null)
             return;
         for (int i = 0; i < postManager.getAllData().size(); i++) {
-            if(!userId.equals(postManager.getAllData().get(i).getAuthorId()))
+            if (!userId.equals(postManager.getAllData().get(i).getAuthorId()))
                 continue;
             String text = postManager.getAllData().get(i).getContent().getText();
             ArrayList<String> imagePaths = postManager.getAllData().get(i).getContent().getImagePaths();
@@ -125,6 +132,7 @@ public class ProfileManagementPage extends JFrame {
         System.out.println("Updating profile picture with: " + imagePath);
         loadCircularImageToPanel(picturepanel, imagePath, 150);
     }
+
     public void updateCoverPicture(String imagePath) {
         System.out.println("Updating cover picture with: " + imagePath);
         loadCircularImageToPanel(coverpanel, imagePath, 400); // Adjust to use your cover photo panel and desired size
@@ -149,9 +157,7 @@ public class ProfileManagementPage extends JFrame {
                     super.paintComponent(g);
                     Graphics2D g2d = (Graphics2D) g;
 
-
                     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //عشان اعمل smooth edge
-
 
 
                     Shape circle = new java.awt.geom.Ellipse2D.Float(0, 0, diameter, diameter);//عشان اعمل شكل circle
@@ -167,6 +173,7 @@ public class ProfileManagementPage extends JFrame {
                 }
             };
 
+            circlePanel.setBackground(Color.orange);
 
             panel.removeAll();
             panel.setLayout(new GridBagLayout()); // عشان احطها في النص

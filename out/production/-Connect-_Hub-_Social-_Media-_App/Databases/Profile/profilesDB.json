@@ -13,4 +13,9 @@
   "profilePhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
   "coverPhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
   "bio" : "Hey There !"
+}, {
+  "userId" : "4",
+  "profilePhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
+  "coverPhotoPath" : "Lab 9/src/PhotosUsed/DefultPic.jpg",
+  "bio" : "Hey There !"
 } ]

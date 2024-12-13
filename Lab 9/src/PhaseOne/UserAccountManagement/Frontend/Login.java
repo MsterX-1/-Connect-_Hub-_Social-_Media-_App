@@ -23,11 +23,74 @@ public class Login extends JFrame {
         setLocationRelativeTo(null);
         setTitle("login");
 
+
+
+
+        login = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g); // Ensure the component is painted properly
+                // Set the background image
+                ImageIcon backgroundImage = new ImageIcon("C:\\Users\\Legion\\Downloads\\html-color-codes-color-tutorials.jpg");
+                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        login.setLayout(null);
+        setContentPane(login);
+
+
+        backButton.setBounds(10, 500, 100, 29);
+        backButton.setFont(new Font("Arial", Font.BOLD, 15));
+        backButton.setForeground(Color.black);
+        backButton.setBackground(Color.white);
+        loginButton.setBounds(680, 500, 100, 29);
+        loginButton.setFont(new Font("Arial", Font.BOLD, 15));
+        loginButton.setForeground(Color.black);
+        loginButton.setBackground(Color.white);
+
+
+        JLabel label1 = new JLabel("Username");
+        label1.setFont(new Font("Arial", Font.BOLD, 15));
+        label1.setBounds(30, 188, 250, 29);
+        label1.setForeground(Color.white);
+        label1.setBackground(Color.black);
+        JLabel label2 = new JLabel("Password");
+        label2.setFont(new Font("Arial", Font.BOLD, 15));
+        label2.setForeground(Color.white);
+        label2.setBackground(Color.black);
+        label2.setBounds(30, 300, 250, 29);
+        usernametext = new JTextField();
+        usernametext.setBounds(400, 188, 250, 29);
+        paswordtext = new JPasswordField();
+        paswordtext.setBounds(400, 300, 250, 29);
+
+
+        login.add(backButton);
+        login.add(loginButton);
+        login.add(usernametext);
+        login.add(paswordtext);
+        login.add(label1);
+        login.add(label2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userName= textField1.getText();
-                String userPassword = new String(passwordField1.getPassword()).trim();
+                String userName= usernametext.getText();
+                String userPassword = new String(paswordtext.getPassword()).trim();
 
                     if(userName.isEmpty() || userPassword.isEmpty())
                         JOptionPane.showMessageDialog(login, "ALL fields must be filled", "Error", JOptionPane.ERROR_MESSAGE);
@@ -82,10 +145,10 @@ public class Login extends JFrame {
             }
         });
     }
-    private JTextField textField1;
+    private JTextField usernametext;
     private JTextField textField2;
     private JPanel login;
     private JButton loginButton;
     private JButton backButton;
-    private JPasswordField passwordField1;
+    private JPasswordField paswordtext;
 }

@@ -54,7 +54,6 @@ public class Newsfeed extends JFrame {
 
     public Newsfeed(DataManager<User> userDataManager, String userId, MainWindow mainWindow) {
         this.userId = userId;
-
         //create post database and create a data manager
         Database<Post> postDatabase = DatabaseFactory.createDatabase("post");
         DataManager<Post> postManager = new DataManager<>(postDatabase);
@@ -81,30 +80,45 @@ public class Newsfeed extends JFrame {
         profileManager.loadData();
 
         //managing posts
-        PostsUIManager postsUIManager = new PostsUIManager(userId,postManager);
+        PostsUIManager postsUIManager = new PostsUIManager(userId, postManager);
 
         //managing friendsList
-        FriendsUIManager friendsUIManager = new FriendsUIManager(userId,userRelationsDataManager , userDataManager , profileManager);
+        FriendsUIManager friendsUIManager = new FriendsUIManager(userId, userRelationsDataManager, userDataManager, profileManager);
 
         //managing suggestions
-        SuggestionsUiManager suggestionsUiManager = new SuggestionsUiManager(userId,userRelationsDataManager , userDataManager , profileManager);
+        SuggestionsUiManager suggestionsUiManager = new SuggestionsUiManager(userId, userRelationsDataManager, userDataManager, profileManager);
 
         //managing user groups
-        GroupUIManager groupUIManager = new GroupUIManager(userId,groupDataManager);
+        GroupUIManager groupUIManager = new GroupUIManager(userId, groupDataManager);
 
-        postsUIManager.refreshList(postContainer,postScrollPane);
+        postsUIManager.refreshList(postContainer, postScrollPane);
         friendsUIManager.refreshList(friendsContainer, friendScrollPane);
         suggestionsUiManager.refreshList(friendSuggestionsContainer, friendSuggestionsScrollPane);
-        groupUIManager.refreshList(userGroupsContainer,groupScrollPane);
-        groupUIManager.refreshList(suggestedGroupsContainer,groupSuggestionsScrollpane);
+        groupUIManager.refreshList(userGroupsContainer, groupScrollPane);
+        groupUIManager.refreshList(suggestedGroupsContainer, groupSuggestionsScrollpane);
 
+
+        mainContainer.setBackground(Color.orange);
+        lowerButtons.setBackground(Color.orange);
+        currentUserPanel.setBackground(Color.orange);
+
+        friendManagerButton.setForeground(Color.black);
+        friendManagerButton.setBackground(Color.white);
+        refreshButton.setBackground(Color.white);
+        refreshButton.setForeground(Color.black);
+        createPostButton.setForeground(Color.black);
+        createPostButton.setBackground(Color.white);
+        createGroupButton.setBackground(Color.white);
+        createGroupButton.setForeground(Color.black);
+        createStoryButton.setForeground(Color.black);
+        createStoryButton.setBackground(Color.white);
 
 
         Newsfeed newsfeed = this;
         // Frame properties
         setVisible(true);
         setTitle("NewsFeed");
-        setSize(new Dimension(1000, 800));
+        setSize(new Dimension(1200, 800));
         currentUserPanel.setPreferredSize(new Dimension(400, 200));
         friendScrollPane.setSize(new Dimension(600, 200));
         postScrollPane.setSize(new Dimension(600, 500));
@@ -115,7 +129,6 @@ public class Newsfeed extends JFrame {
         setLocationRelativeTo(null);
         setContentPane(mainContainer);
 
-
         imageLabel.setIcon(new ImageIcon(updateNewsFeedPhoto(profileManager)));
         usernameLabel.setText(userDataManager.getDataById(userId).getUsername());
 
@@ -123,7 +136,7 @@ public class Newsfeed extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //SOLID profile management should take both posts and stories
-                new ProfileManagementPage(userId, userDataManager, newsfeed, mainWindow,postManager , storyManager,profileManager).setVisible(true);
+                new ProfileManagementPage(userId, userDataManager, newsfeed, mainWindow, postManager, storyManager, profileManager).setVisible(true);
                 setVisible(false);
             }
         });
@@ -131,24 +144,24 @@ public class Newsfeed extends JFrame {
         createStoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new publishContentWindow(userId, "story", postManager , storyManager);
+                new publishContentWindow(userId, "story", postManager, storyManager);
             }
         });
         createPostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new publishContentWindow(userId, "post", postManager , storyManager);
+                new publishContentWindow(userId, "post", postManager, storyManager);
             }
         });
         refreshButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //update all scrollpanes window
-                postsUIManager.refreshList(postContainer,postScrollPane);
+                postsUIManager.refreshList(postContainer, postScrollPane);
                 friendsUIManager.refreshList(friendsContainer, friendScrollPane);
                 suggestionsUiManager.refreshList(friendSuggestionsContainer, friendSuggestionsScrollPane);
-                groupUIManager.refreshList(userGroupsContainer,groupScrollPane);
-                groupUIManager.refreshList(suggestedGroupsContainer,groupSuggestionsScrollpane);
+                groupUIManager.refreshList(userGroupsContainer, groupScrollPane);
+                groupUIManager.refreshList(suggestedGroupsContainer, groupSuggestionsScrollpane);
 
                 // Update the newsfeed photo
                 Image updatedImage = updateNewsFeedPhoto(profileManager);
@@ -159,7 +172,7 @@ public class Newsfeed extends JFrame {
         friendManagerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MenuWindow(userDataManager, userId , userRelationsDataManager,profileManager);
+                new MenuWindow(userDataManager, userId, userRelationsDataManager, profileManager);
             }
         });
         createGroupButton.addActionListener(new ActionListener() {

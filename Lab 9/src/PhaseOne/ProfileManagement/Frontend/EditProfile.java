@@ -1,9 +1,11 @@
 package PhaseOne.ProfileManagement.Frontend;
+
 import Databases.DataManager;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,18 +34,30 @@ public class EditProfile extends JFrame {
         setContentPane(panel);
         setVisible(true);
 
+
+        panel.setBackground(Color.orange);
+        returnButton.setBackground(Color.white);
+        returnButton.setForeground(Color.black);
+        ChangeProfilePicButton.setForeground(Color.white);
+        ChangeProfilePicButton.setForeground(Color.black);
+        ChangeCoverPicButton.setForeground(Color.black);
+        ChangeCoverPicButton.setBackground(Color.white);
+        ChangeBioButton.setForeground(Color.black);
+        ChangeBioButton.setBackground(Color.white);
+        ChangePassButton.setBackground(Color.white);
+        ChangePassButton.setForeground(Color.black);
         ChangeProfilePicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new UploadNewProfilePicture(pRofileManagementPage,editProfile,userId,userDataManager,profileManager).setVisible(true);
+                new UploadNewProfilePicture(pRofileManagementPage, editProfile, userId, userDataManager, profileManager).setVisible(true);
                 setVisible(false);
             }
         });
         ChangeCoverPicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new UploadNewCoverPicture(pRofileManagementPage,editProfile,userId,userDataManager,profileManager).setVisible(true);
+                new UploadNewCoverPicture(pRofileManagementPage, editProfile, userId, userDataManager, profileManager).setVisible(true);
                 setVisible(false);
             }
         });
@@ -51,7 +65,7 @@ public class EditProfile extends JFrame {
         ChangePassButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ChangePassWindow(pRofileManagementPage,editProfile,userId,userDataManager).setVisible(true);
+                new ChangePassWindow(pRofileManagementPage, editProfile, userId, userDataManager).setVisible(true);
                 setVisible(false);
             }
         });
@@ -59,15 +73,15 @@ public class EditProfile extends JFrame {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 pRofileManagementPage.setVisible(true);
-                 setVisible(false);
+                pRofileManagementPage.setVisible(true);
+                setVisible(false);
             }
         });
         ChangeBioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String bio;
-                bio=JOptionPane.showInputDialog(null,"Enter New Bio: ", "Info", JOptionPane.INFORMATION_MESSAGE);
+                bio = JOptionPane.showInputDialog(null, "Enter New Bio: ", "Info", JOptionPane.INFORMATION_MESSAGE);
                 if (bio == null) {
                     // User clicked "Cancel"
                     JOptionPane.showMessageDialog(null, "Bio update canceled.", "Canceled", JOptionPane.WARNING_MESSAGE);
