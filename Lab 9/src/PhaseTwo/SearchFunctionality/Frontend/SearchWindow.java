@@ -53,6 +53,7 @@ public class SearchWindow extends JFrame{
                     ArrayList<String> foundNonFriendsId= search.searchFormNonFriends(userInput);
                     ArrayList<String> foundgroups = search.searchFromGroups(userInput);
                     if(foundFriendsId !=null && !foundFriendsId.isEmpty()) {
+
                         searchContainer.removeAll();
                         for (int i = 0; i < foundFriendsId.size(); i++) {
                             String friendId = foundFriendsId.get(i);
@@ -68,6 +69,21 @@ public class SearchWindow extends JFrame{
 
                         }
 
+                    }
+                    if(foundNonFriendsId !=null && !foundNonFriendsId.isEmpty()) {
+                        for (int i = 0; i < foundNonFriendsId.size(); i++) {
+                            String nonFriendId = foundNonFriendsId.get(i);
+                            String userName = userdataManagr.getDataById(nonFriendId).getUsername();
+                            String imagePath = profileDataManager.getDataById(nonFriendId).getProfilePhotoPath();
+                            FriendPanel friendPanel = new FriendPanel(userName, imagePath, userId, nonFriendId, userRelationsDataManager);
+
+                            // Add padding and border to each PostPanel
+                            friendPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+                            // Add the PostPanel to the container
+                            searchContainer.add(friendPanel);
+
+                        }
                     }
 
 
