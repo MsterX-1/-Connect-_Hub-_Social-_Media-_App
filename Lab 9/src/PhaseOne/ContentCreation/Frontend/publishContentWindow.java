@@ -3,6 +3,8 @@ package PhaseOne.ContentCreation.Frontend;
 import PhaseOne.ContentCreation.Backend.Post;
 import PhaseOne.ContentCreation.Backend.Story;
 import Databases.DataManager;
+import PhaseOne.FriendManagement.Backend.UserRelations;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +26,7 @@ public class publishContentWindow extends JFrame {
     private String imagePath;
     private Post newPost;
     private Story newStory;
-    public publishContentWindow(String userId, String windowMode, DataManager<Post> postDatabaseDataManager , DataManager<Story> storyDatabaseDataManager) {
+    public publishContentWindow(String userId, String windowMode, DataManager<Post> postDatabaseDataManager , DataManager<Story> storyDatabaseDataManager,DataManager<UserRelations> userRelationsDataManager,DataManager<Notification> notificationDataManager ) {
         newPost = new Post();
         newStory = new Story();
         setContentPane(main);
@@ -46,6 +48,12 @@ public class publishContentWindow extends JFrame {
                         newPost.publishContent(userId);
                         //add a new post to database
                         postDatabaseDataManager.insertData(newPost);
+                        for(int i =0 ; i<userRelationsDataManager.getDataById(userId).getFriendsList().size();i++)
+                        {
+                            String friendId = userRelationsDataManager.getDataById(userId).getFriendsList().get(i);
+                            notificationDataManager.getDataById(friendId).addPostToNotification(userId);
+                        }
+                        notificationDataManager.saveData();
                         setVisible(false);
                         dispose();
                     }

@@ -1,0 +1,25 @@
+[ {
+  "userId" : "1",
+  "acceptedUserRequestsNotification" : [ "2" ],
+  "postsNotification" : [ "2" ],
+  "acceptedInGroupNotification" : [ ],
+  "groupsPostsNotification" : [ ]
+}, {
+  "userId" : "2",
+  "acceptedUserRequestsNotification" : [ ],
+  "postsNotification" : [ "1" ],
+  "acceptedInGroupNotification" : [ "khalifa group" ],
+  "groupsPostsNotification" : [ "khalifa group" ]
+}, {
+  "userId" : "3",
+  "acceptedUserRequestsNotification" : [ ],
+  "postsNotification" : [ ],
+  "acceptedInGroupNotification" : [ ],
+  "groupsPostsNotification" : [ ]
+}, {
+  "userId" : "4",
+  "acceptedUserRequestsNotification" : [ ],
+  "postsNotification" : [ ],
+  "acceptedInGroupNotification" : [ ],
+  "groupsPostsNotification" : [ ]
+} ]

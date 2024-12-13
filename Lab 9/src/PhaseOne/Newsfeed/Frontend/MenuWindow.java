@@ -8,6 +8,8 @@ import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.NotificationSystem.Backend.Notification;
+import PhaseTwo.NotificationSystem.Frontend.NotificationWindow;
 import PhaseTwo.SearchFunctionality.Frontend.SearchWindow;
 
 import javax.swing.*;
@@ -27,7 +29,7 @@ public class MenuWindow extends JFrame{
     private JButton notificationsButton;
     private String currentUserId ;
 
-   public MenuWindow(DataManager<User>userDataManager, String currentUserId , DataManager<UserRelations> userRelationsDataManager, DataManager<Profile> profileManager, DataManager<Group> groupDataManager , FriendsUIManager friendsUIManager, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed){
+   public MenuWindow(DataManager<User>userDataManager, String currentUserId , DataManager<UserRelations> userRelationsDataManager, DataManager<Profile> profileManager, DataManager<Group> groupDataManager , FriendsUIManager friendsUIManager, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed, DataManager<Notification> notificationDataManager){
        this.currentUserId = currentUserId;
         MenuWindow friendMangerWindow1 = this;
         setVisible(true);
@@ -43,19 +45,20 @@ public class MenuWindow extends JFrame{
            public void actionPerformed(ActionEvent e) {
              //  new FriendRequestsWindow(currentUserId,userDataManager,friendMangerWindow1);
                //SOLID
-               new FriendRequestsWindow(currentUserId,userDataManager, userRelationsDataManager,profileManager);
+               new FriendRequestsWindow(currentUserId,userDataManager, userRelationsDataManager,profileManager,notificationDataManager);
            }
        });
        searchButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               new SearchWindow(currentUserId,userDataManager,userRelationsDataManager,groupDataManager,friendsUIManager,profileManager,groupRoleDataManager,newsfeed);
+               new SearchWindow(currentUserId,userDataManager,userRelationsDataManager,groupDataManager,friendsUIManager,profileManager,groupRoleDataManager,newsfeed,notificationDataManager);
 
            }
        });
        notificationsButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
+               new NotificationWindow(userDataManager,userRelationsDataManager,notificationDataManager,currentUserId,profileManager);
                
            }
        });

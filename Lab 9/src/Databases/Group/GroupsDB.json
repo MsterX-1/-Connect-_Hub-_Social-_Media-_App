@@ -3,5 +3,9 @@
   "groupDescription" : "group",
   "groupPhotoPath" : "Lab 9/src/PhotosUsed/DefaultGroupPic.jpg",
   "groupMembers" : [ "2", "3" ],
+  "groupName" : "khalifa group",
+  "groupDescription" : "asd",
+  "groupPhotoPath" : "Lab 9/src/PhotosUsed/DefaultGroupPic.jpg",
+  "groupMembers" : [ "1", "2" ],
   "membershipRequests" : [ ]
 } ]

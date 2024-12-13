@@ -6,6 +6,7 @@ import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 import PhaseTwo.GroupManagement.Frontend.CheckMemberShipRequestWindow;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GroupMembershipRequestPanel extends JPanel {
-    public GroupMembershipRequestPanel(String memberId, DataManager<Group> groupDataManager, DataManager<User>  userDataManager, String groupName, CheckMemberShipRequestWindow window, DataManager<Profile>  profileDataManager,DataManager<GroupRole>  groupRoleDataManager) {
+    public GroupMembershipRequestPanel(String memberId, DataManager<Group> groupDataManager, DataManager<User>  userDataManager, String groupName, CheckMemberShipRequestWindow window, DataManager<Profile>  profileDataManager, DataManager<GroupRole>  groupRoleDataManager, DataManager<Notification> notificationDataManager) {
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
 
@@ -56,6 +57,8 @@ public class GroupMembershipRequestPanel extends JPanel {
                 groupRoleDataManager.getDataByName(groupName).getGroupMembers().add(memberId);
                 groupDataManager.saveData();
                 groupRoleDataManager.saveData();
+                notificationDataManager.getDataById(memberId).addacceptedInGroupNotification(groupName);
+                notificationDataManager.saveData();
                 JOptionPane.showMessageDialog(null, "Membership request accepted");
                 //to refresh request window
                 window.populateMembersList(groupDataManager,groupName,userDataManager,profileDataManager,groupRoleDataManager);

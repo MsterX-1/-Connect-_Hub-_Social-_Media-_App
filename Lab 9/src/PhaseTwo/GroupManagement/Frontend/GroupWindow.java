@@ -11,6 +11,7 @@ import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupPosts;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +31,7 @@ public class GroupWindow extends JFrame {
     private JScrollPane groupPostsScrollPane;
     private JButton refreshButton;
 
-    public GroupWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed) {
+    public GroupWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed, DataManager<Notification> notificationDataManager) {
         setTitle("Group Profile");
         GroupWindow groupWindow= this;
         setContentPane(panel);
@@ -60,14 +61,25 @@ public class GroupWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (isOwner(userId,groupName,groupRoleDataManager)){
 
-                    new GroupOwnerSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed,groupPostsDataManager);
-
-                } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
-
-                    new GroupAdminSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
-                }else {
-
-                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow,groupPostsDataManager);
+//<<<<<<< HEAD
+//                    new GroupOwnerSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed,groupPostsDataManager);
+//
+//                } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
+//
+//                    new GroupAdminSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
+//                }else {
+//
+//                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow,groupPostsDataManager);
+//=======
+//                    new GroupOwnerSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed,notificationDataManager,userId);
+//
+//                } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
+//
+//
+//                }else {
+//
+//                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow,notificationDataManager);
+//>>>>>>> notifications-feature
                 }
             }
         });

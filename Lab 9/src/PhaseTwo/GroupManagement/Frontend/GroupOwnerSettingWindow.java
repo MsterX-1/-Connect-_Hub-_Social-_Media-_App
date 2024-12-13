@@ -7,6 +7,7 @@ import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupPosts;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,7 +22,8 @@ public class GroupOwnerSettingWindow extends JFrame {
     private JButton changeGroupPhotoButton;
     private JButton checkMemberShipRequestsButton;
 
-    public GroupOwnerSettingWindow(String groupName,String userId, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, GroupWindow groupWindow, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed,DataManager<GroupPosts> groupPostsDataManager) {
+
+    public GroupOwnerSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, GroupWindow groupWindow, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed, DataManager<Notification> notificationDataManager,String userId) {
         setTitle("Group Owner Setting");
         GroupOwnerSettingWindow groupSetting = this;
         setContentPane(panel);
@@ -71,6 +73,18 @@ public class GroupOwnerSettingWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new ManageGroupPostsWindow(groupName,userId,groupPostsDataManager);
+//                for(int i =0 ; i<groupDataManager.getDataByName(groupName).getGroupMembers().size();i++)
+//                {
+//                    String memberId = groupDataManager.getDataByName(groupName).getGroupMembers().get(i);
+//                    if(!memberId.equals(userId)) {
+//                        System.out.println("member id "+memberId);
+//                        System.out.println("user id "+userId);
+//
+//                        notificationDataManager.getDataById(memberId).addgroupsPostsNotification(groupName);
+//                    }
+//                }
+//                notificationDataManager.saveData();
+
             }
         });
         promoteDemoteMemberButton.addActionListener(new ActionListener() {
@@ -82,7 +96,7 @@ public class GroupOwnerSettingWindow extends JFrame {
         checkMemberShipRequestsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CheckMemberShipRequestWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
+                new CheckMemberShipRequestWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager,notificationDataManager);
             }
         });
     }

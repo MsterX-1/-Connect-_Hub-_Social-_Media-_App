@@ -1,22 +1,32 @@
 [ {
   "userId" : "1",
-  "friendsList" : [ ],
+  "friendsList" : [ "2" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "2", "3" ],
-  "pendingRequests" : { }
+  "suggestionsList" : [ "3", "4" ],
+  "pendingRequests" : {
+    "3" : "pending",
+    "4" : "pending"
+  }
 }, {
   "userId" : "2",
-  "friendsList" : [ ],
+  "friendsList" : [ "1" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "1", "3" ],
+  "suggestionsList" : [ "3", "4" ],
   "pendingRequests" : { }
 }, {
   "userId" : "3",
   "friendsList" : [ ],
-  "friendRequestsList" : [ ],
+  "friendRequestsList" : [ "1" ],
   "blockList" : [ ],
-  "suggestionsList" : [ "1", "2" ],
+  "suggestionsList" : [ "1", "2", "4" ],
+  "pendingRequests" : { }
+}, {
+  "userId" : "4",
+  "friendsList" : [ ],
+  "friendRequestsList" : [ "1" ],
+  "blockList" : [ ],
+  "suggestionsList" : [ "1", "2", "3" ],
   "pendingRequests" : { }
 } ]

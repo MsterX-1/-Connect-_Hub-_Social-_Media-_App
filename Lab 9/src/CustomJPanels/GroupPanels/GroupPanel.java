@@ -7,6 +7,7 @@ import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 import PhaseTwo.GroupManagement.Frontend.GroupWindow;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GroupPanel extends JPanel {
-    public GroupPanel(String groupName, String groupImagePath, String userId, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, Newsfeed newsfeed) {
+    public GroupPanel(String groupName, String groupImagePath, String userId, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, Newsfeed newsfeed, DataManager<Notification> notificationDataManager) {
 
 
         // Set layout manager for horizontal alignment
@@ -60,7 +61,7 @@ public class GroupPanel extends JPanel {
         viewGroup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new GroupWindow(groupName, groupDataManager, userDataManager, profileDataManager, groupRoleDataManager, userId, newsfeed);
+                new GroupWindow(groupName, groupDataManager, userDataManager, profileDataManager, groupRoleDataManager, userId, newsfeed,notificationDataManager);
                 newsfeed.setVisible(false);
             }
         });

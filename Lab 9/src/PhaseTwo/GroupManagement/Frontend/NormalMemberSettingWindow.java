@@ -5,6 +5,7 @@ import PhaseOne.Newsfeed.Frontend.Newsfeed;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupPosts;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -50,11 +51,10 @@ public class NormalMemberSettingWindow extends JFrame {
             }
 
         });
-
         postContentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CreatePostWindow(groupName,userId,groupPostsDataManager);
+
             }
         });
     }

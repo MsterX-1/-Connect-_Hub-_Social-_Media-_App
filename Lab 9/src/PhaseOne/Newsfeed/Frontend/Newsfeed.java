@@ -21,6 +21,7 @@ import PhaseOne.ContentCreation.Frontend.publishContentWindow;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupPosts;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 import RunProgram.MainWindow;
 
 import javax.swing.*;
@@ -94,6 +95,10 @@ public class Newsfeed extends JFrame {
         DataManager<GroupPosts> groupPostsDataManager = new DataManager<>(groupPostsDatabase);
         groupPostsDataManager.loadData();
 
+        // creat notification database and manager
+        Database<Notification> notificationDatabase = DatabaseFactory.createDatabase("notification");
+        DataManager<Notification> notificationDataManager = new DataManager<>(notificationDatabase);
+        notificationDataManager.loadData();
 
         //managing posts
         PostsUIManager postsUIManager = new PostsUIManager(userId , postManager , userRelationsDataManager);
@@ -105,7 +110,7 @@ public class Newsfeed extends JFrame {
         SuggestionsUiManager suggestionsUiManager = new SuggestionsUiManager(userId,userRelationsDataManager , userDataManager , profileManager);
 
         //managing user groups
-        GroupUIManager groupUIManager = new GroupUIManager(userId,groupDataManager,groupRoleDataManager,userDataManager,profileManager,newsfeed);
+        GroupUIManager groupUIManager = new GroupUIManager(userId,groupDataManager,groupRoleDataManager,userDataManager,profileManager,newsfeed,notificationDataManager);
 
         GroupSuggestionsUIManager groupSuggestionsUIManager= new GroupSuggestionsUIManager(userId,groupDataManager,groupRoleDataManager);
 
@@ -147,13 +152,13 @@ public class Newsfeed extends JFrame {
         createStoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new publishContentWindow(userId, "story", postManager , storyManager);
+                new publishContentWindow(userId, "story", postManager , storyManager,userRelationsDataManager,notificationDataManager);
             }
         });
         createPostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new publishContentWindow(userId, "post", postManager , storyManager);
+                new publishContentWindow(userId, "post", postManager , storyManager,userRelationsDataManager,notificationDataManager);
             }
         });
         refreshButton.addActionListener(new ActionListener() {
@@ -175,7 +180,7 @@ public class Newsfeed extends JFrame {
         friendManagerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MenuWindow(userDataManager, userId , userRelationsDataManager,profileManager, groupDataManager,friendsUIManager,groupRoleDataManager,newsfeed);
+                new MenuWindow(userDataManager, userId , userRelationsDataManager,profileManager, groupDataManager,friendsUIManager,groupRoleDataManager,newsfeed,notificationDataManager);
             }
         });
         createGroupButton.addActionListener(new ActionListener() {
