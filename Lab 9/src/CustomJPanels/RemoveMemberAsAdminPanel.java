@@ -4,15 +4,17 @@ import Databases.DataManager;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
-import PhaseTwo.GroupManagement.Frontend.RemoveMemberFromGroupWindow;
+import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.GroupManagement.Frontend.RemoveMemberAsAdminWindow;
+import PhaseTwo.GroupManagement.Frontend.RemoveMemberAsOwnerWindow;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RemoveMemberFromGroupPanel extends JPanel {
-    public RemoveMemberFromGroupPanel(String memberId, DataManager<Group> groupDataManager, DataManager<User> userDataManager, String groupName, RemoveMemberFromGroupWindow window,DataManager<Profile> profileDataManager) {
+public class RemoveMemberAsAdminPanel extends JPanel {
+    public RemoveMemberAsAdminPanel(String memberId, DataManager<Group> groupDataManager, DataManager<User> userDataManager, String groupName, RemoveMemberAsAdminWindow window, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager) {
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
 
@@ -49,13 +51,15 @@ public class RemoveMemberFromGroupPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Define action for Remove button
                 groupDataManager.getDataByName(groupName).getGroupMembers().remove(memberId);
-                JOptionPane.showMessageDialog(RemoveMemberFromGroupPanel.this, memberName+" Removed from the Group");
+                groupRoleDataManager.getDataByName(groupName).getGroupMembers().remove(memberId);
+                JOptionPane.showMessageDialog(null, memberName+" Removed from the Group");
                 groupDataManager.saveData();
+                groupRoleDataManager.saveData();
                 //to refresh request window
-                window.populateMembersList(groupDataManager,groupName,userDataManager,profileDataManager);
+                window.populateMembersList(groupDataManager,groupName,userDataManager,profileDataManager,groupRoleDataManager);
             }
         });
 
     }
-    }
+}
 
