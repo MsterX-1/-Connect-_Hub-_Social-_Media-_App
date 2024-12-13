@@ -3,6 +3,7 @@ package PhaseTwo.GroupManagement.Frontend;
 import Databases.DataManager;
 import PhaseOne.Newsfeed.Frontend.Newsfeed;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupPosts;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ public class NormalMemberSettingWindow extends JFrame {
     private JButton leaveTheGroupButton;
     private JPanel panel;
 
-    public NormalMemberSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed,GroupWindow groupWindow   ) {
+    public NormalMemberSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed,GroupWindow groupWindow ,DataManager<GroupPosts> groupPostsDataManager  ) {
         setTitle("Normal User Setting");
         setContentPane(panel);
         setVisible(true);
@@ -53,7 +54,7 @@ public class NormalMemberSettingWindow extends JFrame {
         postContentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CreatePostWindow(groupName,userId);
+                new CreatePostWindow(groupName,userId,groupPostsDataManager);
             }
         });
     }

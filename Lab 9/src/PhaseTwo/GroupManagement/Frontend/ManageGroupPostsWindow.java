@@ -15,7 +15,7 @@ public class ManageGroupPostsWindow extends JFrame{
     private JButton deletePostButton;
     private JPanel main;
 
-    public ManageGroupPostsWindow(String groupName,String userId) {
+    public ManageGroupPostsWindow(String groupName,String userId,DataManager<GroupPosts> groupPostsDataManager) {
         setTitle("Create New Group");
         setContentPane(main);
         setVisible(true);
@@ -23,9 +23,7 @@ public class ManageGroupPostsWindow extends JFrame{
         setLocationRelativeTo(null);
         setResizable(false);
 
-        Database<GroupPosts> groupPostsDatabase = DatabaseFactory.createDatabase("groupPost");
-        DataManager<GroupPosts> groupPostsDataManager = new DataManager<>(groupPostsDatabase);
-        groupPostsDataManager.loadData();
+
 
         createPostButton.addActionListener(new ActionListener() {
             @Override
@@ -36,7 +34,7 @@ public class ManageGroupPostsWindow extends JFrame{
         editPostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //new 
+
             }
         });
         deletePostButton.addActionListener(new ActionListener() {

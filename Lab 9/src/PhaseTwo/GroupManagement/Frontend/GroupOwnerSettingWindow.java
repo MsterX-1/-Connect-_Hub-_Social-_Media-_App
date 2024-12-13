@@ -5,6 +5,7 @@ import PhaseOne.Newsfeed.Frontend.Newsfeed;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.GroupManagement.Backend.GroupPosts;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 
 import javax.swing.*;
@@ -20,7 +21,7 @@ public class GroupOwnerSettingWindow extends JFrame {
     private JButton changeGroupPhotoButton;
     private JButton checkMemberShipRequestsButton;
 
-    public GroupOwnerSettingWindow(String groupName,String userId, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, GroupWindow groupWindow, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed) {
+    public GroupOwnerSettingWindow(String groupName,String userId, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, GroupWindow groupWindow, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed,DataManager<GroupPosts> groupPostsDataManager) {
         setTitle("Group Owner Setting");
         GroupOwnerSettingWindow groupSetting = this;
         setContentPane(panel);
@@ -69,7 +70,7 @@ public class GroupOwnerSettingWindow extends JFrame {
         manageGroupPostsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ManageGroupPostsWindow(groupName,userId);
+                new ManageGroupPostsWindow(groupName,userId,groupPostsDataManager);
             }
         });
         promoteDemoteMemberButton.addActionListener(new ActionListener() {

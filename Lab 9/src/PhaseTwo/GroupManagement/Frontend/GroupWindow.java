@@ -59,14 +59,14 @@ public class GroupWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (isOwner(userId,groupName,groupRoleDataManager)){
 
-                    new GroupOwnerSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed);
+                    new GroupOwnerSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed,groupPostsDataManager);
 
                 } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
 
                     new GroupAdminSettingWindow(groupName,userId,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
                 }else {
 
-                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow);
+                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow,groupPostsDataManager);
                 }
             }
         });

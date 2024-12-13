@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class CreatePostWindow extends JFrame {
-    private JTextField postText;
+    private JTextArea postText;
     private JButton publishButton;
     private JButton addImageButton;
     private JPanel imagePanel;
@@ -37,8 +37,6 @@ public class CreatePostWindow extends JFrame {
                 if(text != null) {
 
                     groupPostsDataManager.getDataByName(groupName).addPost(userId, text, imagePath);
-
-
                     groupPostsDataManager.saveData();
                     setVisible(false);
                     dispose();
