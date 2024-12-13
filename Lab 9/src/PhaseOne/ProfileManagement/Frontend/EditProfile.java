@@ -1,5 +1,6 @@
 package PhaseOne.ProfileManagement.Frontend;
 import Databases.DataManager;
+import Databases.DataManagerFactory;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 
@@ -21,7 +22,7 @@ public class EditProfile extends JFrame {
     private String userId;
 
 
-    public EditProfile(ProfileManagementPage pRofileManagementPage, String userId, DataManager<User> userDataManager, JLabel bioLabel, DataManager<Profile> profileManager) {
+    public EditProfile(ProfileManagementPage pRofileManagementPage, String userId, JLabel bioLabel) {
         this.pRofileManagementPage = pRofileManagementPage;
         this.userId = userId;
         EditProfile editProfile = this;
@@ -31,19 +32,22 @@ public class EditProfile extends JFrame {
         setResizable(false);
         setContentPane(panel);
         setVisible(true);
+        DataManager<User> userDataManager = DataManagerFactory.getDataManager("user");
+        DataManager<Profile> profileDataManager = DataManagerFactory.getDataManager("profile");
+
 
         ChangeProfilePicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new UploadNewProfilePicture(pRofileManagementPage,editProfile,userId,userDataManager,profileManager).setVisible(true);
+                new UploadNewProfilePicture(pRofileManagementPage,editProfile,userId,userDataManager,profileDataManager).setVisible(true);
                 setVisible(false);
             }
         });
         ChangeCoverPicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new UploadNewCoverPicture(pRofileManagementPage,editProfile,userId,userDataManager,profileManager).setVisible(true);
+                new UploadNewCoverPicture(pRofileManagementPage,editProfile,userId,userDataManager,profileDataManager).setVisible(true);
                 setVisible(false);
             }
         });
@@ -77,8 +81,8 @@ public class EditProfile extends JFrame {
                 } else {
                     // User entered valid input
                     bioLabel.setText(bio);
-                    profileManager.getDataById(userId).setBio(bio);
-                    profileManager.saveData();
+                    profileDataManager.getDataById(userId).setBio(bio);
+                    profileDataManager.saveData();
                     JOptionPane.showMessageDialog(null, "Bio updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
             }

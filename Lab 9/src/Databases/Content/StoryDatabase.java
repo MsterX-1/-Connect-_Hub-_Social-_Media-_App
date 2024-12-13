@@ -27,6 +27,15 @@ public class StoryDatabase implements IdentifiableDatabase<Story> {
     public void loadFromJson() {
 
         if (!filePath.exists() || filePath.length() == 0) {
+            try {
+                // Create a new file if it doesn't exist or is empty
+                boolean isCreated = filePath.createNewFile();
+                if (isCreated) {
+                    System.out.println("File created: " + filePath.getPath());
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+            }
             return;             //terminates method if file does not exist or is empty
         }
 

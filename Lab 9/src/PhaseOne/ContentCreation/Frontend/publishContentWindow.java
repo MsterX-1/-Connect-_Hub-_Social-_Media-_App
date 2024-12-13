@@ -1,5 +1,6 @@
 package PhaseOne.ContentCreation.Frontend;
 
+import Databases.DataManagerFactory;
 import PhaseOne.ContentCreation.Backend.Post;
 import PhaseOne.ContentCreation.Backend.Story;
 import Databases.DataManager;
@@ -24,9 +25,11 @@ public class publishContentWindow extends JFrame {
     private String imagePath;
     private Post newPost;
     private Story newStory;
-    public publishContentWindow(String userId, String windowMode, DataManager<Post> postDatabaseDataManager , DataManager<Story> storyDatabaseDataManager) {
+    public publishContentWindow(String userId, String windowMode) {
         newPost = new Post();
         newStory = new Story();
+        DataManager<Post> postDatabaseDataManager = DataManagerFactory.getDataManager("post");
+        DataManager<Story> storyDatabaseDataManager = DataManagerFactory.getDataManager("story");
         setContentPane(main);
         setSize(600, 400);
         setLocationRelativeTo(null);

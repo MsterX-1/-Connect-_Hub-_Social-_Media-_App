@@ -1,5 +1,7 @@
 package PhaseOne.ProfileManagement.Frontend;
 
+import CustomJPanels.PostPanels.ProfilePostsUIManager;
+import Databases.DataManagerFactory;
 import PhaseOne.ContentCreation.Backend.Post;
 import PhaseOne.ContentCreation.Backend.Story;
 import Databases.DataManager;
@@ -33,30 +35,31 @@ public class ProfileManagementPage extends JFrame {
     private String userId;
 
 
-    public ProfileManagementPage(String userId, DataManager<User>userDataManager, Newsfeed newsfeed, MainWindow mainWindow, DataManager<Post> postDataManager , DataManager<Story> storyDataManager, DataManager<Profile> profileManager) {
+    public ProfileManagementPage(String userId, Newsfeed newsfeed, MainWindow mainWindow) {
         this.userId = userId;
         setTitle("Profile Management");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        ProfileManagementPage pRofileManagementPage = this;
+        ProfileManagementPage profileManagementPage = this;
         //managing posts
-        postContainer.setLayout(new BoxLayout(postContainer, BoxLayout.Y_AXIS));
-        populatePosts(postDataManager);
-        postScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        postScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        DataManager<Profile> profileDataManager = DataManagerFactory.getDataManager("profile");
+        DataManager<User> userDataManager = DataManagerFactory.getDataManager("user");
+        ProfilePostsUIManager profilePostsUIManager = new ProfilePostsUIManager(userId);
+        profilePostsUIManager.refreshList(postContainer,postScrollPane);
+
 
         coverpanel.setLayout(new FlowLayout());
         picturepanel.setLayout(new FlowLayout());
 
 
 
-        String bio= profileManager.getDataById(userId).getBio();
+        String bio= profileDataManager.getDataById(userId).getBio();
         bioLabel.setText(bio);
 
-        String pathPhotoProfile=  profileManager.getDataById(userId).getProfilePhotoPath();
-        String pathCoverProfile= profileManager.getDataById(userId).getCoverPhotoPath();
+        String pathPhotoProfile=  profileDataManager.getDataById(userId).getProfilePhotoPath();
+        String pathCoverProfile= profileDataManager.getDataById(userId).getCoverPhotoPath();
         loadCircularImageToPanel(picturepanel,pathPhotoProfile , 150); // Default profile picture
         loadCircularImageToPanel(coverpanel, pathCoverProfile, 400);
 
@@ -68,7 +71,7 @@ public class ProfileManagementPage extends JFrame {
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new EditProfile(pRofileManagementPage,userId,userDataManager , bioLabel,profileManager);
+               new EditProfile(profileManagementPage,userId, bioLabel);
                //setVisible(false);
             }
         });
@@ -94,32 +97,7 @@ public class ProfileManagementPage extends JFrame {
             }
         });
     }
-    private void populatePosts(DataManager<Post> postManager) {
-        postContainer.removeAll();
-        // Simulate data for demonstration
-        if(postManager.getAllData() == null)
-            return;
-        for (int i = 0; i < postManager.getAllData().size(); i++) {
-            if(!userId.equals(postManager.getAllData().get(i).getAuthorId()))
-                continue;
-            String text = postManager.getAllData().get(i).getContent().getText();
-            ArrayList<String> imagePaths = postManager.getAllData().get(i).getContent().getImagePaths();
 
-            // Create a PostPanel for each post
-            PostPanel postPanel = new PostPanel(text, imagePaths);
-
-            // Add padding and border to each PostPanel
-            postPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-            // Add the PostPanel to the container
-            postContainer.add(postPanel);
-
-        }
-
-        // Revalidate and repaint the container to apply updates
-        postContainer.revalidate();
-        postContainer.repaint();
-    }
 
     public void updateProfilePicture(String imagePath) {
         System.out.println("Updating profile picture with: " + imagePath);

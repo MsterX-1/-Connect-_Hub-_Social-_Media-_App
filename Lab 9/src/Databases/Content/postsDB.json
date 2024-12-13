@@ -1,33 +1,17 @@
 [ {
   "contentId" : "Post 1",
-  "authorId" : "1",
+  "authorId" : "2",
   "content" : {
-    "text" : "yousef post",
+    "text" : "amr first post",
     "imagePaths" : [ ]
   },
-  "timeStamp" : [ 2024, 12, 7, 23, 1, 42, 777221300 ]
+  "timeStamp" : [ 2024, 12, 13, 16, 59, 6, 428256900 ]
 }, {
   "contentId" : "Post 2",
-  "authorId" : "2",
+  "authorId" : "3",
   "content" : {
-    "text" : "amr post",
+    "text" : "khalifa post",
     "imagePaths" : [ ]
   },
-  "timeStamp" : [ 2024, 12, 7, 23, 31, 40, 925260600 ]
-}, {
-  "contentId" : "Post 3",
-  "authorId" : "2",
-  "content" : {
-    "text" : "weluiegherui",
-    "imagePaths" : [ "C:\\Users\\Legion\\OneDrive\\Documents\\Uml before refractoring.png" ]
-  },
-  "timeStamp" : [ 2024, 12, 12, 17, 30, 46, 329814000 ]
-}, {
-  "contentId" : "Post 4",
-  "authorId" : "1",
-  "content" : {
-    "text" : "ana yousef",
-    "imagePaths" : [ ]
-  },
-  "timeStamp" : [ 2024, 12, 12, 21, 9, 55, 83604300 ]
+  "timeStamp" : [ 2024, 12, 13, 16, 59, 49, 661470000 ]
 } ]

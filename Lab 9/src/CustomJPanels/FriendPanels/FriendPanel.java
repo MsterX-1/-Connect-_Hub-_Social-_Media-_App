@@ -2,6 +2,7 @@ package CustomJPanels.FriendPanels;
 
 
 import Databases.DataManager;
+import Databases.DataManagerFactory;
 import PhaseOne.ContentCreation.Backend.Post;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.Newsfeed.Frontend.Newsfeed;
@@ -15,9 +16,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class FriendPanel extends JPanel {
+    private DataManager<UserRelations> userRelationsDataManager;
+    public FriendPanel(String friendName, String friendImagePath, String userId, String friendId   ) {
 
-    public FriendPanel(String friendName, String friendImagePath, String userId, String friendId, DataManager<UserRelations> userRelationsDataManager , DataManager<User> userDataManager , DataManager<Profile> profileDataManager   ) {
-
+        userRelationsDataManager = DataManagerFactory.getDataManager("relations");
+        userRelationsDataManager.loadData();
 
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
@@ -68,7 +71,7 @@ public class FriendPanel extends JPanel {
         viewProfile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ProfileViewer(friendId,userDataManager,profileDataManager,userRelationsDataManager);
+                new ProfileViewer(friendId);
             }
         });
         addFriend.addActionListener(new ActionListener() {
@@ -76,7 +79,6 @@ public class FriendPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 //remove friend from user's friends list
                 userRelationsDataManager.getDataById(userId).sendFriendRequest(friendId, userRelationsDataManager);
-
                 //save to relation database
                 userRelationsDataManager.saveData();
 

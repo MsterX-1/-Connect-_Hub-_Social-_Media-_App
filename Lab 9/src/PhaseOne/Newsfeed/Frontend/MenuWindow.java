@@ -25,10 +25,8 @@ public class MenuWindow extends JFrame{
     private JButton searchButton;
     private JButton notificationsButton;
     private String currentUserId ;
-
-   public MenuWindow(DataManager<User>userDataManager, String currentUserId , DataManager<UserRelations> userRelationsDataManager, DataManager<Profile> profileManager, DataManager<Group> groupDataManager , FriendsUIManager friendsUIManager){
+   public MenuWindow( String currentUserId){
        this.currentUserId = currentUserId;
-        MenuWindow friendMangerWindow1 = this;
         setVisible(true);
         setContentPane(FriendsMangerW);
         setSize(new Dimension(800, 600));
@@ -40,15 +38,14 @@ public class MenuWindow extends JFrame{
        checkRequestsButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-             //  new FriendRequestsWindow(currentUserId,userDataManager,friendMangerWindow1);
                //SOLID
-               new FriendRequestsWindow(currentUserId,userDataManager, userRelationsDataManager,profileManager);
+               new FriendRequestsWindow(currentUserId);
            }
        });
        searchButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-               new SearchWindow(currentUserId,userDataManager,userRelationsDataManager,groupDataManager,friendsUIManager,profileManager);
+               new SearchWindow(currentUserId);
 
            }
        });

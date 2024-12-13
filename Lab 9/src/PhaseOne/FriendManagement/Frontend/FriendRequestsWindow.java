@@ -1,6 +1,7 @@
 package PhaseOne.FriendManagement.Frontend;
 
 import Databases.DataManager;
+import Databases.DataManagerFactory;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
@@ -16,17 +17,18 @@ public class FriendRequestsWindow extends JFrame {
     private FriendRequestsWindow friendRequestsWindow;
     private DataManager<UserRelations> userRelationsDataManager;
     private DataManager<Profile> profileManager;
-    public FriendRequestsWindow(String userId , DataManager<User>userDataManager , DataManager<UserRelations> userRelationsDataManager, DataManager<Profile> profileManager) {
+    public FriendRequestsWindow(String userId) {
         this.userId = userId;
         friendRequestsWindow = this;
-        this.userRelationsDataManager = userRelationsDataManager;
-        this.profileManager = profileManager;
+        this.userRelationsDataManager = DataManagerFactory.getDataManager("relations");
+        this.profileManager = DataManagerFactory.getDataManager("profile");
         setContentPane(mainPanel);
         setSize(400, 400);
         setLocationRelativeTo(null);
         setTitle("Friend requests");
 
         requestsContainer.setLayout(new BoxLayout(requestsContainer, BoxLayout.Y_AXIS));
+        DataManager<User> userDataManager = DataManagerFactory.getDataManager("user");
         populateRequestsList(userDataManager);
         requestsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         requestsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

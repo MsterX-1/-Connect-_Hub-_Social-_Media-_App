@@ -1,6 +1,7 @@
 package PhaseTwo.SearchFunctionality.Backend;
 
 import Databases.DataManager;
+import Databases.DataManagerFactory;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
@@ -14,13 +15,13 @@ public class Search {
     ArrayList<String> groupsName = new ArrayList<>();
     DataManager<User> userdataManager;
 
-
-    public Search(String userId, DataManager<User> userdataManager, DataManager<UserRelations> userRelationsDataManager, DataManager<Group> groupDataManager) { //constructor
+    public Search(String userId) { //constructor
         this.userId = userId;
-        this.userdataManager = userdataManager;
+        userdataManager = DataManagerFactory.getDataManager("user");
+        DataManager<UserRelations> userRelationsDataManager= DataManagerFactory.getDataManager("relations");
         loadFriendsIds(userRelationsDataManager);
         loadNonFriendsIds(userdataManager);
-        loadGroupsNames(groupDataManager);
+//        loadGroupsNames(groupDataManager);
     }
 
     public void loadFriendsIds(DataManager<UserRelations> userRelationsDataManager) {
@@ -62,6 +63,7 @@ public class Search {
         ArrayList<String> foundNonFriendsIds = new ArrayList<>();
         if (userNonFriendsIds != null)
             for (int i = 0; i < userNonFriendsIds.size(); i++) {
+
                 String userName = userdataManager.getDataById(userNonFriendsIds.get(i)).getUsername(); // get the user name(user non friend) by id from user database
                 if (userName.equalsIgnoreCase(userInput) || userName.toLowerCase().startsWith(userInput.toLowerCase())) {    // checks whether the username start with or the same as user input
                     foundNonFriendsIds.add(userNonFriendsIds.get(i));

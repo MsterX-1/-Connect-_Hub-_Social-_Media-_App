@@ -2,7 +2,9 @@ package PhaseTwo.ProfileViewer;
 
 import CustomJPanels.PostPanels.PostPanel;
 import CustomJPanels.PostPanels.PostsUIManager;
+import CustomJPanels.PostPanels.ProfilePostsUIManager;
 import Databases.DataManager;
+import Databases.DataManagerFactory;
 import Databases.DatabaseFactory;
 import Interfaces.Database;
 import PhaseOne.ContentCreation.Backend.Post;
@@ -29,14 +31,20 @@ public class ProfileViewer extends JFrame {
     private String userId;
 
 
-    public ProfileViewer(String userId, DataManager<User> userDataManager, DataManager<Profile> profileManager, DataManager<UserRelations> userRelationsDataManager ) {
+    public ProfileViewer(String userId) {
 
-        Database<Post> postDatabase = DatabaseFactory.createDatabase("post");
-        DataManager<Post> postDataManager = new DataManager<>(postDatabase);
+
+        DataManager<Post> postDataManager = DataManagerFactory.getDataManager("post");
         postDataManager.loadData();
-        PostsUIManager postsUIManager = new PostsUIManager(userId, postDataManager , userRelationsDataManager);
-        postsUIManager.refreshList(postsPanel,postScroll,"profile");
 
+        ProfilePostsUIManager postsUIManager = new ProfilePostsUIManager(userId);
+        postsUIManager.refreshList(postsPanel,postScroll);
+
+        DataManager<User> userDataManager = DataManagerFactory.getDataManager("user");
+        userDataManager.loadData();
+
+        DataManager<Profile> profileDataManager = DataManagerFactory.getDataManager("profile");
+        profileDataManager.loadData();
 
         this.userId = userId;
         setVisible(true);
@@ -46,17 +54,18 @@ public class ProfileViewer extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
+
         userName.setText(userDataManager.getDataById(userId).getUsername());
 
         coverPanel.setLayout(new FlowLayout());
         photoPanel.setLayout(new FlowLayout());
 
 
-        String bio = profileManager.getDataById(userId).getBio();
+        String bio = profileDataManager.getDataById(userId).getBio();
         biolabel.setText(bio);
         userName.setFont(new Font("Arial", Font.BOLD, 15));
-        String pathPhotoProfile = profileManager.getDataById(userId).getProfilePhotoPath();
-        String pathCoverProfile = profileManager.getDataById(userId).getCoverPhotoPath();
+        String pathPhotoProfile = profileDataManager.getDataById(userId).getProfilePhotoPath();
+        String pathCoverProfile = profileDataManager.getDataById(userId).getCoverPhotoPath();
         loadCircularImageToPanel(photoPanel, pathPhotoProfile, 100);
         loadRectangularImageToPanel(coverPanel, pathCoverProfile);
 
@@ -150,18 +159,4 @@ public class ProfileViewer extends JFrame {
         }
     }
 
-
-//    public static void main(String[] args) {
-//
-//        Database<User> userDatabase = DatabaseFactory.createDatabase("user");
-//        DataManager<User> userDataManager = new DataManager<>(userDatabase);
-//
-//        Database<Profile> profileDatabase = DatabaseFactory.createDatabase("profile");
-//        DataManager<Profile> profileManager = new DataManager<>(profileDatabase);
-//        userDataManager.loadData();
-//        profileManager.loadData();
-//
-//        new ProfileViewer("1", userDataManager, profileManager);
-//
-//    }
 }

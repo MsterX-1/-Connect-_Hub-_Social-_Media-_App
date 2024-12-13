@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +27,15 @@ public class PostDatabase implements IdentifiableDatabase<Post> {
     public void loadFromJson() {
 
         if (!filePath.exists() || filePath.length() == 0) {
+            try {
+                // Create a new file if it doesn't exist or is empty
+                boolean isCreated = filePath.createNewFile();
+                if (isCreated) {
+                    System.out.println("File created: " + filePath.getPath());
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the file: " + e.getMessage());
+            }
             return;             //terminates method if file does not exist or is empty
         }
 
