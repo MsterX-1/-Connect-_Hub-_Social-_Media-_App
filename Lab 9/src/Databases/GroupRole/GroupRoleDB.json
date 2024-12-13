@@ -1,6 +1,6 @@
 [ {
   "groupName" : "khalifa group",
-  "groupCreator" : "2",
-  "groupAdmins" : [ "3" ],
-  "groupMembers" : [ ]
+  "groupCreator" : "1",
+  "groupAdmins" : [ ],
+  "groupMembers" : [ "2" ]
 } ]

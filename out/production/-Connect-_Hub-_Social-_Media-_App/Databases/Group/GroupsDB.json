@@ -1,7 +1,7 @@
 [ {
   "groupName" : "khalifa group",
-  "groupDescription" : "my db",
+  "groupDescription" : "asd",
   "groupPhotoPath" : "Lab 9/src/PhotosUsed/DefaultGroupPic.jpg",
-  "groupMembers" : [ "2", "3" ],
+  "groupMembers" : [ "1", "2" ],
   "membershipRequests" : [ ]
 } ]

@@ -9,6 +9,7 @@ import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
 import PhaseTwo.NotificationSystem.Backend.Notification;
+import PhaseTwo.NotificationSystem.Frontend.NotificationWindow;
 import PhaseTwo.SearchFunctionality.Frontend.SearchWindow;
 
 import javax.swing.*;
@@ -57,6 +58,7 @@ public class MenuWindow extends JFrame{
        notificationsButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
+               new NotificationWindow(userDataManager,userRelationsDataManager,notificationDataManager,currentUserId,profileManager);
                
            }
        });
