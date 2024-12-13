@@ -32,7 +32,7 @@ public class Search {
 
             for (int i = 0; i < userdataManager.getAllData().size(); i++) {
                 String Userid = userdataManager.getAllData().get(i).getUserId();
-                if (!userFriendsIds.contains(Userid)) {
+                if (!userFriendsIds.contains(Userid) && !userId.equals(Userid)) {
                     userNonFriendsIds.add(Userid);
 
                 }

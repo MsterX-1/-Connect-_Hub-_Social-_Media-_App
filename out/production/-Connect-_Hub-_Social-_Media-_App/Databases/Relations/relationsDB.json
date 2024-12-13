@@ -11,7 +11,9 @@
   "friendRequestsList" : [ ],
   "blockList" : [ ],
   "suggestionsList" : [ "5" ],
-  "pendingRequests" : { }
+  "pendingRequests" : {
+    "5" : "pending"
+  }
 }, {
   "userId" : "3",
   "friendsList" : [ "2" ],
@@ -29,7 +31,7 @@
 }, {
   "userId" : "5",
   "friendsList" : [ ],
-  "friendRequestsList" : [ ],
+  "friendRequestsList" : [ "2" ],
   "blockList" : [ ],
   "suggestionsList" : [ "1", "2", "3", "4" ],
   "pendingRequests" : { }

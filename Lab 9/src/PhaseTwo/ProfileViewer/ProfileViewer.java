@@ -33,6 +33,7 @@ public class ProfileViewer extends JFrame {
 
         Database<Post> postDatabase = DatabaseFactory.createDatabase("post");
         DataManager<Post> postDataManager = new DataManager<>(postDatabase);
+        postDataManager.loadData();
         PostsUIManager postsUIManager = new PostsUIManager(userId, postDataManager , userRelationsDataManager);
         postsUIManager.refreshList(postsPanel,postScroll,"profile");
 

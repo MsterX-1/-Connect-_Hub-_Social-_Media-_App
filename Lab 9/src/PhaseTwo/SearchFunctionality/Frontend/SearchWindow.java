@@ -22,8 +22,7 @@ public class SearchWindow extends JFrame{
     private JTextField searchField;
     private JPanel searchPanel;
     private JPanel main;
-    private JTextField searchFIeld;
-    private JScrollPane scrollpane;
+    private JScrollPane scrollPane;
     private JPanel searchContainer;
     String userInput;
 
@@ -39,7 +38,7 @@ public class SearchWindow extends JFrame{
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                userInput = searchFIeld.getText();
+                userInput = searchField.getText();
                 if(userInput == null)
                 {
                     JOptionPane.showMessageDialog(null,"the search bar is empty" );
@@ -52,9 +51,10 @@ public class SearchWindow extends JFrame{
                     ArrayList<String> foundFriendsId = search.searchFormUserFriends(userInput);
                     ArrayList<String> foundNonFriendsId= search.searchFormNonFriends(userInput);
                     ArrayList<String> foundGroups = search.searchFromGroups(userInput);
+                    searchContainer.removeAll();
+
                     if(foundFriendsId !=null && !foundFriendsId.isEmpty()) {
 
-                        searchContainer.removeAll();
                         for (int i = 0; i < foundFriendsId.size(); i++) {
                             String friendId = foundFriendsId.get(i);
                             String userName = userdataManager.getDataById(friendId).getUsername();
@@ -87,8 +87,8 @@ public class SearchWindow extends JFrame{
                     }
 
 
-                    scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-                    scrollpane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
                 }
             }
         });

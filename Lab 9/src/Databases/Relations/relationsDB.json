@@ -3,15 +3,17 @@
   "friendsList" : [ "2" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "3", "4", "5" ],
+  "suggestionsList" : [ "3", "5", "4" ],
   "pendingRequests" : { }
 }, {
   "userId" : "2",
-  "friendsList" : [ "1", "3", "4" ],
+  "friendsList" : [ "1", "3" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "5" ],
-  "pendingRequests" : { }
+  "suggestionsList" : [ "5", "4" ],
+  "pendingRequests" : {
+    "5" : "pending"
+  }
 }, {
   "userId" : "3",
   "friendsList" : [ "2" ],
@@ -21,15 +23,15 @@
   "pendingRequests" : { }
 }, {
   "userId" : "4",
-  "friendsList" : [ "2" ],
+  "friendsList" : [ ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "1", "3", "5" ],
+  "suggestionsList" : [ "3", "5", "1", "2" ],
   "pendingRequests" : { }
 }, {
   "userId" : "5",
   "friendsList" : [ ],
-  "friendRequestsList" : [ ],
+  "friendRequestsList" : [ "2" ],
   "blockList" : [ ],
   "suggestionsList" : [ "1", "2", "3", "4" ],
   "pendingRequests" : { }

@@ -56,6 +56,9 @@ public class FriendPanel extends JPanel {
         } else
             buttonPanel.add(blockUser);
 
+        if(userRelationsDataManager.getDataById(userId).getPendingRequests().containsKey(friendId))
+            addFriend.setText("Pending");
+
         // Add components to the main panel
         add(imageLabel);      // Add the image label on the left
         add(textLabel);       // Add the text label in the middle
@@ -96,7 +99,7 @@ public class FriendPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //block user
-                userRelationsDataManager.getDataById(userId).blockUser(friendId);
+                userRelationsDataManager.getDataById(userId).blockUser(friendId,userRelationsDataManager);
                 //save data to json
                 userRelationsDataManager.saveData();
 
@@ -107,7 +110,7 @@ public class FriendPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //block user
-                userRelationsDataManager.getDataById(userId).unblockUser(friendId);
+                userRelationsDataManager.getDataById(userId).unblockUser(friendId,userRelationsDataManager);
                 //save data to json
                 userRelationsDataManager.saveData();
 
