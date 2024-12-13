@@ -53,20 +53,29 @@ public class UserRelations {
     }
 
 
-    public void blockUser(String userId){
-        //prevents user from blocking himself
-        if(blockList.contains(this.userId))
-            return;
+    public void blockUser(String userId ,  DataManager<UserRelations> userRelationsManager){
+
 
         //block user if he is not already in the blocklist
         if(!blockList.contains(userId)) {
             blockList.add(userId);
+            //remove from friends list
+            friendsList.remove(userId);
+            userRelationsManager.getDataById(userId).getFriendsList().remove(this.userId);
+
+            //remove both from suggestions
+            suggestionsList.remove(userId);
+            userRelationsManager.getDataById(userId).getSuggestionsList().remove(this.userId);
         }
     }
 
-    public void unblockUser(String userId){
+    public void unblockUser(String userId ,  DataManager<UserRelations> userRelationsManager){
         //checks blocklist for id to unblock
             blockList.remove(userId);
+        //add to suggestion list
+        suggestionsList.add(userId);
+        userRelationsManager.getDataById(userId).getSuggestionsList().add(this.userId);
+
     }
 
     public void removeFriend(String friendId , DataManager<UserRelations> userRelationsManager ){

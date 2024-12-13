@@ -87,7 +87,7 @@ public class Newsfeed extends JFrame {
         groupRoleDataManager.loadData();
 
         //managing posts
-        PostsUIManager postsUIManager = new PostsUIManager(userId,postManager);
+        PostsUIManager postsUIManager = new PostsUIManager(userId , postManager , userRelationsDataManager);
 
         //managing friendsList
         FriendsUIManager friendsUIManager = new FriendsUIManager(userId,userRelationsDataManager , userDataManager , profileManager);
@@ -98,7 +98,7 @@ public class Newsfeed extends JFrame {
         //managing user groups
         GroupUIManager groupUIManager = new GroupUIManager(userId,groupDataManager);
 
-        postsUIManager.refreshList(postContainer,postScrollPane);
+        postsUIManager.refreshList(postContainer,postScrollPane,"newsfeed");
         friendsUIManager.refreshList(friendsContainer, friendScrollPane);
         suggestionsUiManager.refreshList(friendSuggestionsContainer, friendSuggestionsScrollPane);
         groupUIManager.refreshList(userGroupsContainer,groupScrollPane);
@@ -149,8 +149,8 @@ public class Newsfeed extends JFrame {
         refreshButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //update all scrollpanes window
-                postsUIManager.refreshList(postContainer,postScrollPane);
+                //update all scroll panes window
+                postsUIManager.refreshList(postContainer,postScrollPane,"newsfeed");
                 friendsUIManager.refreshList(friendsContainer, friendScrollPane);
                 suggestionsUiManager.refreshList(friendSuggestionsContainer, friendSuggestionsScrollPane);
                 groupUIManager.refreshList(userGroupsContainer,groupScrollPane);
@@ -165,7 +165,7 @@ public class Newsfeed extends JFrame {
         friendManagerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MenuWindow(userDataManager, userId , userRelationsDataManager,profileManager);
+                new MenuWindow(userDataManager, userId , userRelationsDataManager,profileManager, groupDataManager,friendsUIManager);
             }
         });
         createGroupButton.addActionListener(new ActionListener() {

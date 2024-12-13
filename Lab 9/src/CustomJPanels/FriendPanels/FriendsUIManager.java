@@ -40,7 +40,7 @@ public class FriendsUIManager implements UIManager {
             String imagePaths = profileDataManager.getDataById(friendId).getProfilePhotoPath();
 
             // Create a PostPanel for each post
-            FriendPanel friendPanel = new FriendPanel(friendName + "( " + friendStatus + " )", imagePaths , userId, friendId , userRelationsDataManagerRelationsManager);
+            FriendPanel friendPanel = new FriendPanel(friendName + "( " + friendStatus + " )", imagePaths , userId, friendId , userRelationsDataManagerRelationsManager , userDataManager , profileDataManager );
 
             // Add padding and border to each PostPanel
             friendPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
