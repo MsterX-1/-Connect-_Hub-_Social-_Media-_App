@@ -1,10 +1,13 @@
 package PhaseOne.Newsfeed.Frontend;
 
+import CustomJPanels.FriendPanels.FriendsUIManager;
 import Databases.DataManager;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.FriendManagement.Frontend.FriendRequestsWindow;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
+import PhaseTwo.GroupManagement.Backend.Group;
+import PhaseTwo.SearchFunctionality.Frontend.SearchWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +26,7 @@ public class MenuWindow extends JFrame{
     private JButton notificationsButton;
     private String currentUserId ;
 
-   public MenuWindow(DataManager<User>userDataManager, String currentUserId , DataManager<UserRelations> userRelationsDataManager, DataManager<Profile> profileManager){
+   public MenuWindow(DataManager<User>userDataManager, String currentUserId , DataManager<UserRelations> userRelationsDataManager, DataManager<Profile> profileManager, DataManager<Group> groupDataManager , FriendsUIManager friendsUIManager){
        this.currentUserId = currentUserId;
         MenuWindow friendMangerWindow1 = this;
         setVisible(true);
@@ -45,6 +48,7 @@ public class MenuWindow extends JFrame{
        searchButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
+               new SearchWindow(currentUserId,userDataManager,userRelationsDataManager,groupDataManager,friendsUIManager,profileManager);
 
            }
        });

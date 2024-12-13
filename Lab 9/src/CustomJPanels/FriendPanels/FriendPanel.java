@@ -2,8 +2,12 @@ package CustomJPanels.FriendPanels;
 
 
 import Databases.DataManager;
+import PhaseOne.ContentCreation.Backend.Post;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.Newsfeed.Frontend.Newsfeed;
+import PhaseOne.ProfileManagement.Backend.Profile;
+import PhaseOne.UserAccountManagement.Backend.User;
+import PhaseTwo.ProfileViewer.ProfileViewer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +16,7 @@ import java.awt.event.ActionListener;
 
 public class FriendPanel extends JPanel {
 
-    public FriendPanel(String friendName, String friendImagePath, String userId, String friendId, DataManager<UserRelations> userRelationsDataManager) {
+    public FriendPanel(String friendName, String friendImagePath, String userId, String friendId, DataManager<UserRelations> userRelationsDataManager , DataManager<User> userDataManager , DataManager<Profile> profileDataManager   ) {
 
 
         // Set layout manager for horizontal alignment
@@ -52,6 +56,9 @@ public class FriendPanel extends JPanel {
         } else
             buttonPanel.add(blockUser);
 
+        if(userRelationsDataManager.getDataById(userId).getPendingRequests().containsKey(friendId))
+            addFriend.setText("Pending");
+
         // Add components to the main panel
         add(imageLabel);      // Add the image label on the left
         add(textLabel);       // Add the text label in the middle
@@ -61,7 +68,19 @@ public class FriendPanel extends JPanel {
         viewProfile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // new UserProfileWindow();
+                new ProfileViewer(friendId,userDataManager,profileDataManager,userRelationsDataManager);
+            }
+        });
+        addFriend.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //remove friend from user's friends list
+                userRelationsDataManager.getDataById(userId).sendFriendRequest(friendId, userRelationsDataManager);
+
+                //save to relation database
+                userRelationsDataManager.saveData();
+
+
             }
         });
 
@@ -80,7 +99,7 @@ public class FriendPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //block user
-                userRelationsDataManager.getDataById(userId).blockUser(friendId);
+                userRelationsDataManager.getDataById(userId).blockUser(friendId,userRelationsDataManager);
                 //save data to json
                 userRelationsDataManager.saveData();
 
@@ -91,7 +110,7 @@ public class FriendPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //block user
-                userRelationsDataManager.getDataById(userId).unblockUser(friendId);
+                userRelationsDataManager.getDataById(userId).unblockUser(friendId,userRelationsDataManager);
                 //save data to json
                 userRelationsDataManager.saveData();
 
