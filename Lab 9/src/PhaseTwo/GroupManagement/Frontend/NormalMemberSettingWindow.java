@@ -4,6 +4,7 @@ import Databases.DataManager;
 import PhaseOne.Newsfeed.Frontend.Newsfeed;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,7 @@ public class NormalMemberSettingWindow extends JFrame {
     private JButton leaveTheGroupButton;
     private JPanel panel;
 
-    public NormalMemberSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed,GroupWindow groupWindow   ) {
+    public NormalMemberSettingWindow(String groupName, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed, GroupWindow groupWindow, DataManager<Notification> notificationDataManager,String userId) {
         setTitle("Normal User Setting");
         setContentPane(panel);
         setVisible(true);
@@ -52,6 +53,17 @@ public class NormalMemberSettingWindow extends JFrame {
         postContentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for(int i =0 ; i<groupDataManager.getDataByName(groupName).getGroupMembers().size();i++)
+                {
+                    String memberId = groupDataManager.getDataByName(groupName).getGroupMembers().get(i);
+                    if(!memberId.equals(userId)) {
+                        System.out.println("member id "+memberId);
+                        System.out.println("user id "+userId);
+
+                        notificationDataManager.getDataById(memberId).addgroupsPostsNotification(groupName);
+                    }
+                }
+                notificationDataManager.saveData();
 
             }
         });

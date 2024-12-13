@@ -7,6 +7,7 @@ import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -19,9 +20,11 @@ public class GroupUIManager {
     private DataManager<Profile> profileDataManager;
     private  DataManager<User> userDataManager;
     private Newsfeed newsfeed;
+    private DataManager<Notification> notificationDataManager;
 
-    public GroupUIManager(String userId, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, Newsfeed newsfeed) {
+    public GroupUIManager(String userId, DataManager<Group> groupDataManager, DataManager<GroupRole> groupRoleDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, Newsfeed newsfeed, DataManager<Notification> notificationDataManager) {
         this.userId = userId;
+        this.notificationDataManager =notificationDataManager;
         this.groupDataManager = groupDataManager;
         this.groupRoleDataManager = groupRoleDataManager;
         this.userDataManager = userDataManager;
@@ -48,7 +51,7 @@ public class GroupUIManager {
             if(groupDataManager.getDataByName(groupName).getGroupMembers().contains(userId)){
 
                 // Create a group Panel for each post
-                GroupPanel groupPanel = new GroupPanel(groupName, groupImagePath,userId, groupDataManager,groupRoleDataManager,userDataManager,profileDataManager,newsfeed);
+                GroupPanel groupPanel = new GroupPanel(groupName, groupImagePath,userId, groupDataManager,groupRoleDataManager,userDataManager,profileDataManager,newsfeed,notificationDataManager);
 
                 // Add padding and border to each PostPanel
                 groupPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

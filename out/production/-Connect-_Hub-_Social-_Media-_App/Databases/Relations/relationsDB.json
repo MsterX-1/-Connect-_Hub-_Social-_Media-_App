@@ -1,16 +1,16 @@
 [ {
   "userId" : "1",
-  "friendsList" : [ ],
+  "friendsList" : [ "2" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "2", "3" ],
+  "suggestionsList" : [ "3" ],
   "pendingRequests" : { }
 }, {
   "userId" : "2",
-  "friendsList" : [ ],
+  "friendsList" : [ "1" ],
   "friendRequestsList" : [ ],
   "blockList" : [ ],
-  "suggestionsList" : [ "1", "3" ],
+  "suggestionsList" : [ "3" ],
   "pendingRequests" : { }
 }, {
   "userId" : "3",

@@ -5,6 +5,7 @@ import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.FriendManagement.Frontend.FriendRequestsWindow;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import java.awt.event.ActionListener;
 
 public class RequestsPanel extends JPanel {
 
-    public RequestsPanel(DataManager<UserRelations> userRelationsDataManager , String currentUserId , String senderId , FriendRequestsWindow window , DataManager<User>userDataManager, DataManager<Profile> profileManager) {
+    public RequestsPanel(DataManager<UserRelations> userRelationsDataManager , String currentUserId , String senderId , FriendRequestsWindow window , DataManager<User>userDataManager, DataManager<Profile> profileManager , DataManager<Notification> notificationDataManager) {
         // Set layout manager for horizontal alignment
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Horizontal alignment with gaps
 
@@ -55,8 +56,11 @@ public class RequestsPanel extends JPanel {
                 userRelationsDataManager.getDataById(currentUserId).acceptFriendRequest(senderId,userRelationsDataManager);
                 JOptionPane.showMessageDialog(RequestsPanel.this, "Accepted: " + senderName);
                 userRelationsDataManager.saveData();
+                notificationDataManager.getDataById(senderId).addacceptedUserRequestsNotification(currentUserId);
+                notificationDataManager.saveData();
                 //to refresh request window
                 window.populateRequestsList(userDataManager);
+
             }
         });
 

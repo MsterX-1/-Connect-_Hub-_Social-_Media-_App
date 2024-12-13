@@ -1,22 +1,22 @@
 [ {
   "userId" : "1",
-  "email" : "y@gmail.com",
+  "email" : "amr@gmail.com",
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-  "username" : "yousef",
-  "dateOfBirth" : [ 2000, 12, 7 ],
+  "username" : "amr",
+  "dateOfBirth" : [ 2000, 12, 13 ],
   "status" : false
 }, {
   "userId" : "2",
-  "email" : "a@gmail.com",
+  "email" : "khalifa@gmail.com",
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-  "username" : "amr",
-  "dateOfBirth" : [ 2001, 12, 6 ],
+  "username" : "khalifa",
+  "dateOfBirth" : [ 2003, 12, 13 ],
   "status" : false
 }, {
   "userId" : "3",
-  "email" : "k@gmail.com",
+  "email" : "yousef@gmail.com",
   "password" : "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-  "username" : "khalifa",
-  "dateOfBirth" : [ 2000, 12, 7 ],
-  "status" : false
+  "username" : "yousef",
+  "dateOfBirth" : [ 1998, 12, 13 ],
+  "status" : true
 } ]

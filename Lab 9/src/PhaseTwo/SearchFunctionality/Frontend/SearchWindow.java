@@ -11,6 +11,7 @@ import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 import PhaseTwo.SearchFunctionality.Backend.Search;
 
 import javax.swing.*;
@@ -31,7 +32,7 @@ public class SearchWindow extends JFrame{
     String userInput;
 
 
-    public SearchWindow(String userId , DataManager<User> userdataManager, DataManager<UserRelations> userRelationsDataManager, DataManager<Group> groupDataManager , FriendsUIManager friendsUIManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed) {
+    public SearchWindow(String userId , DataManager<User> userdataManager, DataManager<UserRelations> userRelationsDataManager, DataManager<Group> groupDataManager , FriendsUIManager friendsUIManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, Newsfeed newsfeed, DataManager<Notification> notificationDataManager) {
 
         setContentPane(main);
         setSize(600, 400);
@@ -96,7 +97,7 @@ public class SearchWindow extends JFrame{
                             if(groupDataManager.getDataByName(groupName).getGroupMembers().contains(userId)){
 
                                 // Create a group Panel for each post
-                                GroupPanel groupPanel = new GroupPanel(groupName, groupImagePath,userId, groupDataManager,groupRoleDataManager,userdataManager,profileDataManager,newsfeed);
+                                GroupPanel groupPanel = new GroupPanel(groupName, groupImagePath,userId, groupDataManager,groupRoleDataManager,userdataManager,profileDataManager,newsfeed,notificationDataManager);
 
                                 // Add padding and border to each PostPanel
                                 groupPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

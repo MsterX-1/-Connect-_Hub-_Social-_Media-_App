@@ -7,6 +7,7 @@ import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 
@@ -15,8 +16,10 @@ public class CheckMemberShipRequestWindow extends JFrame {
     private JScrollPane memberScrollPane;
     private JPanel memberContainer;
     private CheckMemberShipRequestWindow checkMemberShipRequestWindow;
-    public CheckMemberShipRequestWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager) {
+    private DataManager<Notification> notificationDataManager;
+    public CheckMemberShipRequestWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, DataManager<Notification> notificationDataManager) {
         checkMemberShipRequestWindow =this;
+        this.notificationDataManager = notificationDataManager;
         setContentPane(mainPanel);
         setSize(400, 400);
         setLocationRelativeTo(null);
@@ -36,7 +39,7 @@ public class CheckMemberShipRequestWindow extends JFrame {
         for (int i = 0; i < groupDataManager.getDataByName(groupName).getMembershipRequests().size(); i++) {
             String memberId = groupDataManager.getDataByName(groupName).getMembershipRequests().get(i);
                 // Create a PostPanel for each post
-                GroupMembershipRequestPanel groupMembershipRequestPanel = new GroupMembershipRequestPanel(memberId,groupDataManager,userDataManager,groupName, checkMemberShipRequestWindow,profileDataManager,groupRoleDataManager);
+                GroupMembershipRequestPanel groupMembershipRequestPanel = new GroupMembershipRequestPanel(memberId,groupDataManager,userDataManager,groupName, checkMemberShipRequestWindow,profileDataManager,groupRoleDataManager,notificationDataManager);
 
                 // Add padding and border to each PostPanel
             groupMembershipRequestPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

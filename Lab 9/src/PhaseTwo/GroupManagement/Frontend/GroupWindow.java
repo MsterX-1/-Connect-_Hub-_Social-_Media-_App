@@ -8,6 +8,7 @@ import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import PhaseTwo.GroupManagement.Backend.Group;
 import PhaseTwo.GroupManagement.Backend.GroupRole;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +26,7 @@ public class GroupWindow extends JFrame {
     private JLabel descriptionLabel;
     private JLabel groupNameLabel;
 
-    public GroupWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed) {
+    public GroupWindow(String groupName, DataManager<Group> groupDataManager, DataManager<User> userDataManager, DataManager<Profile> profileDataManager, DataManager<GroupRole> groupRoleDataManager, String userId, Newsfeed newsfeed, DataManager<Notification> notificationDataManager) {
         setTitle("Group Profile");
         GroupWindow groupWindow= this;
         setContentPane(panel);
@@ -48,14 +49,14 @@ public class GroupWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (isOwner(userId,groupName,groupRoleDataManager)){
 
-                    new GroupOwnerSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed);
+                    new GroupOwnerSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupWindow,groupRoleDataManager,newsfeed,notificationDataManager,userId);
 
                 } else if (isAdmin(userId,groupName,groupRoleDataManager)) {
 
-                    new GroupAdminSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager);
+                    new GroupAdminSettingWindow(groupName,groupDataManager,userDataManager,profileDataManager,groupRoleDataManager,notificationDataManager,userId);
                 }else {
 
-                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow);
+                     new NormalMemberSettingWindow(groupName,groupDataManager,groupRoleDataManager,userId,newsfeed,groupWindow,notificationDataManager,userId);
                 }
             }
         });

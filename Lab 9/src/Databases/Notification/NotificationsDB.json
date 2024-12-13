@@ -1,0 +1,19 @@
+[ {
+  "userId" : "1",
+  "acceptedUserRequestsNotification" : [ "2" ],
+  "postsNotification" : [ "2" ],
+  "acceptedInGroupNotification" : [ ],
+  "groupsPostsNotification" : [ ]
+}, {
+  "userId" : "2",
+  "acceptedUserRequestsNotification" : [ ],
+  "postsNotification" : [ ],
+  "acceptedInGroupNotification" : [ ],
+  "groupsPostsNotification" : [ "khalifa group" ]
+}, {
+  "userId" : "3",
+  "acceptedUserRequestsNotification" : [ ],
+  "postsNotification" : [ ],
+  "acceptedInGroupNotification" : [ "khalifa group" ],
+  "groupsPostsNotification" : [ ]
+} ]

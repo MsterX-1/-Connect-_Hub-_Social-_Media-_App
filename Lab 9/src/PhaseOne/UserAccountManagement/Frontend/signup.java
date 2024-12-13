@@ -2,9 +2,11 @@ package PhaseOne.UserAccountManagement.Frontend;
 
 import Databases.DataManager;
 import Databases.DatabaseFactory;
+import Databases.Notification.NotificationDatabase;
 import Interfaces.Database;
 import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.ProfileManagement.Backend.Profile;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 import RunProgram.MainWindow;
 import PhaseOne.UserAccountManagement.Backend.User;
 import org.jdatepicker.impl.DateComponentFormatter;
@@ -142,6 +144,14 @@ public class signup extends JFrame {
                             // Add the new user to the data manager and save changes
                             userDataManager.insertData(newUser);
                             userDataManager.saveData();
+                            Notification notification = new Notification(newUserId);
+                            Database<Notification> notificationDatabase = DatabaseFactory.createDatabase("notification");
+                            DataManager<Notification> notificationDataManager = new DataManager<>(notificationDatabase);
+                            notificationDataManager.loadData();
+                            notificationDataManager.insertData(notification);
+                            notificationDataManager.saveData();
+
+
 
                             // Close the signup window and open the main window
                             setVisible(false);

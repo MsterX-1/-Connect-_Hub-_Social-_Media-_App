@@ -16,6 +16,13 @@ public class Notification {
         this.groupsPostsNotification = new ArrayList<>();
         this.acceptedInGroupNotification = new ArrayList<>();
     }
+    public Notification(String userId) {
+        this.userId = userId;
+        this.postsNotification = new ArrayList<>();
+        this.acceptedUserRequestsNotification = new ArrayList<>();
+        this.groupsPostsNotification = new ArrayList<>();
+        this.acceptedInGroupNotification = new ArrayList<>();
+    }
 
     public ArrayList<String> getAcceptedUserRequestsNotification() {
         return acceptedUserRequestsNotification;

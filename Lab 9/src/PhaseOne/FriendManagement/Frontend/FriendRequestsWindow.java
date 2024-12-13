@@ -5,6 +5,7 @@ import PhaseOne.FriendManagement.Backend.UserRelations;
 import PhaseOne.ProfileManagement.Backend.Profile;
 import PhaseOne.UserAccountManagement.Backend.User;
 import CustomJPanels.RequestsPanel;
+import PhaseTwo.NotificationSystem.Backend.Notification;
 
 import javax.swing.*;
 
@@ -16,9 +17,12 @@ public class FriendRequestsWindow extends JFrame {
     private FriendRequestsWindow friendRequestsWindow;
     private DataManager<UserRelations> userRelationsDataManager;
     private DataManager<Profile> profileManager;
-    public FriendRequestsWindow(String userId , DataManager<User>userDataManager , DataManager<UserRelations> userRelationsDataManager, DataManager<Profile> profileManager) {
+    private DataManager<Notification> notificationDataManager;
+
+    public FriendRequestsWindow(String userId , DataManager<User>userDataManager , DataManager<UserRelations> userRelationsDataManager, DataManager<Profile> profileManager, DataManager<Notification> notificationDataManager) {
         this.userId = userId;
         friendRequestsWindow = this;
+        this.notificationDataManager = notificationDataManager;
         this.userRelationsDataManager = userRelationsDataManager;
         this.profileManager = profileManager;
         setContentPane(mainPanel);
@@ -41,7 +45,7 @@ public class FriendRequestsWindow extends JFrame {
         for (int i = 0; i < userRelationsDataManager.getDataById(userId).getFriendRequestsList().size(); i++) {
             String senderId = userRelationsDataManager.getDataById(userId).getFriendRequestsList().get(i);
             // Create a PostPanel for each post
-            RequestsPanel requestsPanel = new RequestsPanel(userRelationsDataManager , userId , senderId , friendRequestsWindow , userDataManager,profileManager);
+            RequestsPanel requestsPanel = new RequestsPanel(userRelationsDataManager , userId , senderId , friendRequestsWindow , userDataManager,profileManager, notificationDataManager);
 
             // Add padding and border to each PostPanel
             requestsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
